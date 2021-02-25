@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:adobe_xd/pinned.dart';
-import 'dart:ui' as ui;
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:soaurl/qr/generate_qr.dart';
+import 'package:soaurl/qr/scan_qr.dart';
+import 'package:soaurl/widgets/background_widget.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({
@@ -16,14 +19,6 @@ class MainScreen extends StatelessWidget {
         body: Container(
           width: size.width,
           height: size.height,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment(1.0, -1.0),
-              end: Alignment(-1.0, 1.0),
-              colors: [const Color(0xffc651cd), const Color(0xff441d7d)],
-              stops: [0.0, 1.0],
-            ),
-          ),
           child: BackgroundWidget(
             size: size,
             child: SingleChildScrollView(
@@ -147,118 +142,134 @@ class MainScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        height: size.height * 0.25,
-                        width: size.width * 0.40,
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                          color: Colors.white.withOpacity(0.45),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
+                      GestureDetector(
+                        onTap: () {
+                          log('Scan QR');
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ScanQR()));
+                        },
                         child: Container(
-                          alignment: Alignment.center,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                child: SvgPicture.asset(
-                                  'assets/images/qr_phone.svg',
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Text.rich(
-                                TextSpan(
-                                  style: TextStyle(
-                                    // fontFamily: 'Sitka Display',
-                                    fontSize: 16,
+                          margin:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          // height: 250,
+                          width: size.width * 0.40,
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            color: Colors.white.withOpacity(0.45),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  child: SvgPicture.asset(
+                                    'assets/images/qr_phone.svg',
                                     color: Colors.black,
+                                    height: 100,
+                                    width: 100,
                                   ),
-                                  children: [
-                                    TextSpan(
-                                      text: 'Have QR code\n',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: 'Scan It!',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ],
                                 ),
-                                textHeightBehavior: TextHeightBehavior(
-                                    applyHeightToFirstAscent: false),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                                Text.rich(
+                                  TextSpan(
+                                    style: TextStyle(
+                                      // fontFamily: 'Sitka Display',
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: 'Have QR code\n',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: 'Scan It!',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  textHeightBehavior: TextHeightBehavior(
+                                      applyHeightToFirstAscent: false),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        height: size.height * 0.25,
-                        width: size.width * 0.40,
-                        clipBehavior: Clip.antiAliasWithSaveLayer,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                          color: Colors.white.withOpacity(0.45),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
+                      GestureDetector(
+                        onTap: () {
+                          log('Generate QR');
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => GenerateQR()));
+                        },
                         child: Container(
-                          alignment: Alignment.center,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                child: SvgPicture.asset(
-                                  'assets/images/qr_large.svg',
-                                  color: Colors.black,
-                                  height: 100,
-                                  width: 100,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              Text.rich(
-                                TextSpan(
-                                  style: TextStyle(
-                                    // fontFamily: 'Sitka Display',
-                                    fontSize: 16,
+                          margin:
+                              EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          // height: size. 250,
+                          width: size.width * 0.40,
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            color: Colors.white.withOpacity(0.45),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  child: SvgPicture.asset(
+                                    'assets/images/qr_large.svg',
                                     color: Colors.black,
+                                    height: 100,
+                                    width: 100,
+                                    fit: BoxFit.fill,
                                   ),
-                                  children: [
-                                    TextSpan(
-                                      text: 'Make your own\n',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: 'QR Code',
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ],
                                 ),
-                                textHeightBehavior: TextHeightBehavior(
-                                    applyHeightToFirstAscent: false),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                                Text.rich(
+                                  TextSpan(
+                                    style: TextStyle(
+                                      // fontFamily: 'Sitka Display',
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: 'Make your own\n',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text: 'QR Code',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  textHeightBehavior: TextHeightBehavior(
+                                      applyHeightToFirstAscent: false),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -270,51 +281,6 @@ class MainScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-/// It Contains the background Structure of the app
-class BackgroundWidget extends StatelessWidget {
-  const BackgroundWidget({
-    Key key,
-    @required this.size,
-    @required this.child,
-  }) : super(key: key);
-
-  final Size size;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: size.width,
-          height: size.height,
-          child: child,
-        ),
-        Positioned(
-          right: -100,
-          top: -80,
-          child: Container(
-            child: SvgPicture.asset(
-              'assets/images/link_large.svg',
-              color: Colors.black.withOpacity(0.1),
-            ),
-          ),
-        ),
-        Positioned(
-          left: -100,
-          bottom: -50,
-          child: Container(
-            child: SvgPicture.asset(
-              'assets/images/qr_large.svg',
-              color: Colors.white.withOpacity(0.08),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
