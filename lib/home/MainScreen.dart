@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:soaurl/home/Profile.dart';
 import 'package:soaurl/qr/generate_qr.dart';
 import 'package:soaurl/qr/scan_qr.dart';
 import 'package:soaurl/widgets/background_widget.dart';
@@ -47,15 +46,19 @@ class MainScreen extends StatelessWidget {
                             height: 30,
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: SvgPicture.asset(
+                        OpenContainer(
+                          closedBuilder: (context, action) => SvgPicture.asset(
                             'assets/images/profile.svg',
                             allowDrawingOutsideViewBox: true,
                             fit: BoxFit.fill,
                             height: 30,
                           ),
-                        ),
+                          openBuilder: (context, action) => ProfilePage(),
+                          closedElevation: 0,
+                          openElevation: 0,
+                          closedColor: Colors.transparent,
+                          openColor: Colors.transparent,
+                        )
                       ],
                     ),
                   ),

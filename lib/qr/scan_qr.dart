@@ -72,7 +72,7 @@ class _ScanQRState extends State<ScanQR> {
               Container(
                 padding: EdgeInsets.all(20),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     //Message displayed over here
@@ -93,6 +93,29 @@ class _ScanQRState extends State<ScanQR> {
                       height: 20.0,
                     ),
 
+                    //Button to Save scaned QR code
+                    if (qrCodeResult != 'Not Yet Scanned')
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FlatButton.icon(
+                          padding: EdgeInsets.all(15),
+
+                          onPressed: () {},
+                          icon: Icon(Icons.bookmark),
+                          label: Text(
+                            "Save it For Later!",
+                            style: TextStyle(
+                                color: Colors.purple[900],
+                                fontWeight: FontWeight.bold),
+                          ),
+                          //Button having rounded rectangle border
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.indigo[900]),
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          color: Colors.white.withOpacity(0.7),
+                        ),
+                      ),
                     //Button to scan QR code
                     FlatButton(
                       padding: EdgeInsets.all(15),
@@ -106,14 +129,18 @@ class _ScanQRState extends State<ScanQR> {
                       },
                       child: Text(
                         "Open Scanner",
-                        style: TextStyle(color: Colors.indigo[900]),
+                        style: TextStyle(
+                            color: Colors.purple[900],
+                            fontWeight: FontWeight.bold),
                       ),
                       //Button having rounded rectangle border
                       shape: RoundedRectangleBorder(
                         side: BorderSide(color: Colors.indigo[900]),
                         borderRadius: BorderRadius.circular(20.0),
                       ),
+                      color: Colors.white.withOpacity(0.7),
                     ),
+                    SizedBox(height: 20),
                   ],
                 ),
               ),
