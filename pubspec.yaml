@@ -25,20 +25,26 @@ dependencies:
     sdk: flutter
   adobe_xd: ^1.1.0+1
   animations: ^1.1.2
+  auto_size_text: ^2.1.0
+  barcode_scan_fix: ^1.0.2
+  cloud_firestore: ^0.16.0
+  cloud_firestore_web: ^0.3.0+2
   cupertino_icons: ^1.0.2
+  firebase_analytics: ^7.0.1
+  firebase_auth: ^0.20.0+1
+  firebase_core: ^0.7.0
+  flutter_slider_drawer: ^1.2.1
   flutter_svg: ^0.19.2+1
+  fluttertoast: ^7.1.8
   google_fonts: ^1.1.2
+  google_sign_in: ^4.5.9
   path_provider: ^1.6.24
   qr_flutter: ^3.2.0
-  barcode_scan_fix: ^1.0.2
-  collapsible_sidebar: ^1.0.7+2
-  url_launcher: ^5.7.10
   share_files_and_screenshot_widgets: ^1.0.3
+  url_launcher: ^5.7.10
 
 dev_dependencies:
   flutter_test:
-    sdk: flutter
-  integration_test:
     sdk: flutter
 
 # For information on the generic Dart part of this file, see the

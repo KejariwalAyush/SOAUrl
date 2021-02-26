@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:barcode_scan_fix/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:soaurl/widgets/background_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ScanQR extends StatefulWidget {
   @override
@@ -149,5 +152,15 @@ class _ScanQRState extends State<ScanQR> {
         ),
       ),
     );
+  }
+
+  _launchURL(String url) async {
+    if (!url.contains('http')) url = 'https://' + url;
+    log(url);
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

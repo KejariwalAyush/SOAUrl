@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share_files_and_screenshot_widgets/share_files_and_screenshot_widgets.dart';
 import 'package:soaurl/widgets/background_widget.dart';
 
 class GenerateQR extends StatefulWidget {
@@ -10,6 +11,8 @@ class GenerateQR extends StatefulWidget {
 
 class _GenerateQRState extends State<GenerateQR> {
   String qrData = "https://github.com/KejariwalAyush";
+  GlobalKey previewContainer = new GlobalKey();
+
   final qrdataFeed = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -77,14 +80,6 @@ class _GenerateQRState extends State<GenerateQR> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        // SizedBox(height: 20),
-                        // Text(
-                        //   "Generate QR Code",
-                        //   style: TextStyle(
-                        //       fontSize: 20,
-                        //       color: Colors.white.withOpacity(0.9)),
-                        // ),
-
                         SizedBox(height: 20),
                         //TextField for input link
                         TextField(
@@ -124,16 +119,63 @@ class _GenerateQRState extends State<GenerateQR> {
                           ),
                         ),
                         SizedBox(height: 20),
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(17),
-                              color: Colors.white),
-                          child: QrImage(
-                            data: qrData,
-                            size: 200,
-                            foregroundColor: Colors.black,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            RepaintBoundary(
+                              key: previewContainer,
+                              child: Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(17),
+                                    color: Colors.white),
+                                child: QrImage(
+                                  data: qrData,
+                                  size: 200,
+                                  foregroundColor: Colors.black,
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.share_rounded,
+                                  size: 30, color: Colors.white),
+                              tooltip: 'Share QR',
+                              onPressed: () {
+                                ShareFilesAndScreenshotWidgets()
+                                    .shareScreenshot(previewContainer, 800,
+                                        "QR", "qr.png", "image/png",
+                                        text: "");
+                              },
+                            ),
+                          ],
                         ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        //Button to Save scaned QR code
+                        if (qrData != null)
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: FlatButton.icon(
+                              padding: EdgeInsets.all(15),
+
+                              onPressed: () {},
+                              icon: Icon(Icons.bookmark),
+                              label: Text(
+                                "Save it For Later!",
+                                style: TextStyle(
+                                    color: Colors.purple[900],
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              //Button having rounded rectangle border
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(color: Colors.indigo[900]),
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              color: Colors.white.withOpacity(0.7),
+                            ),
+                          ),
                       ],
                     ),
                   ),

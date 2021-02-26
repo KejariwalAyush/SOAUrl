@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "415369421197",
+    "project_id": "soaurl",
+    "storage_bucket": "soaurl.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:415369421197:android:7a2cd8c5221e418f029dc4",
+        "android_client_info": {
+          "package_name": "com.kejariwalayush.soaurl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "415369421197-7uiosa8fqt6o2so4d61q12ohaktrutbo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDB3y2es_ZBCudPzuD6nRRQDMPVEG7THB4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "415369421197-7uiosa8fqt6o2so4d61q12ohaktrutbo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

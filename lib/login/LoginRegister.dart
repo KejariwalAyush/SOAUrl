@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:soaurl/home/MainScreen.dart';
+import 'package:soaurl/services/sign_in_service.dart';
 import 'package:soaurl/widgets/background_widget.dart';
 
 class LoginRegister extends StatelessWidget {
@@ -15,7 +17,109 @@ class LoginRegister extends StatelessWidget {
         backgroundColor: const Color(0xffffffff),
         body: BackgroundWidget(
           size: size,
-          child: Container(),
+          child: Container(
+            padding: EdgeInsets.all(20),
+            // height: size.height * 0.1,
+            width: size.width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                    child: SvgPicture.asset(
+                  'assets/images/logo.svg',
+                  width: size.width * 0.5,
+                )),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  // alignment: Alignment.centerLeft,
+                  child: Text(
+                    'SOAUrl',
+                    style: TextStyle(
+                      fontSize: 45,
+                      color: const Color(0xfff2eaff),
+                      fontWeight: FontWeight.w700,
+                      shadows: [
+                        Shadow(
+                          color: const Color(0xa1363636),
+                          offset: Offset(0, 3),
+                          blurRadius: 6,
+                        )
+                      ],
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    FlatButton(
+                      color: Colors.transparent,
+                      onPressed: () => SignInService.signInWithGoogle().then(
+                          (value) => value == null
+                              ? null
+                              : Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MainScreen()),
+                                  (route) => false)),
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        // margin: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.6),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/images/google.svg',
+                              width: 30,
+                            ),
+                            Text(
+                              'Login with Google!',
+                              style: TextStyle(
+                                fontSize: 25,
+                                // color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    FlatButton(
+                      onPressed: () => SignInService.signInWithGoogle().then(
+                          (value) => value == null
+                              ? null
+                              : Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MainScreen()),
+                                  (route) => false)),
+                      child: Text(
+                        'New Here! Register with Google',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

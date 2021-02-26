@@ -1,12 +1,6 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:soaurl/qr/generate_qr.dart';
-import 'package:soaurl/qr/scan_qr.dart';
 import 'package:soaurl/widgets/background_widget.dart';
-
-import 'components/generate_qr_button.dart';
-import 'components/scan_qr_button.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({
