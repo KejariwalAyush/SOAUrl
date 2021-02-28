@@ -1,8 +1,10 @@
 import 'dart:developer';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:barcode_scan_fix/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:soaurl/widgets/background_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -82,15 +84,20 @@ class _ScanQRState extends State<ScanQR> {
                     Text(
                       "Result",
                       style: TextStyle(
-                          fontSize: 25.0, fontWeight: FontWeight.bold),
+                          fontSize: 30.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                       textAlign: TextAlign.center,
                     ),
-                    Text(
-                      qrCodeResult,
-                      style: TextStyle(
-                        fontSize: 20.0,
+                    GestureDetector(
+                      onTap: () => _launchURL(qrCodeResult),
+                      child: AutoSizeText(
+                        qrCodeResult,
+                        minFontSize: 14,
+                        maxFontSize: 22,
+                        style: TextStyle(color: Colors.white),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                     SizedBox(
                       height: 20.0,
@@ -123,7 +130,7 @@ class _ScanQRState extends State<ScanQR> {
                     FlatButton(
                       padding: EdgeInsets.all(15),
                       onPressed: () async {
-                        print('Open Scanner');
+                        log('Open Scanner');
                         String codeSanner =
                             await BarcodeScanner.scan(); //barcode scnner
                         setState(() {
@@ -155,11 +162,18 @@ class _ScanQRState extends State<ScanQR> {
   }
 
   _launchURL(String url) async {
+    if (url.trim().contains(' ')) {
+      Fluttertoast.showToast(
+          msg: 'Could Not Launch url', backgroundColor: Colors.red);
+      throw 'Could not launch $url';
+    }
     if (!url.contains('http')) url = 'https://' + url;
     log(url);
     if (await canLaunch(url)) {
       await launch(url);
     } else {
+      Fluttertoast.showToast(
+          msg: 'Could Not Launch url', backgroundColor: Colors.red);
       throw 'Could not launch $url';
     }
   }

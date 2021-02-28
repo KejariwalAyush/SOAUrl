@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -82,28 +86,46 @@ class _GenerateQRState extends State<GenerateQR> {
                       children: [
                         SizedBox(height: 20),
                         //TextField for input link
-                        TextField(
+                        AutoSizeTextField(
+                          controller: qrdataFeed,
+                          style: TextStyle(color: Colors.white),
+                          minFontSize: 14,
+                          maxFontSize: 20,
+                          maxLines: 2, minLines: 1,
+
                           decoration: InputDecoration(
                               labelStyle: TextStyle(color: Colors.white),
                               hintStyle: TextStyle(color: Colors.white),
+                              helperStyle: TextStyle(color: Colors.white),
+                              icon: Icon(
+                                Icons.text_fields_rounded,
+                                size: 30,
+                                color: Colors.white,
+                              ),
                               hintText: "Enter your link/text here...",
                               fillColor: Colors.white),
+                          // overflow: TextOverflow.ellipsis,
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           //Button for generating QR code
                           child: RaisedButton(
                             onPressed: () async {
+                              log('Generate Pressed');
                               //a little validation for the textfield
+                              // log(qrdataFeed.text);
                               if (qrdataFeed.text.isEmpty) {
                                 setState(() {
+                                  // log(qrData);
                                   qrData = "";
                                 });
                               } else {
                                 setState(() {
+                                  // log(qrdataFeed.text);
                                   qrData = qrdataFeed.text;
                                 });
                               }
+                              log(qrData);
                             },
                             //Title given on Button
                             child: Text(

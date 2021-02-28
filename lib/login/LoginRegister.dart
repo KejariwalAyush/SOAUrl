@@ -4,14 +4,47 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soaurl/home/MainScreen.dart';
 import 'package:soaurl/services/sign_in_service.dart';
 import 'package:soaurl/widgets/background_widget.dart';
+import 'package:soaurl/widgets/delayed_animations.dart';
 
-class LoginRegister extends StatelessWidget {
+class LoginRegister extends StatefulWidget {
   LoginRegister({
     Key key,
   }) : super(key: key);
+
+  @override
+  _LoginRegisterState createState() => _LoginRegisterState();
+}
+
+class _LoginRegisterState extends State<LoginRegister>
+    with SingleTickerProviderStateMixin {
+  final int delayedAmount = 500;
+  double _scale;
+  AnimationController _controller;
+  @override
+  void initState() {
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(
+        milliseconds: 200,
+      ),
+      lowerBound: 0.0,
+      upperBound: 0.1,
+    )..addListener(() {
+        setState(() {});
+      });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    _scale = 1 - _controller.value;
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffffffff),
@@ -25,29 +58,35 @@ class LoginRegister extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
-                    child: SvgPicture.asset(
-                  'assets/images/logo.svg',
-                  width: size.width * 0.5,
-                )),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  // alignment: Alignment.centerLeft,
-                  child: Text(
-                    'SOAUrl',
-                    style: TextStyle(
-                      fontSize: 45,
-                      color: const Color(0xfff2eaff),
-                      fontWeight: FontWeight.w700,
-                      shadows: [
-                        Shadow(
-                          color: const Color(0xa1363636),
-                          offset: Offset(0, 3),
-                          blurRadius: 6,
-                        )
-                      ],
+                DelayedAnimation(
+                  delay: delayedAmount,
+                  child: Container(
+                      child: SvgPicture.asset(
+                    'assets/images/logo.svg',
+                    width: size.width * 0.5,
+                  )),
+                ),
+                DelayedAnimation(
+                  delay: delayedAmount + 200,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    // alignment: Alignment.centerLeft,
+                    child: Text(
+                      'SOAUrl',
+                      style: TextStyle(
+                        fontSize: 45,
+                        color: const Color(0xfff2eaff),
+                        fontWeight: FontWeight.w700,
+                        shadows: [
+                          Shadow(
+                            color: const Color(0xa1363636),
+                            offset: Offset(0, 3),
+                            blurRadius: 6,
+                          )
+                        ],
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
                   ),
                 ),
                 SizedBox(
@@ -57,62 +96,68 @@ class LoginRegister extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    FlatButton(
-                      color: Colors.transparent,
-                      onPressed: () => SignInService.signInWithGoogle().then(
-                          (value) => value == null
-                              ? null
-                              : Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MainScreen()),
-                                  (route) => false)),
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        // margin: EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.6),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/images/google.svg',
-                              width: 30,
-                            ),
-                            Text(
-                              'Login with Google!',
-                              style: TextStyle(
-                                fontSize: 25,
-                                // color: Colors.black,
-                                fontWeight: FontWeight.bold,
+                    DelayedAnimation(
+                      delay: delayedAmount + 600,
+                      child: FlatButton(
+                        color: Colors.transparent,
+                        onPressed: () => SignInService.signInWithGoogle().then(
+                            (value) => value == null
+                                ? null
+                                : Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MainScreen()),
+                                    (route) => false)),
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          // margin: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.6),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/images/google.svg',
+                                width: 30,
                               ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                              Text(
+                                'Login with Google!',
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  // color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                     SizedBox(
                       height: 10,
                     ),
-                    FlatButton(
-                      onPressed: () => SignInService.signInWithGoogle().then(
-                          (value) => value == null
-                              ? null
-                              : Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MainScreen()),
-                                  (route) => false)),
-                      child: Text(
-                        'New Here! Register with Google',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                    DelayedAnimation(
+                      delay: delayedAmount + 900,
+                      child: FlatButton(
+                        onPressed: () => SignInService.signInWithGoogle().then(
+                            (value) => value == null
+                                ? null
+                                : Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MainScreen()),
+                                    (route) => false)),
+                        child: Text(
+                          'New Here! Register with Google',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
                       ),
                     ),
                   ],

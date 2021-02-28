@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:soaurl/constants.dart';
 import 'package:soaurl/widgets/background_widget.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -67,7 +68,7 @@ class ProfilePage extends StatelessWidget {
                         ),
                         children: [
                           TextSpan(
-                            text: 'User Name\n',
+                            text: '${user.displayName}\n',
                             style: TextStyle(
                               fontSize: 45,
                               fontWeight: FontWeight.w700,
@@ -81,7 +82,7 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: 'user@email.com',
+                            text: user.email,
                             style: TextStyle(
                               fontWeight: FontWeight.w700,
                             ),

@@ -28,7 +28,7 @@ class _SplashState extends State<Splash> {
   }
 
   nav() async {
-    if (user != null && user.phoneNumber.isNotEmpty) {
+    if (user != null) {
       log('User Present');
       log(user.toString());
       log("Phone: " + user.phoneNumber);
