@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:soaurl/History.dart';
 import 'package:soaurl/constants.dart';
 import 'package:soaurl/home/Profile.dart';
 import 'package:soaurl/login/LoginRegister.dart';
@@ -66,7 +67,7 @@ class MenuWidget extends StatelessWidget {
             Column(
               children: [
                 sliderItem('Profile', Icons.person, ProfilePage()),
-                sliderItem('History', Icons.history, ProfilePage()),
+                sliderItem('History', Icons.history, History()),
                 sliderItem('Saved', Icons.bookmark, ProfilePage()),
               ],
             ),

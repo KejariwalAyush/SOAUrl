@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_files_and_screenshot_widgets/share_files_and_screenshot_widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:soaurl/models/qr_details.dart';
 import 'package:soaurl/widgets/background_widget.dart';
 
 class GenerateQR extends StatefulWidget {
@@ -124,6 +126,18 @@ class _GenerateQRState extends State<GenerateQR> {
                                   // log(qrdataFeed.text);
                                   qrData = qrdataFeed.text;
                                 });
+                                QrDetails qrDetails = QrDetails(
+                                    text: qrData,
+                                    time: DateTime.now(),
+                                    scanned: false);
+                                SharedPreferences sp =
+                                    await SharedPreferences.getInstance();
+                                List<String> _history =
+                                    sp.getStringList('history') ?? [];
+                                if (_history.length > 24) _history.removeLast();
+                                _history.add(qrDetails.toJson());
+                                sp.setStringList('history', _history);
+                                log('added to history');
                               }
                               log(qrData);
                             },
@@ -156,6 +170,7 @@ class _GenerateQRState extends State<GenerateQR> {
                                   data: qrData,
                                   size: 200,
                                   foregroundColor: Colors.black,
+                                  gapless: true,
                                 ),
                               ),
                             ),

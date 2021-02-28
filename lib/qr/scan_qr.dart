@@ -5,6 +5,8 @@ import 'package:barcode_scan_fix/barcode_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:soaurl/models/qr_details.dart';
 import 'package:soaurl/widgets/background_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -131,11 +133,22 @@ class _ScanQRState extends State<ScanQR> {
                       padding: EdgeInsets.all(15),
                       onPressed: () async {
                         log('Open Scanner');
-                        String codeSanner =
-                            await BarcodeScanner.scan(); //barcode scnner
+                        String codeSanner = await BarcodeScanner.scan();
+                        //barcode scnner
                         setState(() {
                           qrCodeResult = codeSanner;
                         });
+                        QrDetails qrDetails = QrDetails(
+                            text: codeSanner,
+                            time: DateTime.now(),
+                            scanned: true);
+                        SharedPreferences sp =
+                            await SharedPreferences.getInstance();
+                        List<String> _history =
+                            sp.getStringList('history') ?? [];
+                        if (_history.length > 24) _history.removeLast();
+                        _history.add(qrDetails.toJson());
+                        sp.setStringList('history', _history);
                       },
                       child: Text(
                         "Open Scanner",

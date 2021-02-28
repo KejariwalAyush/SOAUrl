@@ -23,7 +23,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  adobe_xd: ^1.1.0+1
   animations: ^1.1.2
   auto_size_text: ^2.1.0
   barcode_scan_fix: ^1.0.2
@@ -43,6 +42,9 @@ dependencies:
   qr_flutter: ^3.2.0
   share_files_and_screenshot_widgets: ^1.0.3
   url_launcher: ^5.7.10
+  dio: ^3.0.10
+  shared_preferences: ^0.5.12+4
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:

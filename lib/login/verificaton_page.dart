@@ -9,7 +9,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:soaurl/home/MainScreen.dart';
 import 'package:soaurl/login/verify_otp.dart';
 import 'package:soaurl/widgets/background_widget.dart';
-import 'package:soaurl/widgets/delayed_animations.dart';
 
 class VerificationPage extends StatefulWidget {
   @override

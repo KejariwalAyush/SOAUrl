@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soaurl/constants.dart';
 import 'package:soaurl/home/MainScreen.dart';
@@ -20,7 +19,7 @@ class LoginRegister extends StatefulWidget {
 class _LoginRegisterState extends State<LoginRegister>
     with SingleTickerProviderStateMixin {
   final int delayedAmount = 500;
-  double _scale;
+  // double _scale;
   AnimationController _controller;
   @override
   void initState() {
@@ -46,7 +45,7 @@ class _LoginRegisterState extends State<LoginRegister>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    _scale = 1 - _controller.value;
+    // _scale = 1 - _controller.value;
     return SafeArea(
       child: Scaffold(
         backgroundColor: const Color(0xffffffff),
