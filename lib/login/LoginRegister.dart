@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:soaurl/constants.dart';
 import 'package:soaurl/home/MainScreen.dart';
+import 'package:soaurl/login/verificaton_page.dart';
 import 'package:soaurl/services/sign_in_service.dart';
 import 'package:soaurl/widgets/background_widget.dart';
 import 'package:soaurl/widgets/delayed_animations.dart';
@@ -106,7 +108,10 @@ class _LoginRegisterState extends State<LoginRegister>
                                 : Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => MainScreen()),
+                                        builder: (context) =>
+                                            user.phoneNumber == null
+                                                ? VerificationPage()
+                                                : MainScreen()),
                                     (route) => false)),
                         child: Container(
                           padding: EdgeInsets.all(10),
@@ -147,10 +152,13 @@ class _LoginRegisterState extends State<LoginRegister>
                                 : Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => MainScreen()),
+                                        builder: (context) =>
+                                            user.phoneNumber == null
+                                                ? VerificationPage()
+                                                : MainScreen()),
                                     (route) => false)),
                         child: Text(
-                          'New Here! Register with Google',
+                          'New Here! Register here',
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.white,

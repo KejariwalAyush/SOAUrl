@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:soaurl/constants.dart';
 import 'package:soaurl/home/MainScreen.dart';
 import 'package:soaurl/login/LoginRegister.dart';
+import 'package:soaurl/login/verificaton_page.dart';
 
 class Splash extends StatefulWidget {
   Splash({
@@ -32,16 +33,16 @@ class _SplashState extends State<Splash> {
       log('User Present');
       log(user.toString());
       log("Phone: " + user.phoneNumber);
-      // if (user.phoneNumber != null && user.phoneNumber.isNotEmpty) {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => MainScreen()),
-          (route) => false);
-      // } else
-      //   Navigator.pushAndRemoveUntil(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => VerificationPage()),
-      //       (route) => false);
+      if (user.phoneNumber != null && user.phoneNumber.isNotEmpty) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => MainScreen()),
+            (route) => false);
+      } else
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => VerificationPage()),
+            (route) => false);
     } else {
       log("***User not loggedin!***");
       return Navigator.of(context).pushReplacement(MaterialPageRoute(
