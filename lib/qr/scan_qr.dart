@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:barcode_scan_fix/barcode_scan.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -93,6 +94,12 @@ class _ScanQRState extends State<ScanQR> {
                     ),
                     GestureDetector(
                       onTap: () => _launchURL(qrCodeResult),
+                      onLongPress: () {
+                        Clipboard.setData(
+                          ClipboardData(text: qrCodeResult),
+                        );
+                        Fluttertoast.showToast(msg: 'Copied to Clipboard!');
+                      },
                       child: AutoSizeText(
                         qrCodeResult,
                         minFontSize: 14,

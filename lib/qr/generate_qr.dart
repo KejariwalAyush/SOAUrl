@@ -4,7 +4,8 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'package:qr/qr.dart';
 import 'package:share_files_and_screenshot_widgets/share_files_and_screenshot_widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soaurl/models/qr_details.dart';
@@ -159,18 +160,24 @@ class _GenerateQRState extends State<GenerateQR> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            RepaintBoundary(
-                              key: previewContainer,
-                              child: Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(17),
-                                    color: Colors.white),
-                                child: QrImage(
-                                  data: qrData,
-                                  size: 200,
-                                  foregroundColor: Colors.black,
-                                  gapless: true,
+                            Container(
+                              key: UniqueKey(),
+                              child: RepaintBoundary(
+                                key: previewContainer,
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(17),
+                                      color: Colors.white),
+                                  child: PrettyQr(
+                                    data: qrData,
+                                    size: 200,
+                                    roundEdges: true,
+                                    typeNumber: 3,
+                                    errorCorrectLevel: QrErrorCorrectLevel.M,
+                                    // image: AssetImage(
+                                    //     'assets/images/logo-no-bg.png'),
+                                  ),
                                 ),
                               ),
                             ),

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -86,13 +87,14 @@ class History extends StatelessWidget {
                     if (_list.isEmpty)
                       return Center(child: Text('No Data Available!'));
                     _list.sort((a, b) => a.time.compareTo(b.time));
-                    _list.reversed;
+                    // _list.reversed;
                     return Scrollbar(
                       hoverThickness: 14,
                       radius: Radius.circular(10),
                       thickness: 12,
                       child: ListView.builder(
                         itemCount: _list.length,
+                        reverse: true,
                         itemBuilder: (BuildContext context, int index) {
                           QrDetails qrDetails = _list[index];
                           return HistoryListTile(qrDetails: qrDetails);
@@ -143,6 +145,12 @@ class HistoryListTile extends StatelessWidget {
           ),
           title: GestureDetector(
             onTap: () => _launchURL(qrDetails.text),
+            onLongPress: () {
+              Clipboard.setData(
+                ClipboardData(text: qrDetails.text),
+              );
+              Fluttertoast.showToast(msg: 'Copied to Clipboard!');
+            },
             child: AutoSizeText(
               qrDetails.text,
               minFontSize: 14,
