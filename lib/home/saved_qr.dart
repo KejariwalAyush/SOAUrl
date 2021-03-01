@@ -11,9 +11,16 @@ import 'package:soaurl/models/qr_details.dart';
 import 'package:soaurl/widgets/background_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class History extends StatelessWidget {
-  History({Key key}) : super(key: key);
+class Saved extends StatefulWidget {
+  const Saved({Key key}) : super(key: key);
 
+  @override
+  _SavedState createState() => _SavedState();
+}
+
+class _SavedState extends State<Saved> {
+  final TextEditingController searchController = new TextEditingController();
+  String searchData = '';
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -42,7 +49,7 @@ class History extends StatelessWidget {
                 padding: EdgeInsets.all(20),
                 // width: size.width,
                 child: SvgPicture.asset(
-                  'assets/images/history.svg',
+                  'assets/images/saved.svg',
                   fit: BoxFit.fill,
                   height: 100,
                 ),
@@ -52,7 +59,7 @@ class History extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 // width: size.width,
                 child: Text(
-                  'History',
+                  'Saved',
                   style: TextStyle(
                     fontSize: 45,
                     color: const Color(0xfff2eaff),
@@ -68,11 +75,46 @@ class History extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10,
+                ),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white.withOpacity(0.5)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(
+                      Icons.search_rounded,
+                      color: Colors.deepPurpleAccent,
+                      size: 30,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: TextField(
+                        controller: searchController,
+                        decoration: InputDecoration(
+                          hintText: 'Search',
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            searchData = value.toLowerCase().trim();
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Expanded(
                   child: Container(
                 child: FutureBuilder<List<QrDetails>>(
                   future: SharedPreferences.getInstance().then((value) => value
-                      .getStringList('history')
+                      .getStringList('saved')
                       .map((e) => QrDetails.fromJson(e))
                       .toList()),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -81,6 +123,17 @@ class History extends StatelessWidget {
                         child: CircularProgressIndicator(),
                       );
                     List<QrDetails> _list = snapshot.data;
+
+                    if ((searchData ?? '') != '')
+                      _list = _list
+                          .map((e) => (e.text
+                                      .toLowerCase()
+                                      .contains(searchData) ||
+                                  e.title.toLowerCase().contains(searchData))
+                              ? e
+                              : null)
+                          .toList()
+                            ..removeWhere((e) => e == null);
                     if (_list.isEmpty)
                       return Center(child: Text('No Data Available!'));
                     _list.sort((a, b) => a.time.compareTo(b.time));
@@ -94,7 +147,7 @@ class History extends StatelessWidget {
                         // reverse: true,
                         itemBuilder: (BuildContext context, int index) {
                           QrDetails qrDetails = _list[_list.length - index - 1];
-                          return HistoryListTile(qrDetails: qrDetails);
+                          return SavedListTile(qrDetails: qrDetails);
                         },
                       ),
                     );
@@ -109,8 +162,8 @@ class History extends StatelessWidget {
   }
 }
 
-class HistoryListTile extends StatelessWidget {
-  const HistoryListTile({
+class SavedListTile extends StatelessWidget {
+  const SavedListTile({
     Key key,
     @required this.qrDetails,
   }) : super(key: key);
@@ -140,7 +193,14 @@ class HistoryListTile extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.end,
           ),
-          title: GestureDetector(
+          title: AutoSizeText(
+            qrDetails.title,
+            minFontSize: 14,
+            maxFontSize: 20,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
+          subtitle: GestureDetector(
             onTap: () => _launchURL(qrDetails.text),
             onLongPress: () {
               Clipboard.setData(

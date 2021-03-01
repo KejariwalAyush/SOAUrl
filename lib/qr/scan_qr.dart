@@ -42,9 +42,6 @@ class _ScanQRState extends State<ScanQR> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 30,
-              ),
               Container(
                 alignment: Alignment.centerLeft,
                 padding: EdgeInsets.all(20),

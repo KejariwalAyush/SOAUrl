@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soaurl/home/history.dart';
 import 'package:soaurl/constants.dart';
 import 'package:soaurl/home/Profile.dart';
+import 'package:soaurl/home/saved_qr.dart';
 import 'package:soaurl/login/LoginRegister.dart';
 import 'package:soaurl/services/sign_in_service.dart';
 
@@ -68,7 +69,7 @@ class MenuWidget extends StatelessWidget {
               children: [
                 sliderItem('Profile', Icons.person, ProfilePage()),
                 sliderItem('History', Icons.history, History()),
-                sliderItem('Saved', Icons.bookmark, ProfilePage()),
+                sliderItem('Saved', Icons.bookmark, Saved()),
               ],
             ),
             GestureDetector(
