@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soaurl/models/qr_details.dart';
 import 'package:soaurl/widgets/background_widget.dart';
+import 'package:soaurl/widgets/save_button_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ScanQR extends StatefulWidget {
@@ -111,26 +112,9 @@ class _ScanQRState extends State<ScanQR> {
 
                     //Button to Save scaned QR code
                     if (qrCodeResult != 'Not Yet Scanned')
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FlatButton.icon(
-                          padding: EdgeInsets.all(15),
-
-                          onPressed: () {},
-                          icon: Icon(Icons.bookmark),
-                          label: Text(
-                            "Save it For Later!",
-                            style: TextStyle(
-                                color: Colors.purple[900],
-                                fontWeight: FontWeight.bold),
-                          ),
-                          //Button having rounded rectangle border
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.indigo[900]),
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          color: Colors.white.withOpacity(0.7),
-                        ),
+                      SaveItButton(
+                        qrData: qrCodeResult,
+                        scanned: true,
                       ),
                     //Button to scan QR code
                     FlatButton(

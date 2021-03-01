@@ -4,11 +4,13 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:qr/qr.dart';
 import 'package:share_files_and_screenshot_widgets/share_files_and_screenshot_widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soaurl/constants.dart';
+import 'package:soaurl/widgets/save_button_dialog.dart';
 import 'package:soaurl/models/qr_details.dart';
 import 'package:soaurl/widgets/background_widget.dart';
 
@@ -212,51 +214,6 @@ class _GenerateQRState extends State<GenerateQR> {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class SaveItButton extends StatelessWidget {
-  const SaveItButton({Key key, @required this.qrData, @required this.scanned})
-      : super(key: key);
-
-  final bool scanned;
-  final String qrData;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: FlatButton.icon(
-        padding: EdgeInsets.all(15),
-
-        onPressed: () async {
-          QrDetails qrDetails = QrDetails(
-              title: 'Test',
-              tags: ['test', 'new'],
-              text: qrData,
-              time: DateTime.now(),
-              scanned: scanned);
-          SharedPreferences sp = await SharedPreferences.getInstance();
-          List<String> _history = sp.getStringList('saved') ?? [];
-          if (_history.length > 50) _history.removeLast();
-          _history.add(qrDetails.toJson());
-          sp.setStringList('saved', _history);
-          log('added to saved');
-        },
-        icon: Icon(Icons.bookmark),
-        label: Text(
-          "Save it For Later!",
-          style:
-              TextStyle(color: Colors.purple[900], fontWeight: FontWeight.bold),
-        ),
-        //Button having rounded rectangle border
-        shape: RoundedRectangleBorder(
-          side: BorderSide(color: Colors.indigo[900]),
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        color: Colors.white.withOpacity(0.7),
       ),
     );
   }

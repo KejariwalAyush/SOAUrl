@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soaurl/constants.dart';
 import 'package:soaurl/models/qr_details.dart';
 import 'package:soaurl/widgets/background_widget.dart';
+import 'package:soaurl/widgets/save_button_dialog.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class History extends StatelessWidget {
@@ -119,45 +120,65 @@ class HistoryListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.5),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: ListTile(
-          contentPadding: EdgeInsets.all(10),
-          leading: SvgPicture.asset(
-            'assets/images/${qrDetails.scanned ? 'qr_phone.svg' : 'qr_large.svg'}',
-            color: Colors.purple.shade900,
-            height: 50,
-            fit: BoxFit.fill,
-          ),
-          trailing: AutoSizeText(
-            durationString(DateTime.now().difference(qrDetails.time)),
-            minFontSize: 12,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.end,
-          ),
-          title: GestureDetector(
-            onTap: () => _launchURL(qrDetails.text),
-            onLongPress: () {
-              Clipboard.setData(
-                ClipboardData(text: qrDetails.text),
-              );
-              Fluttertoast.showToast(msg: 'Copied to Clipboard!');
-            },
-            child: AutoSizeText(
-              qrDetails.text,
-              minFontSize: 14,
-              maxFontSize: 20,
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 13, 20, 0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: ListTile(
+              contentPadding: EdgeInsets.all(10),
+              leading: SvgPicture.asset(
+                'assets/images/${qrDetails.scanned ? 'qr_phone.svg' : 'qr_large.svg'}',
+                color: Colors.purple.shade900,
+                height: 50,
+                fit: BoxFit.fill,
+              ),
+              trailing: AutoSizeText(
+                durationString(DateTime.now().difference(qrDetails.time)),
+                minFontSize: 12,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.end,
+              ),
+              title: GestureDetector(
+                onTap: () => _launchURL(qrDetails.text),
+                onLongPress: () {
+                  Clipboard.setData(
+                    ClipboardData(text: qrDetails.text),
+                  );
+                  Fluttertoast.showToast(msg: 'Copied to Clipboard!');
+                },
+                child: AutoSizeText(
+                  qrDetails.text,
+                  minFontSize: 14,
+                  maxFontSize: 20,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ),
           ),
         ),
-      ),
+        Positioned(
+          top: -8,
+          right: 10,
+          child: GestureDetector(
+            onTap: () {
+              print('saving...');
+              SaveItButton(qrData: qrDetails.text, scanned: qrDetails.scanned)
+                  .showSaveDialog(context);
+            },
+            child: SvgPicture.asset(
+              'assets/images/bookmark.svg',
+              height: 50,
+              color: Colors.deepPurple[900],
+            ),
+          ),
+        ),
+      ],
     );
   }
 

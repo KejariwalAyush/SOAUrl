@@ -98,7 +98,7 @@ class _SavedState extends State<Saved> {
                       child: TextField(
                         controller: searchController,
                         decoration: InputDecoration(
-                          hintText: 'Search',
+                          hintText: 'Search by name & tags',
                         ),
                         onChanged: (value) {
                           setState(() {
@@ -126,10 +126,11 @@ class _SavedState extends State<Saved> {
 
                     if ((searchData ?? '') != '')
                       _list = _list
-                          .map((e) => (e.text
+                          .map((e) => (e.title
                                       .toLowerCase()
                                       .contains(searchData) ||
-                                  e.title.toLowerCase().contains(searchData))
+                                  // e.text.toLowerCase().contains(searchData) ||
+                                  e.tags.contains(searchData))
                               ? e
                               : null)
                           .toList()
@@ -208,12 +209,27 @@ class SavedListTile extends StatelessWidget {
               );
               Fluttertoast.showToast(msg: 'Copied to Clipboard!');
             },
-            child: AutoSizeText(
-              qrDetails.text,
-              minFontSize: 14,
-              maxFontSize: 20,
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AutoSizeText(
+                  qrDetails.text,
+                  minFontSize: 16,
+                  maxFontSize: 20,
+                  maxLines: 3,
+                  style: TextStyle(fontWeight: FontWeight.w700),
+                  overflow: TextOverflow.ellipsis,
+                ),
+                AutoSizeText(
+                  qrDetails.tags.toString(),
+                  minFontSize: 12,
+                  maxFontSize: 18,
+                  maxLines: 3,
+                  style: TextStyle(fontWeight: FontWeight.w300),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
             ),
           ),
         ),
