@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -113,10 +114,14 @@ class _SavedState extends State<Saved> {
               Expanded(
                   child: Container(
                 child: FutureBuilder<List<QrDetails>>(
-                  future: SharedPreferences.getInstance().then((value) => value
-                      .getStringList('saved')
-                      .map((e) => QrDetails.fromJson(e))
-                      .toList()),
+                  future: FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(user.uid)
+                      .collection('saved')
+                      .get()
+                      .then((value) => value.docs
+                          .map((e) => QrDetails.fromMap(e.data()))
+                          .toList()),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (!snapshot.hasData)
                       return Center(
@@ -173,6 +178,7 @@ class SavedListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UniqueKey _key = new UniqueKey();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
       child: Container(
@@ -180,56 +186,89 @@ class SavedListTile extends StatelessWidget {
           color: Colors.white.withOpacity(0.5),
           borderRadius: BorderRadius.circular(10),
         ),
-        child: ListTile(
-          contentPadding: EdgeInsets.all(10),
-          leading: SvgPicture.asset(
-            'assets/images/${qrDetails.scanned ? 'qr_phone.svg' : 'qr_large.svg'}',
-            color: Colors.purple.shade900,
-            height: 50,
-            fit: BoxFit.fill,
+        child: Dismissible(
+          key: _key,
+          background: Container(
+            decoration: BoxDecoration(
+              color: Colors.redAccent.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            alignment: Alignment.centerRight,
+            child: Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
           ),
-          trailing: AutoSizeText(
-            durationString(DateTime.now().difference(qrDetails.time)),
-            minFontSize: 12,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.end,
-          ),
-          title: AutoSizeText(
-            qrDetails.title,
-            minFontSize: 14,
-            maxFontSize: 20,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-          ),
-          subtitle: GestureDetector(
-            onTap: () => _launchURL(qrDetails.text),
-            onLongPress: () {
-              Clipboard.setData(
-                ClipboardData(text: qrDetails.text),
-              );
-              Fluttertoast.showToast(msg: 'Copied to Clipboard!');
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AutoSizeText(
-                  qrDetails.text,
-                  minFontSize: 16,
-                  maxFontSize: 20,
-                  maxLines: 3,
-                  style: TextStyle(fontWeight: FontWeight.w700),
-                  overflow: TextOverflow.ellipsis,
-                ),
-                AutoSizeText(
-                  qrDetails.tags.toString(),
-                  minFontSize: 12,
-                  maxFontSize: 18,
-                  maxLines: 3,
-                  style: TextStyle(fontWeight: FontWeight.w300),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+          direction: DismissDirection.endToStart,
+          // confirmDismiss: (direction) {
+          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar( duration: Duration(seconds: 3),
+          //     content: Text('QR details Delete'),action: SnackBarAction(label: 'Undo',onPressed: ()=> false,),));
+          // },
+          onDismissed: (direction) async {
+            log(direction.toString());
+            await FirebaseFirestore.instance
+                .collection('users')
+                .doc(user.uid)
+                .collection('saved')
+                .doc(qrDetails.id)
+                .delete()
+                .then((value) {
+              // log('deleted');
+            });
+            log('deleted sucessfully');
+          },
+          child: ListTile(
+            contentPadding: EdgeInsets.all(10),
+            leading: SvgPicture.asset(
+              'assets/images/${qrDetails.scanned ? 'qr_phone.svg' : 'qr_large.svg'}',
+              color: Colors.purple.shade900,
+              height: 50,
+              fit: BoxFit.fill,
+            ),
+            trailing: AutoSizeText(
+              durationString(DateTime.now().difference(qrDetails.time)),
+              minFontSize: 12,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.end,
+            ),
+            title: AutoSizeText(
+              qrDetails.title,
+              minFontSize: 14,
+              maxFontSize: 20,
+              maxLines: 3,
+              overflow: TextOverflow.ellipsis,
+            ),
+            subtitle: GestureDetector(
+              onTap: () => _launchURL(qrDetails.text),
+              onLongPress: () {
+                Clipboard.setData(
+                  ClipboardData(text: qrDetails.text),
+                );
+                Fluttertoast.showToast(msg: 'Copied to Clipboard!');
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AutoSizeText(
+                    qrDetails.text,
+                    minFontSize: 16,
+                    maxFontSize: 20,
+                    maxLines: 3,
+                    style: TextStyle(fontWeight: FontWeight.w700),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  if (qrDetails.tags.toString() != '[]')
+                    AutoSizeText(
+                      qrDetails.tags.toString(),
+                      minFontSize: 12,
+                      maxFontSize: 18,
+                      maxLines: 3,
+                      style: TextStyle(fontWeight: FontWeight.w300),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                ],
+              ),
             ),
           ),
         ),

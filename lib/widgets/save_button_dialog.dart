@@ -89,22 +89,40 @@ class SaveItButton extends StatelessWidget {
             FlatButton(
               child: Text('Save'),
               onPressed: () async {
-                // FirebaseFirestore.instance.collection('users').doc(user.uid).collection('saved').add(data)
+                if ((titleField?.text ?? '') == '') {
+                  Fluttertoast.showToast(
+                      msg: 'Error Saving: Title Null',
+                      backgroundColor: Colors.redAccent);
+
+                  return;
+                }
+                DocumentReference doc = FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(user.uid)
+                    .collection('saved')
+                    .doc();
+
+                log(doc.id);
                 log(titleField.text);
                 log(tagsField.text.split(',').toList().toString());
                 QrDetails qrDetails = QrDetails(
+                    id: doc.id,
                     title: titleField.text,
-                    tags:
-                        tagsField.text.split(' ').map((e) => e.trim()).toList(),
+                    tags: tagsField?.text
+                            ?.split(' ')
+                            ?.map((e) => e.trim())
+                            ?.toList() ??
+                        [],
                     text: qrData,
                     time: DateTime.now(),
                     scanned: scanned);
-                SharedPreferences sp = await SharedPreferences.getInstance();
-                List<String> _history = sp.getStringList('saved') ?? [];
-                if (_history.length > 50) _history.removeLast();
-                _history.add(qrDetails.toJson());
-                sp.setStringList('saved', _history);
-                log('added to saved');
+                // SharedPreferences sp = await SharedPreferences.getInstance();
+                // List<String> _history = sp.getStringList('saved') ?? [];
+                // if (_history.length > 50) _history.removeLast();
+                // _history.add(qrDetails.toJson());
+                // sp.setStringList('saved', _history);
+                // log('added to saved');
+                doc.set(qrDetails.toMap());
 
                 Fluttertoast.showToast(msg: 'Saved!');
                 Navigator.of(context).pop();
