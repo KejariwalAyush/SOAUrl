@@ -235,7 +235,6 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                                         longUrl: longUrl.text,
                                         shortUrl: shortUrl.text,
                                         noOfDays: 7,
-                                        uid: 'abcd',
                                         dateTime: DateTime.now());
                                     log(data.toJson());
                                   }

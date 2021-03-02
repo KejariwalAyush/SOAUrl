@@ -15,6 +15,7 @@ class UrlDetails {
     @required this.isUrlActive,
     @required this.expireDate,
     @required this.creationDate,
+    this.showAd = true,
   });
 
   final String uid;
@@ -23,6 +24,7 @@ class UrlDetails {
   final Clicks clicks;
   final List<DayWise> dayWise;
   final bool isUrlActive;
+  final bool showAd;
   final DateTime expireDate;
   final DateTime creationDate;
 
@@ -41,6 +43,7 @@ class UrlDetails {
         isUrlActive: json["isUrlActive"],
         expireDate: DateTime.parse(json["expireDate"]),
         creationDate: DateTime.parse(json["creationDate"]),
+        showAd: json['showAd'],
       );
 
   Map<String, dynamic> toMap() => {
@@ -52,6 +55,7 @@ class UrlDetails {
         "isUrlActive": isUrlActive,
         "expireDate": expireDate.toIso8601String(),
         "creationDate": creationDate.toIso8601String(),
+        "showAd": showAd,
       };
 }
 

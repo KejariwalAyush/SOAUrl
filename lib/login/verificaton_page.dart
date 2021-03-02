@@ -1,13 +1,16 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:soaurl/constants.dart';
 import 'package:soaurl/home/MainScreen.dart';
 import 'package:soaurl/login/verify_otp.dart';
+import 'package:soaurl/models/about_user.dart';
 import 'package:soaurl/widgets/background_widget.dart';
 
 class VerificationPage extends StatefulWidget {
@@ -315,6 +318,13 @@ class _VerificationPageState extends State<VerificationPage> {
       });
       await FirebaseAuth.instance.currentUser
           .updatePhoneNumber(this._phoneAuthCredential);
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).set(
+          AboutUser(
+                  name: user.displayName,
+                  phone: user.phoneNumber,
+                  email: user.email,
+                  id: user.uid)
+              .toMap());
       Fluttertoast.showToast(msg: 'Phone No. Added Sucessful!');
       Navigator.pushAndRemoveUntil(
           context,

@@ -12,8 +12,8 @@ class ShortenUrlRequestModel {
     @required this.longUrl,
     @required this.shortUrl,
     @required this.noOfDays,
-    @required this.uid,
     @required this.dateTime,
+    // @required this.uid,
     // @required this.isUrlActive,
   });
 
@@ -22,8 +22,8 @@ class ShortenUrlRequestModel {
   final String longUrl;
   final String shortUrl;
   final int noOfDays;
-  final String uid;
   final DateTime dateTime;
+  // final String uid;
   // final bool isUrlActive;
 
   factory ShortenUrlRequestModel.fromJson(String str) =>
@@ -38,8 +38,8 @@ class ShortenUrlRequestModel {
         longUrl: json["longUrl"],
         shortUrl: json["shortUrl"],
         noOfDays: json["noOfDays"],
-        uid: json["uid"],
         dateTime: DateTime.parse(json["dateTime"]),
+        // uid: json["uid"],
         // isUrlActive: json["isUrlActive"],
       );
 
@@ -49,8 +49,8 @@ class ShortenUrlRequestModel {
         "longUrl": longUrl,
         "shortUrl": shortUrl,
         "noOfDays": noOfDays,
-        "uid": uid,
         "dateTime": dateTime.toIso8601String(),
+        // "uid": uid,
         // "isUrlActive": isUrlActive,
       };
 }
