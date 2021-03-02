@@ -5,8 +5,8 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-class UrlDetails {
-  UrlDetails({
+class ShortenUrlRequestModel {
+  ShortenUrlRequestModel({
     @required this.userId,
     @required this.email,
     @required this.longUrl,
@@ -14,7 +14,7 @@ class UrlDetails {
     @required this.noOfDays,
     @required this.uid,
     @required this.dateTime,
-    @required this.urlDetailsSwitch,
+    // @required this.isUrlActive,
   });
 
   final String userId;
@@ -24,14 +24,15 @@ class UrlDetails {
   final int noOfDays;
   final String uid;
   final DateTime dateTime;
-  final bool urlDetailsSwitch;
+  // final bool isUrlActive;
 
-  factory UrlDetails.fromJson(String str) =>
-      UrlDetails.fromMap(json.decode(str));
+  factory ShortenUrlRequestModel.fromJson(String str) =>
+      ShortenUrlRequestModel.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory UrlDetails.fromMap(Map<String, dynamic> json) => UrlDetails(
+  factory ShortenUrlRequestModel.fromMap(Map<String, dynamic> json) =>
+      ShortenUrlRequestModel(
         userId: json["userId"],
         email: json["email"],
         longUrl: json["longUrl"],
@@ -39,7 +40,7 @@ class UrlDetails {
         noOfDays: json["noOfDays"],
         uid: json["uid"],
         dateTime: DateTime.parse(json["dateTime"]),
-        urlDetailsSwitch: json["switch"],
+        // isUrlActive: json["isUrlActive"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -50,6 +51,6 @@ class UrlDetails {
         "noOfDays": noOfDays,
         "uid": uid,
         "dateTime": dateTime.toIso8601String(),
-        "switch": urlDetailsSwitch,
+        // "isUrlActive": isUrlActive,
       };
 }

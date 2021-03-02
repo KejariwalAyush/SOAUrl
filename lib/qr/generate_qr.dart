@@ -5,6 +5,7 @@ import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:qr/qr.dart';
 import 'package:share_files_and_screenshot_widgets/share_files_and_screenshot_widgets.dart';
@@ -91,7 +92,7 @@ class _GenerateQRState extends State<GenerateQR> {
                         //TextField for input link
                         AutoSizeTextField(
                           controller: qrdataFeed,
-                          style: TextStyle(color: Colors.white),
+                          style: GoogleFonts.varela(color: Colors.white),
                           minFontSize: 14,
                           maxFontSize: 20,
                           maxLines: 2, minLines: 1,

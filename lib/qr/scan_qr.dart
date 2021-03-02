@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soaurl/models/qr_details.dart';
 import 'package:soaurl/widgets/background_widget.dart';
@@ -84,7 +85,7 @@ class _ScanQRState extends State<ScanQR> {
                     //Message displayed over here
                     Text(
                       "Result",
-                      style: TextStyle(
+                      style: GoogleFonts.varela(
                           fontSize: 30.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
@@ -102,7 +103,7 @@ class _ScanQRState extends State<ScanQR> {
                         qrCodeResult,
                         minFontSize: 14,
                         maxFontSize: 22,
-                        style: TextStyle(color: Colors.white),
+                        style: GoogleFonts.varela(color: Colors.white),
                         textAlign: TextAlign.center,
                       ),
                     ),
