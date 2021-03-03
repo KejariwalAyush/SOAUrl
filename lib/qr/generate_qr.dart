@@ -1,10 +1,9 @@
 import 'dart:developer';
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:qr/qr.dart';
@@ -23,8 +22,8 @@ class GenerateQR extends StatefulWidget {
 class _GenerateQRState extends State<GenerateQR> {
   String qrData = "https://github.com/KejariwalAyush";
   GlobalKey previewContainer = new GlobalKey();
-
   final qrdataFeed = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

@@ -1,19 +1,13 @@
 import 'dart:developer';
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pretty_qr_code/pretty_qr_code.dart';
-import 'package:qr/qr.dart';
-import 'package:share_files_and_screenshot_widgets/share_files_and_screenshot_widgets.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soaurl/constants.dart';
 import 'package:soaurl/models/shorten_url_request.dart';
-import 'package:soaurl/widgets/save_button_dialog.dart';
-import 'package:soaurl/models/qr_details.dart';
+import 'package:soaurl/services/network_helper.dart';
 import 'package:soaurl/widgets/background_widget.dart';
 
 class ShortUrlPage extends StatefulWidget {
@@ -32,6 +26,8 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
   bool checkingUrl;
   bool isLoading;
   bool showCheckUrlButton = true;
+  bool isLongUrlValid = false;
+
   // final shortUrl = TextEditingController();
   @override
   void initState() {
@@ -108,11 +104,19 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                         //TextField for input link
                         AutoSizeTextField(
                           controller: longUrl,
-
+                          // onEditingComplete: () async {
+                          //   NetworkHelper nh = new NetworkHelper();
+                          //   await nh.checkValidUrl(longUrl.text);
+                          // },
+                          // onSubmitted: (link) async {
+                          //   NetworkHelper nh = new NetworkHelper();
+                          //   await nh.checkValidUrl(link);
+                          // },
                           style: GoogleFonts.varela(color: Colors.white),
                           minFontSize: 14,
                           maxFontSize: 20,
-                          maxLines: 2, minLines: 1,
+                          maxLines: 1,
+                          minLines: 1,
 
                           decoration: InputDecoration(
                               labelStyle: TextStyle(color: Colors.white),
@@ -209,15 +213,15 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                                           ),
                                         )
                                       : isUrlAvailable
-                                          ? Icon(
-                                              Icons.assignment_turned_in,
-                                              color: Colors.green,
-                                              size: 30,
+                                          ? Image.asset(
+                                              'assets/images/correct.png',
+                                              fit: BoxFit.contain,
+                                              height: 30,
                                             )
-                                          : Icon(
-                                              Icons.assignment_late_rounded,
-                                              color: Colors.red,
-                                              size: 30,
+                                          : Image.asset(
+                                              'assets/images/wrong.png',
+                                              fit: BoxFit.contain,
+                                              height: 30,
                                             ),
                             ],
                           ),
@@ -229,6 +233,15 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                           child: RaisedButton(
                             onPressed: isUrlAvailable
                                 ? () async {
+                                    NetworkHelper nh = new NetworkHelper();
+                                    if (!(await nh
+                                        .checkValidUrl(longUrl.text))) {
+                                      Fluttertoast.showToast(
+                                          msg: 'Invalid Long Url',
+                                          backgroundColor: Colors.redAccent);
+                                      return;
+                                    }
+
                                     var data = ShortenUrlRequestModel(
                                         userId: user.uid,
                                         email: user.email,

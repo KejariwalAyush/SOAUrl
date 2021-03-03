@@ -46,6 +46,7 @@ dependencies:
   share_files_and_screenshot_widgets: ^1.0.3
   shared_preferences: ^0.5.12+4
   url_launcher: ^5.7.10
+  fl_chart: ^0.12.3
 
 dev_dependencies:
   flutter_test:
