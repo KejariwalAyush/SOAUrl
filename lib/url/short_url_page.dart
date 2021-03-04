@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:auto_size_text_field/auto_size_text_field.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,6 +11,7 @@ import 'package:soaurl/constants.dart';
 import 'package:soaurl/models/shorten_url_request.dart';
 import 'package:soaurl/services/network_helper.dart';
 import 'package:soaurl/widgets/background_widget.dart';
+import 'package:http/http.dart' as http;
 
 class ShortUrlPage extends StatefulWidget {
   @override
@@ -19,27 +22,20 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
   String qrData = "https://github.com/KejariwalAyush";
   GlobalKey previewContainer = new GlobalKey();
 
-  final longUrl = TextEditingController();
+  TextEditingController longUrl = TextEditingController();
   final shortUrl = TextEditingController();
 
-  bool isUrlAvailable;
-  bool checkingUrl;
-  bool isLoading;
+  bool checkingUrl = false;
+  bool isLoading = false;
   bool showCheckUrlButton = true;
+  bool isUrlAvailable = false;
   bool isLongUrlValid = false;
-
-  // final shortUrl = TextEditingController();
-  @override
-  void initState() {
-    isUrlAvailable = false;
-    checkingUrl = false;
-    super.initState();
-  }
+  NetworkHelper nh = new NetworkHelper();
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    String shortlink = 'https://soaurl.ml/' + (shortUrl.text ?? '');
+    String shortlink = 'soaurl.ml/' + (shortUrl.text ?? '');
     return SafeArea(
       child: Scaffold(
         body: BackgroundWidget(
@@ -104,14 +100,35 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                         //TextField for input link
                         AutoSizeTextField(
                           controller: longUrl,
-                          // onEditingComplete: () async {
-                          //   NetworkHelper nh = new NetworkHelper();
-                          //   await nh.checkValidUrl(longUrl.text);
-                          // },
-                          // onSubmitted: (link) async {
-                          //   NetworkHelper nh = new NetworkHelper();
-                          //   await nh.checkValidUrl(link);
-                          // },
+                          onChanged: (value) {
+                            setState(() {
+                              isLongUrlValid = false;
+                            });
+                          },
+                          onEditingComplete: () async {
+                            if (await nh.checkValidUrl(longUrl.text))
+                              setState(() {
+                                isLongUrlValid = true;
+                                longUrl = TextEditingController(
+                                    text: (!longUrl.text.contains('http'))
+                                        ? ('https://' + longUrl.text)
+                                        : longUrl);
+                              });
+                            else
+                              setState(() {
+                                isLongUrlValid = false;
+                              });
+                          },
+                          onSubmitted: (value) async {
+                            if (await nh.checkValidUrl(longUrl.text))
+                              setState(() {
+                                isLongUrlValid = true;
+                              });
+                            else
+                              setState(() {
+                                isLongUrlValid = false;
+                              });
+                          },
                           style: GoogleFonts.varela(color: Colors.white),
                           minFontSize: 14,
                           maxFontSize: 20,
@@ -126,6 +143,20 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                                 Icons.add_link,
                                 size: 30,
                                 color: Colors.white,
+                              ),
+                              suffixIcon: Container(
+                                padding: EdgeInsets.all(8),
+                                child: isLongUrlValid
+                                    ? Image.asset(
+                                        'assets/images/correct.png',
+                                        fit: BoxFit.contain,
+                                        height: 20,
+                                      )
+                                    : Image.asset(
+                                        'assets/images/wrong.png',
+                                        fit: BoxFit.contain,
+                                        height: 20,
+                                      ),
                               ),
                               hintText: "Enter your long link here...",
                               fillColor: Colors.white),
@@ -163,19 +194,22 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                           alignment: Alignment.centerLeft,
                           padding:
                               EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                          // width: size.width,
+                          width: size.width,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                shortlink,
-                                style: GoogleFonts.varela(
-                                  fontSize: 15,
-                                  color: const Color(0xfff2eaff),
-                                  fontWeight: FontWeight.w700,
+                              Expanded(
+                                child: Text(
+                                  shortlink,
+                                  style: GoogleFonts.varela(
+                                    fontSize: 15,
+                                    color: const Color(0xfff2eaff),
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  textAlign: TextAlign.start,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                textAlign: TextAlign.center,
                               ),
                               checkingUrl
                                   ? CircularProgressIndicator(
@@ -195,17 +229,28 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                                                     checkingUrl = true;
                                                     showCheckUrlButton = false;
                                                   });
-                                                  await Future.delayed(
-                                                      Duration(seconds: 10));
+                                                  var res = await nh.postHTTP(
+                                                    'http://soaurl.ml/api/link_available',
+                                                    jsonEncode({
+                                                      "shortUrl": shortUrl.text
+                                                    }),
+                                                  );
+                                                  log(res?.data?.toString() ??
+                                                      'NO DATA');
+
                                                   setState(() {
-                                                    isUrlAvailable = true;
+                                                    if (res?.data == 'true' ??
+                                                        false)
+                                                      isUrlAvailable = true;
+                                                    else
+                                                      isUrlAvailable = false;
                                                     checkingUrl = false;
                                                   });
                                                 },
                                           textColor: Colors.amber[400],
                                           disabledTextColor: Colors.grey[400],
                                           child: Text(
-                                            'Check Availablity',
+                                            'Check\nAvailablity',
                                             style: GoogleFonts.varela(
                                               fontSize: 15,
                                             ),
@@ -230,143 +275,76 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           //Button for generating Short Url
-                          child: RaisedButton(
-                            onPressed: isUrlAvailable
-                                ? () async {
-                                    NetworkHelper nh = new NetworkHelper();
-                                    if (!(await nh
-                                        .checkValidUrl(longUrl.text))) {
-                                      Fluttertoast.showToast(
-                                          msg: 'Invalid Long Url',
-                                          backgroundColor: Colors.redAccent);
-                                      return;
-                                    }
+                          child: isLoading
+                              ? CircularProgressIndicator(
+                                  valueColor: new AlwaysStoppedAnimation<Color>(
+                                      Colors.white),
+                                )
+                              : RaisedButton(
+                                  onPressed: isUrlAvailable && isLongUrlValid
+                                      ? () async {
+                                          setState(() {
+                                            isLoading = true;
+                                          });
+                                          var data = ShortenUrlRequestModel(
+                                                  userId:
+                                                      'e0f88d7b-de51-49fe-b537-f9f2df160024',
+                                                  email: user.email,
+                                                  longUrl: longUrl.text,
+                                                  shortUrl: shortUrl.text,
+                                                  noOfDays: 7,
+                                                  dateTime: DateTime.now())
+                                              .toJson();
+                                          log(data);
 
-                                    var data = ShortenUrlRequestModel(
-                                        userId: user.uid,
-                                        email: user.email,
-                                        longUrl: longUrl.text,
-                                        shortUrl: shortUrl.text,
-                                        noOfDays: 7,
-                                        dateTime: DateTime.now());
-                                    log(data.toJson());
-                                  }
-                                : null,
-                            //Title given on Button
-                            child: Text(
-                              "Shorten your Url",
-                              style: TextStyle(
-                                // color: Colors.purple[900],
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            textColor: Colors.purple[900],
-                            // disabledColor: Colors.blueGrey[100],
-                            disabledTextColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              side: BorderSide(color: Colors.indigo[900]),
-                            ),
-                          ),
+                                          var res = await nh.postHTTP(
+                                            'http://soaurl.ml/api/create',
+                                            data,
+                                          );
+                                          log(res?.data?.toString() ??
+                                              'NO DATA');
+                                          // await Future.delayed(
+                                          //     Duration(seconds: 5));
+                                          if (res?.data == 'success' ?? false) {
+                                            setState(() {
+                                              isLoading = false;
+                                            });
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    'Link Shortend Successfully',
+                                                backgroundColor:
+                                                    Colors.green[700]);
+                                            Navigator.pop(context);
+                                          } else {
+                                            setState(() {
+                                              isLoading = false;
+                                            });
+                                            Fluttertoast.showToast(
+                                                msg:
+                                                    'Something Went Wrong!\n${res?.data}',
+                                                backgroundColor:
+                                                    Colors.red[700]);
+                                          }
+                                        }
+                                      : null,
+                                  //Title given on Button
+                                  child: Text(
+                                    "Shorten your Url",
+                                    style: TextStyle(
+                                      // color: Colors.purple[900],
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  textColor: Colors.purple[900],
+                                  // disabledColor: Colors.blueGrey[100],
+                                  disabledTextColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    side: BorderSide(color: Colors.indigo[900]),
+                                  ),
+                                ),
                         ),
                         SizedBox(height: 20),
-                        //         Padding(
-                        //           padding: const EdgeInsets.all(8.0),
-                        //           //Button for generating QR code
-                        //           child: RaisedButton(
-                        //             onPressed: () async {
-                        //               log('Generate Pressed');
-                        //               //a little validation for the textfield
-                        //               // log(qrdataFeed.text);
-                        //               if (longUrl.text.isEmpty) {
-                        //                 setState(() {
-                        //                   // log(qrData);
-                        //                   qrData = "";
-                        //                 });
-                        //               } else {
-                        //                 setState(() {
-                        //                   // log(qrdataFeed.text);
-                        //                   qrData = longUrl.text;
-                        //                 });
-                        //                 QrDetails qrDetails = QrDetails(
-                        //                     text: qrData,
-                        //                     time: DateTime.now(),
-                        //                     scanned: false);
-                        //                 SharedPreferences sp =
-                        //                     await SharedPreferences.getInstance();
-                        //                 List<String> _history =
-                        //                     sp.getStringList('history') ?? [];
-                        //                 if (_history.length > 24) _history.removeLast();
-                        //                 _history.add(qrDetails.toJson());
-                        //                 sp.setStringList('history', _history);
-                        //                 log('added to history');
-                        //               }
-                        //               log(qrData);
-                        //             },
-                        //             //Title given on Button
-                        //             child: Text(
-                        //               "Generate QR Code",
-                        //               style: TextStyle(
-                        //                 color: Colors.purple[900],
-                        //               ),
-                        //             ),
-                        //             shape: RoundedRectangleBorder(
-                        //               borderRadius: BorderRadius.circular(20),
-                        //               side: BorderSide(color: Colors.indigo[900]),
-                        //             ),
-                        //           ),
-                        //         ),
-                        //         SizedBox(height: 20),
-                        //         Row(
-                        //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //           crossAxisAlignment: CrossAxisAlignment.center,
-                        //           children: [
-                        //             Container(
-                        //               key: UniqueKey(),
-                        //               child: RepaintBoundary(
-                        //                 key: previewContainer,
-                        //                 child: Container(
-                        //                   padding: EdgeInsets.all(10),
-                        //                   decoration: BoxDecoration(
-                        //                       borderRadius: BorderRadius.circular(17),
-                        //                       color: Colors.white),
-                        //                   child: PrettyQr(
-                        //                     data: qrData,
-                        //                     size: 200,
-                        //                     roundEdges: roundedQr,
-                        //                     typeNumber: 3,
-                        //                     errorCorrectLevel: QrErrorCorrectLevel.M,
-                        //                     image: qrWithLogo
-                        //                         ? AssetImage(
-                        //                             'assets/images/logo-no-bg.png',
-                        //                           )
-                        //                         : null,
-                        //                   ),
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //             IconButton(
-                        //               icon: Icon(Icons.share_rounded,
-                        //                   size: 30, color: Colors.white),
-                        //               tooltip: 'Share QR',
-                        //               onPressed: () {
-                        //                 ShareFilesAndScreenshotWidgets()
-                        //                     .shareScreenshot(previewContainer, 800,
-                        //                         "QR", "qr.png", "image/png",
-                        //                         text: "");
-                        //               },
-                        //             ),
-                        //           ],
-                        //         ),
-                        //         SizedBox(
-                        //           height: 20,
-                        //         ),
-                        //         //Button to Save scaned QR code
-                        //         if (qrData != null)
-                        //           SaveItButton(
-                        //             qrData: qrData,
-                        //             scanned: false,
-                        //           ),
                       ],
                     ),
                   ),

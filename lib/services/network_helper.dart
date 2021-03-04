@@ -1,15 +1,17 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+// import 'dart:convert';
+// import 'package:http/http.dart' as http;
 
 class NetworkHelper {
   final String url;
-  static final String baseUrl = "https://soaurl.ml/api/";
+  // static final String baseUrl = "http://www.soaurl.ml/api/";
 
   NetworkHelper({this.url});
 
   // static final String url = 'BASE_URL';
   static BaseOptions opts = BaseOptions(
-    baseUrl: baseUrl,
+    // baseUrl: baseUrl,
     responseType: ResponseType.json,
     connectTimeout: 30000,
     receiveTimeout: 30000,
@@ -43,6 +45,7 @@ class NetworkHelper {
   Future<bool> checkValidUrl(String url) async {
     try {
       if (!url.contains('http')) url = 'https://' + url;
+      log(url);
       Response response = await Dio().get(url);
       log('Get Response -> Status Code:' + response.statusCode.toString());
       return response.statusCode == 200;
@@ -97,12 +100,13 @@ class NetworkHelper {
     }
   }
 
-  // Future<http.Response> getApiData(String apiUrl) async {
-  //   return await http.get(baseUrl + apiUrl);
-  // }
+  // Future<Map> post(String url, dynamic data) async {
+  //   http.Response response = await http
+  //       .post(url, body: data, headers: {'Content-Type': 'application/json'});
 
-  // Future<http.Response> postApiData(
-  //     String apiUrl, Map<String, dynamic> parameters) async {
-  //   return await http.post(baseUrl + apiUrl, body: parameters);
+  //   if (response.statusCode == 200)
+  //     return json.decode(response.body);
+  //   else
+  //     return null;
   // }
 }

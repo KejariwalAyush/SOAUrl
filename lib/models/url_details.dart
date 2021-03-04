@@ -7,26 +7,24 @@ import 'dart:convert';
 
 class UrlDetails {
   UrlDetails({
-    @required this.uid,
-    @required this.shortUrl,
+    @required this.dateTime,
+    @required this.email,
     @required this.longUrl,
-    @required this.clicks,
-    @required this.dayWise,
-    @required this.isUrlActive,
-    @required this.expireDate,
-    @required this.creationDate,
-    this.showAd = true,
+    @required this.noOfDays,
+    @required this.shortUrl,
+    @required this.stats,
+    @required this.uid,
+    @required this.userId,
   });
 
-  final String uid;
-  final String shortUrl;
+  final String dateTime;
+  final String email;
   final String longUrl;
-  final Clicks clicks;
-  final List<DayWise> dayWise;
-  final bool isUrlActive;
-  final bool showAd;
-  final DateTime expireDate;
-  final DateTime creationDate;
+  final int noOfDays;
+  final String shortUrl;
+  final List<Stat> stats;
+  final String uid;
+  final String userId;
 
   factory UrlDetails.fromJson(String str) =>
       UrlDetails.fromMap(json.decode(str));
@@ -34,75 +32,54 @@ class UrlDetails {
   String toJson() => json.encode(toMap());
 
   factory UrlDetails.fromMap(Map<String, dynamic> json) => UrlDetails(
-        uid: json["uid"],
-        shortUrl: json["shortUrl"],
+        dateTime: json["dateTime"],
+        email: json["email"],
         longUrl: json["longUrl"],
-        clicks: Clicks.fromMap(json["clicks"]),
-        dayWise:
-            List<DayWise>.from(json["dayWise"].map((x) => DayWise.fromMap(x))),
-        isUrlActive: json["isUrlActive"],
-        expireDate: DateTime.parse(json["expireDate"]),
-        creationDate: DateTime.parse(json["creationDate"]),
-        showAd: json['showAd'],
+        noOfDays: json["noOfDays"],
+        shortUrl: json["shortUrl"],
+        stats:
+            List<Stat>.from(json["stats"]?.map((x) => Stat.fromMap(x)) ?? []) ??
+                [],
+        uid: json["uid"],
+        userId: json["userId"],
       );
 
   Map<String, dynamic> toMap() => {
-        "uid": uid,
-        "shortUrl": shortUrl,
+        "dateTime": dateTime,
+        "email": email,
         "longUrl": longUrl,
-        "clicks": clicks.toMap(),
-        "dayWise": List<dynamic>.from(dayWise.map((x) => x.toMap())),
-        "isUrlActive": isUrlActive,
-        "expireDate": expireDate.toIso8601String(),
-        "creationDate": creationDate.toIso8601String(),
-        "showAd": showAd,
+        "noOfDays": noOfDays,
+        "shortUrl": shortUrl,
+        "stats": List<dynamic>.from(stats?.map((x) => x.toMap()) ?? []) ?? [],
+        "uid": uid,
+        "userId": userId,
       };
 }
 
-class Clicks {
-  Clicks({
-    @required this.phone,
-    @required this.desktop,
+class Stat {
+  Stat({
+    @required this.deviceType,
+    @required this.ip,
+    @required this.time,
   });
 
-  final int phone;
-  final int desktop;
+  final String deviceType;
+  final String ip;
+  final String time;
 
-  factory Clicks.fromJson(String str) => Clicks.fromMap(json.decode(str));
+  factory Stat.fromJson(String str) => Stat.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Clicks.fromMap(Map<String, dynamic> json) => Clicks(
-        phone: json["phone"],
-        desktop: json["desktop"],
+  factory Stat.fromMap(Map<String, dynamic> json) => Stat(
+        deviceType: json["device_type"],
+        ip: json["ip"],
+        time: json["time"],
       );
 
   Map<String, dynamic> toMap() => {
-        "phone": phone,
-        "desktop": desktop,
-      };
-}
-
-class DayWise {
-  DayWise({
-    @required this.date,
-    @required this.clicks,
-  });
-
-  final DateTime date;
-  final Clicks clicks;
-
-  factory DayWise.fromJson(String str) => DayWise.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory DayWise.fromMap(Map<String, dynamic> json) => DayWise(
-        date: DateTime.parse(json["date"]),
-        clicks: Clicks.fromMap(json["clicks"]),
-      );
-
-  Map<String, dynamic> toMap() => {
-        "date": date.toIso8601String(),
-        "clicks": clicks.toMap(),
+        "device_type": deviceType,
+        "ip": ip,
+        "time": time,
       };
 }

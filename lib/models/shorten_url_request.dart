@@ -49,7 +49,7 @@ class ShortenUrlRequestModel {
         "longUrl": longUrl,
         "shortUrl": shortUrl,
         "noOfDays": noOfDays,
-        "dateTime": dateTime.toIso8601String(),
+        "dateTime": dateTime.toUtc().toIso8601String(),
         // "uid": uid,
         // "isUrlActive": isUrlActive,
       };
