@@ -1,15 +1,12 @@
-import 'dart:convert';
-import 'dart:math';
-
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soaurl/home/Profile.dart';
+import 'package:soaurl/home/components/active_urls_container.dart';
 import 'package:soaurl/home/components/short_url_button.dart';
 import 'package:soaurl/qr/generate_qr.dart';
 import 'package:soaurl/qr/scan_qr.dart';
-import 'package:soaurl/services/network_helper.dart';
 import 'package:soaurl/url/short_url_page.dart';
 import 'package:soaurl/widgets/background_widget.dart';
 import 'package:soaurl/widgets/menu_widget.dart';
@@ -171,38 +168,10 @@ class MainScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      StreamBuilder(
-                        stream: NetworkHelper()
-                            .postHTTP(
-                                'http://soaurl.ml/api/get',
-                                jsonEncode({
-                                  'userId':
-                                      'e0f88d7b-de51-49fe-b537-f9f2df160024'
-                                }))
-                            .then((value) {
-                          log(value.data);
-                        }).asStream(),
-                        builder:
-                            (BuildContext context, AsyncSnapshot snapshot) {
-                          return Container(
-                              // child: child,
-                              );
-                        },
+                      SizedBox(
+                        height: 10,
                       ),
-                      Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Your Active Short Urls',
-                          style: TextStyle(
-                            fontSize: 25,
-                            color: const Color(0xfff2eaff),
-                            fontWeight: FontWeight.w700,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+                      ActiveUrlsContainer(size: size),
                     ],
                   ),
                 ),

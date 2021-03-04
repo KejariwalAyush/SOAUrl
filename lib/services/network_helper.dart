@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
-// import 'dart:convert';
-// import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class NetworkHelper {
   final String url;
@@ -100,13 +100,14 @@ class NetworkHelper {
     }
   }
 
-  // Future<Map> post(String url, dynamic data) async {
-  //   http.Response response = await http
-  //       .post(url, body: data, headers: {'Content-Type': 'application/json'});
+  Future post(String url, dynamic data) async {
+    http.Response response = await http
+        .post(url, body: data, headers: {'Content-Type': 'application/json'});
+    log('HTTP Post -> Status Code:' + response.statusCode.toString());
 
-  //   if (response.statusCode == 200)
-  //     return json.decode(response.body);
-  //   else
-  //     return null;
-  // }
+    if (response.statusCode == 200)
+      return (response.body);
+    else
+      return null;
+  }
 }

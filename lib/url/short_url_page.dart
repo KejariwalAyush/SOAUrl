@@ -29,7 +29,7 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
   bool isLoading = false;
   bool showCheckUrlButton = true;
   bool isUrlAvailable = false;
-  bool isLongUrlValid = false;
+  bool isLongUrlValid;
   NetworkHelper nh = new NetworkHelper();
 
   @override
@@ -105,30 +105,8 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                               isLongUrlValid = false;
                             });
                           },
-                          onEditingComplete: () async {
-                            if (await nh.checkValidUrl(longUrl.text))
-                              setState(() {
-                                isLongUrlValid = true;
-                                longUrl = TextEditingController(
-                                    text: (!longUrl.text.contains('http'))
-                                        ? ('https://' + longUrl.text)
-                                        : longUrl);
-                              });
-                            else
-                              setState(() {
-                                isLongUrlValid = false;
-                              });
-                          },
-                          onSubmitted: (value) async {
-                            if (await nh.checkValidUrl(longUrl.text))
-                              setState(() {
-                                isLongUrlValid = true;
-                              });
-                            else
-                              setState(() {
-                                isLongUrlValid = false;
-                              });
-                          },
+                          onEditingComplete: () async => await checkLongUrl(),
+                          onSubmitted: (value) async => await checkLongUrl(),
                           style: GoogleFonts.varela(color: Colors.white),
                           minFontSize: 14,
                           maxFontSize: 20,
@@ -144,18 +122,23 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                                 size: 30,
                                 color: Colors.white,
                               ),
-                              suffixIcon: Container(
-                                padding: EdgeInsets.all(8),
-                                child: isLongUrlValid
-                                    ? Image.asset(
-                                        'assets/images/correct.png',
-                                        fit: BoxFit.contain,
-                                        height: 20,
-                                      )
-                                    : Image.asset(
-                                        'assets/images/wrong.png',
-                                        fit: BoxFit.contain,
-                                        height: 20,
+                              suffixIcon: GestureDetector(
+                                onTap: () => checkLongUrl(),
+                                child: isLongUrlValid == null
+                                    ? SizedBox()
+                                    : Container(
+                                        padding: EdgeInsets.all(8),
+                                        child: isLongUrlValid
+                                            ? Image.asset(
+                                                'assets/images/correct.png',
+                                                fit: BoxFit.contain,
+                                                height: 20,
+                                              )
+                                            : Image.asset(
+                                                'assets/images/wrong.png',
+                                                fit: BoxFit.contain,
+                                                height: 20,
+                                              ),
                                       ),
                               ),
                               hintText: "Enter your long link here...",
@@ -355,5 +338,20 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
         ),
       ),
     );
+  }
+
+  Future checkLongUrl() async {
+    if (await nh.checkValidUrl(longUrl.text))
+      setState(() {
+        isLongUrlValid = true;
+        longUrl = TextEditingController(
+            text: (!longUrl.text.contains('http'))
+                ? ('https://' + longUrl.text)
+                : longUrl);
+      });
+    else
+      setState(() {
+        isLongUrlValid = false;
+      });
   }
 }

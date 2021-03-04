@@ -5,6 +5,27 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
+class UrlList {
+  UrlList({
+    @required this.urlDetails,
+  });
+
+  final List<UrlDetails> urlDetails;
+
+  factory UrlList.fromJson(String str) => UrlList.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
+
+  factory UrlList.fromMap(Map<String, dynamic> json) => UrlList(
+        urlDetails: List<UrlDetails>.from(
+            json["urlDetails"].map((x) => UrlDetails.fromMap(x))),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "urlDetails": List<dynamic>.from(urlDetails.map((x) => x.toMap())),
+      };
+}
+
 class UrlDetails {
   UrlDetails({
     @required this.dateTime,
@@ -17,7 +38,7 @@ class UrlDetails {
     @required this.userId,
   });
 
-  final String dateTime;
+  final DateTime dateTime;
   final String email;
   final String longUrl;
   final int noOfDays;
@@ -32,7 +53,7 @@ class UrlDetails {
   String toJson() => json.encode(toMap());
 
   factory UrlDetails.fromMap(Map<String, dynamic> json) => UrlDetails(
-        dateTime: json["dateTime"],
+        dateTime: DateTime.parse(json["dateTime"]),
         email: json["email"],
         longUrl: json["longUrl"],
         noOfDays: json["noOfDays"],
@@ -45,7 +66,7 @@ class UrlDetails {
       );
 
   Map<String, dynamic> toMap() => {
-        "dateTime": dateTime,
+        "dateTime": dateTime.toIso8601String(),
         "email": email,
         "longUrl": longUrl,
         "noOfDays": noOfDays,
@@ -65,7 +86,7 @@ class Stat {
 
   final String deviceType;
   final String ip;
-  final String time;
+  final DateTime time;
 
   factory Stat.fromJson(String str) => Stat.fromMap(json.decode(str));
 
@@ -74,12 +95,12 @@ class Stat {
   factory Stat.fromMap(Map<String, dynamic> json) => Stat(
         deviceType: json["device_type"],
         ip: json["ip"],
-        time: json["time"],
+        time: DateTime.parse(json["time"]),
       );
 
   Map<String, dynamic> toMap() => {
         "device_type": deviceType,
         "ip": ip,
-        "time": time,
+        "time": time.toIso8601String(),
       };
 }
