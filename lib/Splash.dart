@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:soaurl/constants.dart';
@@ -50,15 +50,15 @@ class _SplashState extends State<Splash> {
     }
   }
 
-  _getDatafromFirestore() async {
-    var x = await FirebaseFirestore.instance
-        .collection('resturants')
-        .doc(user.uid)
-        .get();
-    if (x.data() != null) {
-    } else
-      return;
-  }
+  // _getDatafromFirestore() async {
+  //   var x = await FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(user.uid)
+  //       .get();
+  //   if (x.data() != null) {
+  //   } else
+  //     return;
+  // }
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:soaurl/models/url_details.dart';
 import 'package:soaurl/services/network_helper.dart';
 
-class ActiveUrlsContainer extends StatefulWidget {
+class ActiveUrlsContainer extends StatelessWidget {
   const ActiveUrlsContainer({
     Key key,
     @required this.size,
@@ -14,38 +14,25 @@ class ActiveUrlsContainer extends StatefulWidget {
   final Size size;
 
   @override
-  _ActiveUrlsContainerState createState() => _ActiveUrlsContainerState();
-}
-
-class _ActiveUrlsContainerState extends State<ActiveUrlsContainer> {
-  bool showTitle = false;
-  @override
-  void initState() {
-    super.initState();
-    showTitle = false;
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
-      width: widget.size.width,
+      width: size.width,
       height: 200,
       child: Column(
         children: [
-          if (showTitle)
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Your Active Short Urls',
-                style: TextStyle(
-                  fontSize: 25,
-                  color: const Color(0xfff2eaff),
-                  fontWeight: FontWeight.w700,
-                ),
-                textAlign: TextAlign.center,
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Your Active Short Urls',
+              style: TextStyle(
+                fontSize: 25,
+                color: const Color(0xfff2eaff),
+                fontWeight: FontWeight.w700,
               ),
+              textAlign: TextAlign.center,
             ),
+          ),
           Expanded(
             child: Container(
               child: FutureBuilder<UrlList>(

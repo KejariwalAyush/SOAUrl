@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:auto_size_text_field/auto_size_text_field.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -11,7 +10,6 @@ import 'package:soaurl/constants.dart';
 import 'package:soaurl/models/shorten_url_request.dart';
 import 'package:soaurl/services/network_helper.dart';
 import 'package:soaurl/widgets/background_widget.dart';
-import 'package:http/http.dart' as http;
 
 class ShortUrlPage extends StatefulWidget {
   @override
@@ -105,6 +103,7 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                               isLongUrlValid = false;
                             });
                           },
+                          keyboardType: TextInputType.url,
                           onEditingComplete: () async => await checkLongUrl(),
                           onSubmitted: (value) async => await checkLongUrl(),
                           style: GoogleFonts.varela(color: Colors.white),

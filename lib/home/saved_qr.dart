@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soaurl/constants.dart';
 import 'package:soaurl/models/qr_details.dart';
 import 'package:soaurl/widgets/background_widget.dart';
