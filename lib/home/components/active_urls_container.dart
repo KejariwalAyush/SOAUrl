@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:soaurl/constants.dart';
+import 'package:soaurl/home/shorturl_detail_page.dart';
 import 'package:soaurl/models/url_details.dart';
 import 'package:soaurl/services/network_helper.dart';
 
@@ -37,25 +40,31 @@ class ActiveUrlsContainer extends StatelessWidget {
             child: Container(
               child: FutureBuilder<UrlList>(
                 future: NetworkHelper()
-                    .post(
-                        'http://soaurl.ml/api/get',
-                        jsonEncode(
-                            {'userId': 'e0f88d7b-de51-49fe-b537-f9f2df160024'}))
-                    .then((value) => UrlList.fromJson(
-                        '{"urlDetails":' + value.toString() + '}')),
+                    .post('http://soaurl.ml/api/get',
+                        jsonEncode({'userId': user.uid}))
+                    .then((value) {
+                  if (value.toString().contains("status") &&
+                      value.toString().contains("error"))
+                    return UrlList(urlDetails: null);
+                  return UrlList.fromJson(
+                      '{"urlDetails":' + value.toString() + '}');
+                }),
                 builder:
                     (BuildContext context, AsyncSnapshot<UrlList> snapshot) {
-                  if (!snapshot.hasData) return CircularProgressIndicator();
+                  if (!snapshot.hasData)
+                    return Center(child: CircularProgressIndicator());
 
-                  if ((snapshot?.data ?? '') == '')
-                    return Text(
-                      'No Shortened Urls Yet',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: const Color(0xfff2eaff),
-                        fontWeight: FontWeight.w700,
+                  if (snapshot.data.urlDetails == null)
+                    return Center(
+                      child: Text(
+                        'No Shortened Urls Yet',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: const Color(0xfff2eaff),
+                          fontWeight: FontWeight.w700,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     );
                   List<UrlDetails> _urls = snapshot.data.urlDetails;
                   return Scrollbar(
@@ -68,6 +77,12 @@ class ActiveUrlsContainer extends StatelessWidget {
                               EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                           alignment: Alignment.centerLeft,
                           child: ListTile(
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ShortUrlDetailsPage(
+                                      urlDetails: urlDetails),
+                                )),
                             title: Text(
                               'soaurl.ml/' + urlDetails.shortUrl,
                               style: TextStyle(

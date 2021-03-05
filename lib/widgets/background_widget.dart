@@ -16,6 +16,8 @@ class BackgroundWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.transparent,
+      width: size.width,
+      height: size.height,
       child: Stack(
         children: [
           Container(

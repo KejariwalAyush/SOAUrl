@@ -50,13 +50,13 @@ class _ProfilePageState extends State<ProfilePage> {
                           height: 30,
                         ),
                       ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.logout,
-                          size: 30,
-                        ),
-                        onPressed: () {},
-                      ),
+                      // IconButton(
+                      //   icon: Icon(
+                      //     Icons.logout,
+                      //     size: 30,
+                      //   ),
+                      //   onPressed: () {},
+                      // ),
                     ],
                   ),
                 ),

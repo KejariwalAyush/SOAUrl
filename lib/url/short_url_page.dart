@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soaurl/constants.dart';
+import 'package:soaurl/home/MainScreen.dart';
 import 'package:soaurl/models/shorten_url_request.dart';
 import 'package:soaurl/services/network_helper.dart';
 import 'package:soaurl/widgets/background_widget.dart';
@@ -269,8 +270,7 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                                             isLoading = true;
                                           });
                                           var data = ShortenUrlRequestModel(
-                                                  userId:
-                                                      'e0f88d7b-de51-49fe-b537-f9f2df160024',
+                                                  userId: user.uid,
                                                   email: user.email,
                                                   longUrl: longUrl.text,
                                                   shortUrl: shortUrl.text,
@@ -296,7 +296,12 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                                                     'Link Shortend Successfully',
                                                 backgroundColor:
                                                     Colors.green[700]);
-                                            Navigator.pop(context);
+                                            Navigator.pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        MainScreen()),
+                                                (route) => false);
                                           } else {
                                             setState(() {
                                               isLoading = false;
