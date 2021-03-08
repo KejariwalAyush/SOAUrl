@@ -16,9 +16,9 @@ class SaveItButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: FlatButton.icon(
-        padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(10.0),
+      child: TextButton.icon(
+        // padding: EdgeInsets.all(15),
 
         onPressed: () => showSaveDialog(context),
         icon: Icon(Icons.bookmark),
@@ -28,11 +28,16 @@ class SaveItButton extends StatelessWidget {
               TextStyle(color: Colors.purple[900], fontWeight: FontWeight.bold),
         ),
         //Button having rounded rectangle border
-        shape: RoundedRectangleBorder(
-          side: BorderSide(color: Colors.indigo[900]),
-          borderRadius: BorderRadius.circular(20.0),
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              side: BorderSide(color: Colors.indigo[900]),
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+          ),
+          foregroundColor:
+              MaterialStateProperty.all(Colors.white.withOpacity(0.7)),
         ),
-        color: Colors.white.withOpacity(0.7),
       ),
     );
   }
@@ -85,7 +90,7 @@ class SaveItButton extends StatelessWidget {
             ),
           ),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text('Save'),
               onPressed: () async {
                 if ((titleField?.text ?? '') == '') {
@@ -127,7 +132,7 @@ class SaveItButton extends StatelessWidget {
                 Navigator.of(context).pop();
               },
             ),
-            FlatButton(
+            TextButton(
               child: Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();

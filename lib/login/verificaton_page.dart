@@ -186,7 +186,7 @@ class _VerificationPageState extends State<VerificationPage> {
                                   BorderRadius.all(Radius.circular(30))),
                           height: 43.0,
                           width: MediaQuery.of(context).size.width * .8,
-                          child: FlatButton(
+                          child: TextButton(
                               onPressed: _submitPhoneNumber,
                               child: Text("Send Code",
                                   style: new TextStyle(

@@ -356,9 +356,9 @@ class _VerifyOTPState extends State<VerifyOTP> {
                       ),
                     ),
 
-                    FlatButton(
+                    TextButton(
                         onPressed: () => Navigator.pop(context),
-                        splashColor: Colors.pink[200],
+                        // splashColor: Colors.pink[200],
                         child: Text(
                           "RESEND CODE",
                           style: TextStyle(
@@ -387,7 +387,7 @@ class _VerifyOTPState extends State<VerifyOTP> {
                                           Radius.circular(30))),
                                   height: 45.0,
                                   width: MediaQuery.of(context).size.width * .8,
-                                  child: FlatButton(
+                                  child: TextButton(
                                       onPressed: () {
                                         setState(() {
                                           isLoading = true;
@@ -497,7 +497,7 @@ class _VerifyOTPState extends State<VerifyOTP> {
                                     BorderRadius.all(Radius.circular(30))),
                             height: 40,
                             width: 150,
-                            child: FlatButton(
+                            child: TextButton(
                                 onPressed: () {
                                   // reset();
                                   // CustomDialog();

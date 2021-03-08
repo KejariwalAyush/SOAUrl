@@ -99,8 +99,11 @@ class _LoginRegisterState extends State<LoginRegister>
                   children: [
                     DelayedAnimation(
                       delay: delayedAmount + 600,
-                      child: FlatButton(
-                        color: Colors.transparent,
+                      child: TextButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.transparent)),
+                        // color: Colors.transparent,
                         onPressed: () => SignInService.signInWithGoogle().then(
                             (value) => value == null
                                 ? null
@@ -144,7 +147,10 @@ class _LoginRegisterState extends State<LoginRegister>
                     ),
                     DelayedAnimation(
                       delay: delayedAmount + 900,
-                      child: FlatButton(
+                      child: TextButton(
+                        // style: ButtonStyle(
+                        //     backgroundColor: MaterialStateProperty.all<Color>(
+                        //         Colors.transparent)),
                         onPressed: () => SignInService.signInWithGoogle().then(
                             (value) => value == null
                                 ? null

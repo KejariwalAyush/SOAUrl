@@ -23,29 +23,29 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  animations: ^1.1.2
+  animations: ^2.0.0
   auto_size_text: ^2.1.0
   auto_size_text_field: ^0.1.7
   barcode_scan_fix: ^1.0.2
-  cloud_firestore: ^0.16.0
+  cloud_firestore: ^0.16.0+1
   cloud_firestore_web: ^0.3.0+2
   cupertino_icons: ^1.0.2
   dio: ^3.0.10
   firebase_analytics: ^7.0.1
-  firebase_auth: ^0.20.0+1
+  firebase_auth: ^0.20.1
   firebase_core: ^0.7.0
-  flutter_slider_drawer: ^1.2.1
+  flutter_slider_drawer: ^2.0.0
   flutter_svg: ^0.19.2+1
   fluttertoast: ^7.1.8
   google_fonts: ^1.1.2
   google_sign_in: ^4.5.9
   intl: ^0.16.1
-  path_provider: ^1.6.24
+  path_provider: ^1.6.27
   pretty_qr_code: ^1.0.1
   qr: ^1.3.0
   share_files_and_screenshot_widgets: ^1.0.3
   shared_preferences: ^0.5.12+4
-  url_launcher: ^5.7.10
+  url_launcher: ^6.0.2
   fl_chart: ^0.12.3
 
 dev_dependencies:

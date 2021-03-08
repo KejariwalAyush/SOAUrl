@@ -118,39 +118,46 @@ class _ScanQRState extends State<ScanQR> {
                         scanned: true,
                       ),
                     //Button to scan QR code
-                    FlatButton(
-                      padding: EdgeInsets.all(15),
-                      onPressed: () async {
-                        log('Open Scanner');
-                        String codeSanner = await BarcodeScanner.scan();
-                        //barcode scnner
-                        setState(() {
-                          qrCodeResult = codeSanner;
-                        });
-                        QrDetails qrDetails = QrDetails(
-                            text: codeSanner,
-                            time: DateTime.now(),
-                            scanned: true);
-                        SharedPreferences sp =
-                            await SharedPreferences.getInstance();
-                        List<String> _history =
-                            sp.getStringList('history') ?? [];
-                        if (_history.length > 24) _history.removeLast();
-                        _history.add(qrDetails.toJson());
-                        sp.setStringList('history', _history);
-                      },
-                      child: Text(
-                        "Open Scanner",
-                        style: TextStyle(
-                            color: Colors.purple[900],
-                            fontWeight: FontWeight.bold),
+                    Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: TextButton(
+                        onPressed: () async {
+                          log('Open Scanner');
+                          String codeSanner = await BarcodeScanner.scan();
+                          //barcode scnner
+                          setState(() {
+                            qrCodeResult = codeSanner;
+                          });
+                          QrDetails qrDetails = QrDetails(
+                              text: codeSanner,
+                              time: DateTime.now(),
+                              scanned: true);
+                          SharedPreferences sp =
+                              await SharedPreferences.getInstance();
+                          List<String> _history =
+                              sp.getStringList('history') ?? [];
+                          if (_history.length > 24) _history.removeLast();
+                          _history.add(qrDetails.toJson());
+                          sp.setStringList('history', _history);
+                        },
+                        child: Text(
+                          "Open Scanner",
+                          style: TextStyle(
+                              color: Colors.purple[900],
+                              fontWeight: FontWeight.bold),
+                        ),
+                        style: ButtonStyle(
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              side: BorderSide(color: Colors.indigo[900]),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                          ),
+                          backgroundColor: MaterialStateProperty.all(
+                              Colors.white.withOpacity(0.7)),
+                        ),
+                        //Button having rounded rectangle border
                       ),
-                      //Button having rounded rectangle border
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.indigo[900]),
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      color: Colors.white.withOpacity(0.7),
                     ),
                     SizedBox(height: 20),
                   ],

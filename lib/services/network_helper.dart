@@ -72,6 +72,7 @@ class NetworkHelper {
       log('Post Response -> Status:' + response.statusMessage);
       return response;
     } on DioError catch (e) {
+      // print(e);
       log(e.toString());
       return null;
     }
@@ -101,13 +102,20 @@ class NetworkHelper {
   }
 
   Future post(String url, dynamic data) async {
-    http.Response response = await http
-        .post(url, body: data, headers: {'Content-Type': 'application/json'});
-    log('HTTP Post -> Status Code:' + response.statusCode.toString());
+    try {
+      http.Response response = await http.post(url, body: data, headers: {
+        'Content-Type': 'application/json',
+        "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+      });
+      log('HTTP Post -> Status Code:' + response.statusCode.toString());
 
-    if (response.statusCode == 200)
-      return (response.body);
-    else
+      if (response.statusCode == 200)
+        return (response.body);
+      else
+        return null;
+    } on Exception catch (e) {
+      log(e.toString());
       return null;
+    }
   }
 }

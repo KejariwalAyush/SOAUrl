@@ -201,7 +201,7 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                                               Colors.white),
                                     )
                                   : showCheckUrlButton
-                                      ? FlatButton(
+                                      ? TextButton(
                                           onPressed: (shortUrl.text == '' ||
                                                   shortlink
                                                       .trim()
@@ -230,8 +230,16 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                                                     checkingUrl = false;
                                                   });
                                                 },
-                                          textColor: Colors.amber[400],
-                                          disabledTextColor: Colors.grey[400],
+                                          style: ButtonStyle(
+                                            overlayColor:
+                                                MaterialStateProperty.all(
+                                              Colors.amber[400],
+                                            ),
+                                            foregroundColor:
+                                                MaterialStateProperty.all(
+                                              Colors.grey[400],
+                                            ),
+                                          ),
                                           child: Text(
                                             'Check\nAvailablity',
                                             style: GoogleFonts.varela(
@@ -263,8 +271,9 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                                   valueColor: new AlwaysStoppedAnimation<Color>(
                                       Colors.white),
                                 )
-                              : RaisedButton(
-                                  onPressed: isUrlAvailable && isLongUrlValid
+                              : ElevatedButton(
+                                  onPressed: (isUrlAvailable ?? false) &&
+                                          (isLongUrlValid ?? false)
                                       ? () async {
                                           setState(() {
                                             isLoading = true;
@@ -322,13 +331,18 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  textColor: Colors.purple[900],
-                                  // disabledColor: Colors.blueGrey[100],
-                                  disabledTextColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    side: BorderSide(color: Colors.indigo[900]),
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        side: BorderSide(
+                                            color: Colors.indigo[900]),
+                                      ),
+                                    ),
                                   ),
+                                  // textColor: Colors.purple[900],
+                                  // // disabledColor: Colors.blueGrey[100],
+                                  // disabledTextColor: Colors.white,
                                 ),
                         ),
                         SizedBox(height: 20),

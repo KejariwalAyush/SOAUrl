@@ -118,12 +118,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: size.width,
                           padding:
                               EdgeInsets.symmetric(horizontal: 20, vertical: 3),
-                          child: RaisedButton.icon(
-                              color: Colors.white.withOpacity(0.6),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                side: BorderSide(color: Colors.indigo[900]),
-                              ),
+                          child: ElevatedButton.icon(
+                              // color: Colors.white.withOpacity(0.6),
+                              // shape: RoundedRectangleBorder(
+                              //   borderRadius: BorderRadius.circular(20),
+                              //   side: BorderSide(color: Colors.indigo[900]),
+                              // ),
                               onPressed: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -139,12 +139,16 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: size.width,
                           padding:
                               EdgeInsets.symmetric(horizontal: 20, vertical: 3),
-                          child: RaisedButton.icon(
-                              color: Colors.white.withOpacity(0.6),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                side: BorderSide(color: Colors.indigo[900]),
+                          child: ElevatedButton.icon(
+                              style: ButtonStyle(
+                                overlayColor: MaterialStateProperty.all<Color>(
+                                    Colors.white.withOpacity(0.6)),
                               ),
+                              // color: Colors.white.withOpacity(0.6),
+                              // shape: RoundedRectangleBorder(
+                              //   borderRadius: BorderRadius.circular(20),
+                              //   side: BorderSide(color: Colors.indigo[900]),
+                              // ),
                               onPressed: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(

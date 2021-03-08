@@ -112,7 +112,7 @@ class _GenerateQRState extends State<GenerateQR> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           //Button for generating QR code
-                          child: RaisedButton(
+                          child: ElevatedButton(
                             onPressed: () async {
                               log('Generate Pressed');
                               //a little validation for the textfield
@@ -149,9 +149,13 @@ class _GenerateQRState extends State<GenerateQR> {
                                 color: Colors.purple[900],
                               ),
                             ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              side: BorderSide(color: Colors.indigo[900]),
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  side: BorderSide(color: Colors.indigo[900]),
+                                ),
+                              ),
                             ),
                           ),
                         ),
