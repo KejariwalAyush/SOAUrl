@@ -49,7 +49,7 @@ class _ShortUrlDetailsPageState extends State<ShortUrlDetailsPage> {
                       GestureDetector(
                         onTap: () => Navigator.pop(context),
                         child: SvgPicture.asset(
-                          'assets/images/back_arrow.svg',
+                          'assets/icons/back_arrow.svg',
                           allowDrawingOutsideViewBox: true,
                           fit: BoxFit.fill,
                           height: 30,
@@ -86,7 +86,7 @@ class _ShortUrlDetailsPageState extends State<ShortUrlDetailsPage> {
                             errorCorrectLevel: QrErrorCorrectLevel.M,
                             // image: qrWithLogo
                             //     ? AssetImage(
-                            //         'assets/images/logo-no-bg.png',
+                            //         'assets/icons/logo-no-bg.png',
                             //       )
                             //     : null,
                           ),
@@ -140,7 +140,7 @@ class _ShortUrlDetailsPageState extends State<ShortUrlDetailsPage> {
                           child: ListTile(
                             contentPadding: EdgeInsets.all(8),
                             leading: SvgPicture.asset(
-                              'assets/images/url.svg',
+                              'assets/icons/url.svg',
                               width: 30,
                             ),
                             title: AutoSizeText(

@@ -37,7 +37,7 @@ class _SavedState extends State<Saved> {
                 child: GestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: SvgPicture.asset(
-                    'assets/images/back_arrow.svg',
+                    'assets/icons/back_arrow.svg',
                     allowDrawingOutsideViewBox: true,
                     fit: BoxFit.fill,
                     height: 30,
@@ -49,7 +49,7 @@ class _SavedState extends State<Saved> {
                 padding: EdgeInsets.all(20),
                 // width: size.width,
                 child: SvgPicture.asset(
-                  'assets/images/saved.svg',
+                  'assets/icons/saved.svg',
                   fit: BoxFit.fill,
                   height: 100,
                 ),
@@ -219,7 +219,7 @@ class SavedListTile extends StatelessWidget {
           child: ListTile(
             contentPadding: EdgeInsets.all(10),
             leading: SvgPicture.asset(
-              'assets/images/${qrDetails.scanned ? 'qr_phone.svg' : 'qr_large.svg'}',
+              'assets/icons/${qrDetails.scanned ? 'qr_phone.svg' : 'qr_large.svg'}',
               color: Colors.purple.shade900,
               height: 50,
               fit: BoxFit.fill,
