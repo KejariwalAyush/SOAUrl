@@ -38,7 +38,7 @@ class BackgroundWidget extends StatelessWidget {
                   top: -80,
                   child: Container(
                     child: SvgPicture.asset(
-                      'assets/images/link_large.svg',
+                      'assets/icons/link_large.svg',
                       color: Colors.black.withOpacity(0.1),
                     ),
                   ),
@@ -48,7 +48,7 @@ class BackgroundWidget extends StatelessWidget {
                   bottom: -50,
                   child: Container(
                     child: SvgPicture.asset(
-                      'assets/images/qr_large.svg',
+                      'assets/icons/qr_large.svg',
                       color: Colors.white.withOpacity(0.08),
                     ),
                   ),

@@ -99,7 +99,7 @@ class _VerifyOTPState extends State<VerifyOTP> {
           children: [
             Container(
                 child: SvgPicture.asset(
-              'assets/images/logo.svg',
+              'assets/icons/logo.svg',
               width: MediaQuery.of(context).size.width * 0.5,
             )),
             Container(

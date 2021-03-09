@@ -38,7 +38,7 @@ class MenuWidget extends StatelessWidget {
             RotatedBox(
               quarterTurns: 1,
               child: SvgPicture.asset(
-                'assets/images/menu.svg',
+                'assets/icons/menu.svg',
                 allowDrawingOutsideViewBox: true,
                 fit: BoxFit.fill,
                 color: Colors.white,

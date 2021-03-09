@@ -31,7 +31,7 @@ class History extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: SvgPicture.asset(
-                    'assets/images/back_arrow.svg',
+                    'assets/icons/back_arrow.svg',
                     allowDrawingOutsideViewBox: true,
                     fit: BoxFit.fill,
                     height: 30,
@@ -43,7 +43,7 @@ class History extends StatelessWidget {
                 padding: EdgeInsets.all(20),
                 // width: size.width,
                 child: SvgPicture.asset(
-                  'assets/images/history.svg',
+                  'assets/icons/history.svg',
                   fit: BoxFit.fill,
                   height: 100,
                 ),
@@ -132,7 +132,7 @@ class HistoryListTile extends StatelessWidget {
             child: ListTile(
               contentPadding: EdgeInsets.all(10),
               leading: SvgPicture.asset(
-                'assets/images/${qrDetails.scanned ? 'qr_phone.svg' : 'qr_large.svg'}',
+                'assets/icons/${qrDetails.scanned ? 'qr_phone.svg' : 'qr_large.svg'}',
                 color: Colors.purple.shade900,
                 height: 50,
                 fit: BoxFit.fill,
@@ -172,7 +172,7 @@ class HistoryListTile extends StatelessWidget {
                   .showSaveDialog(context);
             },
             child: SvgPicture.asset(
-              'assets/images/bookmark.svg',
+              'assets/icons/bookmark.svg',
               height: 50,
               color: Colors.deepPurple[900],
             ),

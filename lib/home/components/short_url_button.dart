@@ -57,7 +57,7 @@ class ShortUrlButton extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: SvgPicture.asset(
-                'assets/images/url.svg',
+                'assets/icons/url.svg',
                 color: Colors.white,
               ),
             ),

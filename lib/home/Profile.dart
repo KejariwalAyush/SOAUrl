@@ -44,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       GestureDetector(
                         onTap: () => Navigator.pop(context),
                         child: SvgPicture.asset(
-                          'assets/images/back_arrow.svg',
+                          'assets/icons/back_arrow.svg',
                           allowDrawingOutsideViewBox: true,
                           fit: BoxFit.fill,
                           height: 30,
@@ -64,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   alignment: Alignment.centerLeft,
                   child: SvgPicture.asset(
-                    'assets/images/profile.svg',
+                    'assets/icons/profile.svg',
                     width: size.width * 0.4,
                   ),
                 ),
@@ -269,7 +269,7 @@ class UserExtraDetails extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: SvgPicture.asset(
-                    'assets/images/url.svg',
+                    'assets/icons/url.svg',
                     color: Colors.black,
                     height: 50,
                     width: 50,
@@ -314,7 +314,7 @@ class UserExtraDetails extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: SvgPicture.asset(
-                    'assets/images/qr_phone.svg',
+                    'assets/icons/qr_phone.svg',
                     color: Colors.black,
                     height: 50,
                     width: 50,

@@ -37,7 +37,7 @@ class _ScanQRState extends State<ScanQR> {
                 child: GestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: SvgPicture.asset(
-                    'assets/images/back_arrow.svg',
+                    'assets/icons/back_arrow.svg',
                     allowDrawingOutsideViewBox: true,
                     fit: BoxFit.fill,
                     height: 30,
@@ -49,7 +49,7 @@ class _ScanQRState extends State<ScanQR> {
                 padding: EdgeInsets.all(20),
                 // width: size.width,
                 child: SvgPicture.asset(
-                  'assets/images/qr_phone.svg',
+                  'assets/icons/qr_phone.svg',
                   allowDrawingOutsideViewBox: true,
                   fit: BoxFit.fill,
                   height: 100,

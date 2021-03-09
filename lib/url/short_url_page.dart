@@ -49,7 +49,7 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                   child: GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: SvgPicture.asset(
-                      'assets/images/back_arrow.svg',
+                      'assets/icons/back_arrow.svg',
                       allowDrawingOutsideViewBox: true,
                       fit: BoxFit.fill,
                       height: 30,
@@ -61,7 +61,7 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                   padding: EdgeInsets.all(20),
                   // width: size.width,
                   child: SvgPicture.asset(
-                    'assets/images/url.svg',
+                    'assets/icons/url.svg',
                     fit: BoxFit.fill,
                     height: 100,
                   ),
@@ -130,12 +130,12 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                                         padding: EdgeInsets.all(8),
                                         child: isLongUrlValid
                                             ? Image.asset(
-                                                'assets/images/correct.png',
+                                                'assets/icons/correct.png',
                                                 fit: BoxFit.contain,
                                                 height: 20,
                                               )
                                             : Image.asset(
-                                                'assets/images/wrong.png',
+                                                'assets/icons/wrong.png',
                                                 fit: BoxFit.contain,
                                                 height: 20,
                                               ),
@@ -250,12 +250,12 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                                         )
                                       : isUrlAvailable
                                           ? Image.asset(
-                                              'assets/images/correct.png',
+                                              'assets/icons/correct.png',
                                               fit: BoxFit.contain,
                                               height: 30,
                                             )
                                           : Image.asset(
-                                              'assets/images/wrong.png',
+                                              'assets/icons/wrong.png',
                                               fit: BoxFit.contain,
                                               height: 30,
                                             ),

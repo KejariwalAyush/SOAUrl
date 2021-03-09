@@ -92,7 +92,7 @@ class ActiveUrlsContainer extends StatelessWidget {
                               ),
                             ),
                             leading: SvgPicture.asset(
-                              'assets/images/url.svg',
+                              'assets/icons/url.svg',
                               height: 30,
                               fit: BoxFit.contain,
                               color: Colors.white,

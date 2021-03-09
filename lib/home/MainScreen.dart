@@ -68,7 +68,7 @@ class MainScreen extends StatelessWidget {
                             OpenContainer(
                               closedBuilder: (context, action) =>
                                   SvgPicture.asset(
-                                'assets/images/profile.svg',
+                                'assets/icons/profile.svg',
                                 allowDrawingOutsideViewBox: true,
                                 fit: BoxFit.fill,
                                 height: 30,
@@ -88,7 +88,7 @@ class MainScreen extends StatelessWidget {
                               child: RotatedBox(
                                 quarterTurns: 2,
                                 child: SvgPicture.asset(
-                                  'assets/images/menu.svg',
+                                  'assets/icons/menu.svg',
                                   allowDrawingOutsideViewBox: true,
                                   fit: BoxFit.fill,
                                   height: 30,
@@ -103,7 +103,7 @@ class MainScreen extends StatelessWidget {
                           Container(
                               alignment: Alignment.centerLeft,
                               child: SvgPicture.asset(
-                                'assets/images/logo.svg',
+                                'assets/icons/logo.svg',
                                 width: size.width * 0.5,
                               )),
                           Container(

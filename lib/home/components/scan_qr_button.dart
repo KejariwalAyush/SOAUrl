@@ -27,7 +27,7 @@ class ScanQrButton extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: SvgPicture.asset(
-                'assets/images/qr_phone.svg',
+                'assets/icons/qr_phone.svg',
                 color: Colors.black,
                 height: 100,
                 width: 100,

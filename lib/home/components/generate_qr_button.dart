@@ -27,7 +27,7 @@ class GenerateQrButton extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: SvgPicture.asset(
-                'assets/images/qr_large.svg',
+                'assets/icons/qr_large.svg',
                 color: Colors.black,
                 height: 100,
                 width: 100,

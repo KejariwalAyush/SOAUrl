@@ -51,7 +51,7 @@ class _VerificationPageState extends State<VerificationPage> {
           children: [
             Container(
                 child: SvgPicture.asset(
-              'assets/images/logo.svg',
+              'assets/icons/logo.svg',
               width: size.width * 0.5,
             )),
             Container(
