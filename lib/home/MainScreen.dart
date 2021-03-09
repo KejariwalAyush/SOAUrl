@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -140,34 +141,35 @@ class MainScreen extends StatelessWidget {
                         closedColor: Colors.transparent,
                         openColor: Colors.transparent,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            OpenContainer(
-                              closedBuilder: (context, action) =>
-                                  ScanQrButton(size: size),
-                              openBuilder: (context, action) => ScanQR(),
-                              closedElevation: 0,
-                              openElevation: 0,
-                              closedColor: Colors.transparent,
-                              openColor: Colors.transparent,
-                            ),
-                            OpenContainer(
-                              closedBuilder: (context, action) =>
-                                  GenerateQrButton(size: size),
-                              openBuilder: (context, action) => GenerateQR(),
-                              closedElevation: 0,
-                              openElevation: 0,
-                              closedColor: Colors.transparent,
-                              openColor: Colors.transparent,
-                            ),
-                          ],
+                      if (!kIsWeb)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              OpenContainer(
+                                closedBuilder: (context, action) =>
+                                    ScanQrButton(size: size),
+                                openBuilder: (context, action) => ScanQR(),
+                                closedElevation: 0,
+                                openElevation: 0,
+                                closedColor: Colors.transparent,
+                                openColor: Colors.transparent,
+                              ),
+                              OpenContainer(
+                                closedBuilder: (context, action) =>
+                                    GenerateQrButton(size: size),
+                                openBuilder: (context, action) => GenerateQR(),
+                                closedElevation: 0,
+                                openElevation: 0,
+                                closedColor: Colors.transparent,
+                                openColor: Colors.transparent,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
                       SizedBox(
                         height: 10,
                       ),
