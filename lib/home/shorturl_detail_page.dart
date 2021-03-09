@@ -1,6 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:qr/qr.dart';
@@ -95,66 +98,88 @@ class _ShortUrlDetailsPageState extends State<ShortUrlDetailsPage> {
                           ),
                         ),
                       ),
-                      IconButton(
-                        icon: Icon(Icons.share_rounded,
-                            size: 30, color: Colors.white),
-                        tooltip: 'Share QR',
-                        onPressed: () {
-                          ShareFilesAndScreenshotWidgets().shareScreenshot(
-                              previewContainer,
-                              800,
-                              "QR",
-                              "qr.png",
-                              "image/png",
-                              text: 'http://soaurl.ml/' + _urlDetails.shortUrl);
-                        },
-                      ),
+                      if (!kIsWeb)
+                        IconButton(
+                          icon: Icon(Icons.share_rounded,
+                              size: 30, color: Colors.white),
+                          tooltip: 'Share QR',
+                          onPressed: () {
+                            ShareFilesAndScreenshotWidgets().shareScreenshot(
+                                previewContainer,
+                                800,
+                                "QR",
+                                "qr.png",
+                                "image/png",
+                                text:
+                                    'http://soaurl.ml/' + _urlDetails.shortUrl);
+                          },
+                        ),
                     ],
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    // width: size.width,
-                    child: AutoSizeText(
-                      'soaurl.ml/' + _urlDetails.shortUrl,
-                      maxFontSize: 50,
-                      minFontSize: 35,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        // fontSize: 45,
-                        color: const Color(0xfff2eaff),
-                        fontWeight: FontWeight.w700,
-                        shadows: [
-                          Shadow(
-                            color: const Color(0xa1363636),
-                            offset: Offset(0, 3),
-                            blurRadius: 6,
-                          )
-                        ],
+                  GestureDetector(
+                    onDoubleTap: () {
+                      Clipboard.setData(ClipboardData(
+                          text: 'soaurl.ml/' + _urlDetails.shortUrl));
+                      Fluttertoast.showToast(
+                          msg: 'Copied to Clipboard!',
+                          backgroundColor: Colors.transparent);
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                      // width: size.width,
+                      child: AutoSizeText(
+                        'soaurl.ml/' + _urlDetails.shortUrl,
+                        maxFontSize: 50,
+                        minFontSize: 35,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          // fontSize: 45,
+                          color: const Color(0xfff2eaff),
+                          fontWeight: FontWeight.w700,
+                          shadows: [
+                            Shadow(
+                              color: const Color(0xa1363636),
+                              offset: Offset(0, 3),
+                              blurRadius: 6,
+                            )
+                          ],
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: ListTile(
-                      contentPadding: EdgeInsets.all(8),
-                      leading: SvgPicture.asset(
-                        'assets/icons/url.svg',
-                        width: 30,
-                      ),
-                      title: AutoSizeText(
-                        'Long Url',
-                        style: TextStyle(
-                          color: const Color(0xfff2eaff),
-                          fontWeight: FontWeight.w500,
+                  GestureDetector(
+                    onDoubleTap: () {
+                      Clipboard.setData(
+                          ClipboardData(text: _urlDetails.longUrl));
+
+                      Fluttertoast.showToast(
+                          msg: 'Copied to Clipboard!',
+                          backgroundColor: Colors.transparent);
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: ListTile(
+                        contentPadding: EdgeInsets.all(8),
+                        leading: SvgPicture.asset(
+                          'assets/icons/url.svg',
+                          width: 30,
                         ),
-                      ),
-                      subtitle: AutoSizeText(
-                        _urlDetails.longUrl,
-                        style: TextStyle(
-                          color: const Color(0xfff2eaff),
-                          fontWeight: FontWeight.w800,
+                        title: AutoSizeText(
+                          'Long Url',
+                          style: TextStyle(
+                            color: const Color(0xfff2eaff),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        subtitle: AutoSizeText(
+                          _urlDetails.longUrl,
+                          style: TextStyle(
+                            color: const Color(0xfff2eaff),
+                            fontWeight: FontWeight.w800,
+                          ),
                         ),
                       ),
                     ),
@@ -225,38 +250,79 @@ class _ShortUrlDetailsPageState extends State<ShortUrlDetailsPage> {
                   SizedBox(
                     height: 10,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ClicksLineChart(
-                      stats: _urlDetails.stats,
-                    ),
-                  ),
-                  // Padding(
-                  //   padding: const EdgeInsets.all(8.0),
-                  //   child: ClicksBarChart(
-                  //     stats: _urlDetails.stats,
-                  //   ),
-                  // ),
-                  if (widget.urlDetails.stats.length != 0)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 5),
-                      child: Text(
-                        'Devices Pie Chart',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15),
-                        textAlign: TextAlign.start,
-                      ),
-                    ),
-                  if (widget.urlDetails.stats.length != 0)
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: DevicePieChart(
-                        stats: _urlDetails.stats,
-                      ),
-                    ),
+                  size.width > 700
+                      ? Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ClicksLineChart(
+                                  stats: _urlDetails.stats,
+                                ),
+                              ),
+                            ),
+                            if (widget.urlDetails.stats.length != 0)
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 5),
+                                      child: Text(
+                                        'Devices Pie Chart',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 15),
+                                        textAlign: TextAlign.start,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: DevicePieChart(
+                                        stats: _urlDetails.stats,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClicksLineChart(
+                                stats: _urlDetails.stats,
+                              ),
+                            ),
+                            if (widget.urlDetails.stats.length != 0)
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20, vertical: 5),
+                                    child: Text(
+                                      'Devices Pie Chart',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: DevicePieChart(
+                                      stats: _urlDetails.stats,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                          ],
+                        ),
                 ],
               ),
             ),

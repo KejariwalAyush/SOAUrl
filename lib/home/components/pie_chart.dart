@@ -82,7 +82,7 @@ class _DevicePieChartState extends State<DevicePieChart> {
             color: const Color(0xff0293ee),
             value: desktop,
             title: isTouched
-                ? '${desktop * totalClicks / 100} Clicks'
+                ? '${desktop * totalClicks ~/ 100}'
                 : '${desktop.toInt()}%',
             radius: radius,
             titleStyle: TextStyle(
@@ -101,7 +101,7 @@ class _DevicePieChartState extends State<DevicePieChart> {
             color: const Color(0xfff8b250),
             value: android,
             title: isTouched
-                ? '${android * totalClicks ~/ 100} Clicks'
+                ? '${android * totalClicks ~/ 100}'
                 : '${android.toInt()}%',
             radius: radius,
             titleStyle: TextStyle(
@@ -120,7 +120,7 @@ class _DevicePieChartState extends State<DevicePieChart> {
             color: const Color(0xff845bef),
             value: iphone,
             title: isTouched
-                ? '${iphone * totalClicks ~/ 100} Clicks'
+                ? '${iphone * totalClicks ~/ 100}'
                 : '${iphone.toInt()}%',
             radius: radius,
             titleStyle: TextStyle(
@@ -139,7 +139,7 @@ class _DevicePieChartState extends State<DevicePieChart> {
             color: const Color(0xff13d38e),
             value: others,
             title: isTouched
-                ? '${others * totalClicks ~/ 100} Clicks'
+                ? '${others * totalClicks ~/ 100}'
                 : '${others.toInt()}%',
             radius: radius,
             titleStyle: TextStyle(

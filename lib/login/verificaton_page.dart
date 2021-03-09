@@ -45,161 +45,163 @@ class _VerificationPageState extends State<VerificationPage> {
       backgroundColor: Colors.white,
       body: BackgroundWidget(
         size: size,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-                child: SvgPicture.asset(
-              'assets/icons/logo.svg',
-              width: size.width * 0.5,
-            )),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              // alignment: Alignment.centerLeft,
-              child: Text(
-                'SOAUrl',
-                style: TextStyle(
-                  fontSize: 45,
-                  color: const Color(0xfff2eaff),
-                  fontWeight: FontWeight.w700,
-                  shadows: [
-                    Shadow(
-                      color: const Color(0xa1363636),
-                      offset: Offset(0, 3),
-                      blurRadius: 6,
-                    )
-                  ],
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SingleChildScrollView(
-              child: new Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: 30),
-                  Padding(
-                    padding: EdgeInsets.only(top: 15.0, bottom: 20.0),
-                    child: Text(
-                      "Verification",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 35.0,
-                      ),
-                    ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                  child: SvgPicture.asset(
+                'assets/icons/logo.svg',
+                width: size.width > 500 ? 200 : size.width * 0.5,
+              )),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                // alignment: Alignment.centerLeft,
+                child: Text(
+                  'SOAUrl',
+                  style: TextStyle(
+                    fontSize: 45,
+                    color: const Color(0xfff2eaff),
+                    fontWeight: FontWeight.w700,
+                    shadows: [
+                      Shadow(
+                        color: const Color(0xa1363636),
+                        offset: Offset(0, 3),
+                        blurRadius: 6,
+                      )
+                    ],
                   ),
-                  RichText(
-                      text: TextSpan(
-                          style:
-                              TextStyle(color: Colors.white60, fontSize: 13.0),
-                          children: [
-                        TextSpan(
-                            text: "We will send you a ",
-                            style: TextStyle(
-                              color: Colors.white60,
-                              fontSize: 14.5,
-                            )),
-                        TextSpan(
-                            text: "One Time Password",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white60,
-                              fontSize: 14.5,
-                            )),
-                      ])),
-                  RichText(
-                      text: TextSpan(
-                          style:
-                              TextStyle(color: Colors.black87, fontSize: 13.0),
-                          children: [
-                        TextSpan(
-                            text: "on your phone number",
-                            style: TextStyle(
-                              color: Colors.white60,
-                              fontSize: 14.5,
-                            )),
-                      ])),
-                  SizedBox(height: 15),
-                  Container(
-                    width: MediaQuery.of(context).size.width * .8,
-                    child: TextFormField(
-                      controller: phoneController,
-                      enableInteractiveSelection: true,
-                      keyboardType: TextInputType.number,
-                      style: TextStyle(
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SingleChildScrollView(
+                child: new Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 30),
+                    Padding(
+                      padding: EdgeInsets.only(top: 15.0, bottom: 20.0),
+                      child: Text(
+                        "Verification",
+                        style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          letterSpacing: 5,
-                          fontSize: 25),
-                      decoration: InputDecoration(
-                        // fillColor: Colors.grey[200],
-
-                        hoverColor: Colors.white,
-                        filled: true,
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.circular(25.7),
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30.0))),
-
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.all(15),
-                          child: RichText(
-                            text: TextSpan(
-                                style: Theme.of(context).textTheme.bodyText1,
-                                // style: TextStyle(
-                                //     color: Colors.black87, fontSize: 13.0),
-                                children: [
-                                  TextSpan(
-                                      text: "+91 ",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 25,
-                                      )),
-                                  TextSpan(
-                                      text: " | ",
-                                      style: TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 30.0,
-                                      )),
-                                ]),
-                          ),
+                          fontSize: 35.0,
                         ),
                       ),
-                      validator: (value) => value.length != 10
-                          ? 'Incorrect number entered'
-                          : null,
                     ),
-                  ),
-                  SizedBox(height: 15),
-                  isLoading
-                      ? CircularProgressIndicator()
-                      : Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.5),
+                    RichText(
+                        text: TextSpan(
+                            style: TextStyle(
+                                color: Colors.white60, fontSize: 13.0),
+                            children: [
+                          TextSpan(
+                              text: "We will send you a ",
+                              style: TextStyle(
+                                color: Colors.white60,
+                                fontSize: 14.5,
+                              )),
+                          TextSpan(
+                              text: "One Time Password",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white60,
+                                fontSize: 14.5,
+                              )),
+                        ])),
+                    RichText(
+                        text: TextSpan(
+                            style: TextStyle(
+                                color: Colors.black87, fontSize: 13.0),
+                            children: [
+                          TextSpan(
+                              text: "on your phone number",
+                              style: TextStyle(
+                                color: Colors.white60,
+                                fontSize: 14.5,
+                              )),
+                        ])),
+                    SizedBox(height: 15),
+                    Container(
+                      width: MediaQuery.of(context).size.width * .8,
+                      child: TextFormField(
+                        controller: phoneController,
+                        enableInteractiveSelection: true,
+                        keyboardType: TextInputType.number,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 5,
+                            fontSize: 25),
+                        decoration: InputDecoration(
+                          // fillColor: Colors.grey[200],
+
+                          hoverColor: Colors.white,
+                          filled: true,
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(25.7),
+                          ),
+                          border: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(30))),
-                          height: 43.0,
-                          width: MediaQuery.of(context).size.width * .8,
-                          child: TextButton(
-                              onPressed: _submitPhoneNumber,
-                              child: Text("Send Code",
-                                  style: new TextStyle(
-                                      color: Colors.purple.shade900,
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.w700)))),
-                  SizedBox(
-                    height: 50.0,
-                  ),
-                ],
+                                  BorderRadius.all(Radius.circular(30.0))),
+
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.all(15),
+                            child: RichText(
+                              text: TextSpan(
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                  // style: TextStyle(
+                                  //     color: Colors.black87, fontSize: 13.0),
+                                  children: [
+                                    TextSpan(
+                                        text: "+91 ",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 25,
+                                        )),
+                                    TextSpan(
+                                        text: " | ",
+                                        style: TextStyle(
+                                          color: Colors.white70,
+                                          fontSize: 30.0,
+                                        )),
+                                  ]),
+                            ),
+                          ),
+                        ),
+                        validator: (value) => value.length != 10
+                            ? 'Incorrect number entered'
+                            : null,
+                      ),
+                    ),
+                    SizedBox(height: 15),
+                    isLoading
+                        ? CircularProgressIndicator()
+                        : Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.5),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(30))),
+                            height: 43.0,
+                            width: MediaQuery.of(context).size.width * .8,
+                            child: TextButton(
+                                onPressed: _submitPhoneNumber,
+                                child: Text("Send Code",
+                                    style: new TextStyle(
+                                        color: Colors.purple.shade900,
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.w700)))),
+                    SizedBox(
+                      height: 50.0,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

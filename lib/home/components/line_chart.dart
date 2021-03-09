@@ -58,6 +58,7 @@ class ClicksLineChartState extends State<ClicksLineChart> {
       dailyOtherClicks
           .addAll({date: _totalStats.length - _mobileClicks.length});
     }
+    log(availableDates.toString());
   }
 
   @override
@@ -110,10 +111,24 @@ class ClicksLineChartState extends State<ClicksLineChart> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(right: 16.0, left: 6.0),
-                    child: LineChart(
-                      isShowingMainData ? sampleData1() : sampleData2(),
-                      swapAnimationDuration: const Duration(milliseconds: 250),
-                    ),
+                    child: (widget
+                            .stats.isEmpty) // || availableDates.length == 1)
+                        ? Center(
+                            child: const Text(
+                              'No Data To SHow Yet',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 2),
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        : LineChart(
+                            isShowingMainData ? sampleData1() : sampleData2(),
+                            swapAnimationDuration:
+                                const Duration(milliseconds: 250),
+                          ),
                   ),
                 ),
                 const SizedBox(
@@ -200,7 +215,7 @@ class ClicksLineChartState extends State<ClicksLineChart> {
         ),
       ),
       minX: 0,
-      maxX: availableDates.length.toDouble(),
+      maxX: availableDates.length.toDouble() + 1,
       maxY: maxClicks.toDouble() + 5,
       minY: 0,
       lineBarsData: linesBarData1(),

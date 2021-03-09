@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 // import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -41,19 +42,6 @@ class NetworkHelper {
 
   static final dio = createDio();
   static final baseAPI = addInterceptors(dio);
-
-  Future<bool> checkValidUrl(String url) async {
-    try {
-      if (!url.contains('http')) url = 'https://' + url;
-      log(url);
-      Response response = await Dio().get(url);
-      log('Get Response -> Status Code:' + response.statusCode.toString());
-      return response.statusCode == 200;
-    } on DioError catch (e) {
-      log(e.toString());
-      return false;
-    }
-  }
 
   Future<Response> getHTTP(String url) async {
     try {
@@ -116,6 +104,21 @@ class NetworkHelper {
     } on Exception catch (e) {
       log(e.toString());
       return null;
+    }
+  }
+
+  Future<bool> checkValidUrl(String url) async {
+    try {
+      if (!kIsWeb && !url.contains('http')) url = 'https://' + url;
+      if (kIsWeb && url.contains('https://'))
+        url = url.replaceFirst('https://', '');
+      log(url);
+      http.Response response = await http.get(url);
+      log('Get Response -> Status Code:' + response.statusCode.toString());
+      return response.statusCode == 200;
+    } on Exception catch (e) {
+      log(e.toString());
+      return false;
     }
   }
 }

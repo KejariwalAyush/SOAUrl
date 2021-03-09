@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,7 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:soaurl/constants.dart';
 import 'package:soaurl/home/MainScreen.dart';
 import 'package:soaurl/login/verificaton_page.dart';
-import 'package:soaurl/services/download_web.dart';
 import 'package:soaurl/services/sign_in_service.dart';
 import 'package:soaurl/widgets/background_widget.dart';
 import 'package:soaurl/widgets/delayed_animations.dart';
@@ -276,10 +273,7 @@ class _WebLandingPageState extends State<WebLandingPage>
                                 : Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            user.phoneNumber == null
-                                                ? VerificationPage()
-                                                : MainScreen()),
+                                        builder: (context) => WebMainScreen()),
                                     (route) => false)),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -394,10 +388,7 @@ class _WebLandingPageState extends State<WebLandingPage>
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              user.phoneNumber ==
-                                                                      null
-                                                                  ? VerificationPage()
-                                                                  : MainScreen()),
+                                                              WebMainScreen()),
                                                       (route) => false)),
                                           style: ButtonStyle(
                                             padding: MaterialStateProperty.all(

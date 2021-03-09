@@ -35,17 +35,23 @@ class _SplashState extends State<Splash> {
     if (user != null) {
       log('User Present');
       log(user.toString());
-      log("Phone: " + user.phoneNumber);
-      if (user.phoneNumber != null && user.phoneNumber.isNotEmpty) {
+      // log("Phone: " + (user?.phoneNumber ?? 'NA'));
+      // if (user.phoneNumber != null && user.phoneNumber.isNotEmpty) {
+      if (kIsWeb)
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => WebMainScreen()),
+            (route) => false);
+      else
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => MainScreen()),
             (route) => false);
-      } else
-        Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => VerificationPage()),
-            (route) => false);
+      // } else
+      //   Navigator.pushAndRemoveUntil(
+      //       context,
+      //       MaterialPageRoute(builder: (context) => VerificationPage()),
+      //       (route) => false);
     } else {
       log("***User not loggedin!***");
       if (kIsWeb)

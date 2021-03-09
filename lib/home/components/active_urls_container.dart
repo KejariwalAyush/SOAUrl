@@ -2,13 +2,14 @@ import 'dart:convert';
 // import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:soaurl/constants.dart';
 import 'package:soaurl/home/shorturl_detail_page.dart';
 import 'package:soaurl/models/url_details.dart';
 import 'package:soaurl/services/network_helper.dart';
 
-class ActiveUrlsContainer extends StatelessWidget {
+class ActiveUrlsContainer extends StatefulWidget {
   const ActiveUrlsContainer({
     Key key,
     @required this.size,
@@ -17,23 +18,39 @@ class ActiveUrlsContainer extends StatelessWidget {
   final Size size;
 
   @override
+  _ActiveUrlsContainerState createState() => _ActiveUrlsContainerState();
+}
+
+class _ActiveUrlsContainerState extends State<ActiveUrlsContainer> {
+  @override
   Widget build(BuildContext context) {
     return Container(
-      width: size.width,
-      height: 200,
+      width: widget.size.width,
+      height: 350,
       child: Column(
         children: [
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             alignment: Alignment.centerLeft,
-            child: Text(
-              'Your Active Short Urls',
-              style: TextStyle(
-                fontSize: 25,
-                color: const Color(0xfff2eaff),
-                fontWeight: FontWeight.w700,
-              ),
-              textAlign: TextAlign.center,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Your Active Short Urls',
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: const Color(0xfff2eaff),
+                    fontWeight: FontWeight.w700,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                IconButton(
+                  icon: Icon(Icons.refresh_rounded),
+                  onPressed: () {
+                    setState(() {});
+                  },
+                ),
+              ],
             ),
           ),
           Expanded(
@@ -97,11 +114,24 @@ class ActiveUrlsContainer extends StatelessWidget {
                               fit: BoxFit.contain,
                               color: Colors.white,
                             ),
-                            trailing: Icon(
-                              Icons.arrow_right,
-                              color: Colors.white,
-                              size: 30,
-                            ),
+                            trailing: (widget.size.width > 700)
+                                ? Text(
+                                    'Clicks ' +
+                                        urlDetails.stats.length.toString(),
+                                    style: TextStyle(
+                                      fontSize: 22,
+                                      color: const Color(0xfff2eaff),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  )
+                                : Icon(
+                                    Icons.arrow_right,
+                                    color: Colors.white,
+                                    size: 30,
+                                  ),
+                            // mouseCursor: MouseCursor.defer,
+                            hoverColor: Colors.blueGrey.shade200,
+                            focusColor: Colors.purpleAccent,
                           ),
                         );
                       },

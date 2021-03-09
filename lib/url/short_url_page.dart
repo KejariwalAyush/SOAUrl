@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:auto_size_text_field/auto_size_text_field.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -308,8 +309,9 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
                                             Navigator.pushAndRemoveUntil(
                                                 context,
                                                 MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        MainScreen()),
+                                                    builder: (context) => kIsWeb
+                                                        ? WebMainScreen()
+                                                        : MainScreen()),
                                                 (route) => false);
                                           } else {
                                             setState(() {
@@ -365,7 +367,7 @@ class _ShortUrlPageState extends State<ShortUrlPage> {
         longUrl = TextEditingController(
             text: (!longUrl.text.contains('http'))
                 ? ('https://' + longUrl.text)
-                : longUrl);
+                : longUrl.text);
       });
     else
       setState(() {
