@@ -9,7 +9,6 @@ import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:qr/qr.dart';
 import 'package:share_files_and_screenshot_widgets/share_files_and_screenshot_widgets.dart';
 import 'package:soaurl/constants.dart';
-import 'package:soaurl/home/components/clicks_bar_chart.dart';
 import 'package:soaurl/home/components/line_chart.dart';
 import 'package:soaurl/home/components/pie_chart.dart';
 import 'package:soaurl/models/url_details.dart';
@@ -255,10 +254,13 @@ class _ShortUrlDetailsPageState extends State<ShortUrlDetailsPage> {
                           children: [
                             Expanded(
                               flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ClicksLineChart(
-                                  stats: _urlDetails.stats,
+                              child: ClipRRect(
+                                clipBehavior: Clip.hardEdge,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: ClicksLineChart(
+                                    stats: _urlDetails.stats,
+                                  ),
                                 ),
                               ),
                             ),

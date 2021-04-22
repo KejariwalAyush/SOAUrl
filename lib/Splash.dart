@@ -4,12 +4,9 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soaurl/constants.dart';
 import 'package:soaurl/home/MainScreen.dart';
 import 'package:soaurl/login/LoginRegister.dart';
-import 'package:soaurl/login/verificaton_page.dart';
-import 'package:soaurl/widgets/background_widget.dart';
 
 class Splash extends StatefulWidget {
   Splash({

@@ -124,10 +124,13 @@ class ClicksLineChartState extends State<ClicksLineChart> {
                               textAlign: TextAlign.center,
                             ),
                           )
-                        : LineChart(
-                            isShowingMainData ? sampleData1() : sampleData2(),
-                            swapAnimationDuration:
-                                const Duration(milliseconds: 250),
+                        : ClipRRect(
+                            clipBehavior: Clip.hardEdge,
+                            child: LineChart(
+                              isShowingMainData ? sampleData1() : sampleData2(),
+                              swapAnimationDuration:
+                                  const Duration(milliseconds: 250),
+                            ),
                           ),
                   ),
                 ),
