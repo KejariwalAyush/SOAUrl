@@ -360,7 +360,8 @@ class _WebLandingPageState extends State<WebLandingPage>
                                           CrossAxisAlignment.center,
                                       children: [
                                         ElevatedButton(
-                                          onPressed: () {},
+                                          onPressed: () => _launchURL(
+                                              'http://soau.ml/download'),
                                           style: ButtonStyle(
                                               padding:
                                                   MaterialStateProperty.all(

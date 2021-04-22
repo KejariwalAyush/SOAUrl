@@ -14,6 +14,7 @@ import 'package:soaurl/services/sign_in_service.dart';
 import 'package:soaurl/url/short_url_page.dart';
 import 'package:soaurl/widgets/background_widget.dart';
 import 'package:soaurl/widgets/menu_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'components/generate_qr_button.dart';
 import 'components/scan_qr_button.dart';
@@ -334,7 +335,8 @@ class WebMainScreen extends StatelessWidget {
                             width: 20,
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () =>
+                                _launchURL('http://soau.ml/download'),
                             style: ButtonStyle(
                               padding:
                                   MaterialStateProperty.all(EdgeInsets.all(15)),
@@ -368,5 +370,13 @@ class WebMainScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
