@@ -1,5 +1,7 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -10,22 +12,36 @@ class SignInService {
   // static User user;
 
   static Future<String> signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount googleSignInAccount =
-          await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication googleSignInAuthentication =
-          await googleSignInAccount.authentication;
+    if (kIsWeb) {
+      // The `GoogleAuthProvider` can only be used while running on the web
+      GoogleAuthProvider authProvider = GoogleAuthProvider();
 
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleSignInAuthentication.accessToken,
-        idToken: googleSignInAuthentication.idToken,
-      );
+      try {
+        final UserCredential userCredential =
+            await _auth.signInWithPopup(authProvider);
 
-      final UserCredential authResult =
-          await _auth.signInWithCredential(credential);
-      user = authResult.user;
-    } on Exception catch (e) {
-      log('Error in Signing in:' + e.toString());
+        user = userCredential.user;
+      } catch (e) {
+        print(e);
+      }
+    } else {
+      try {
+        final GoogleSignInAccount googleSignInAccount =
+            await GoogleSignIn().signIn();
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
+
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleSignInAuthentication.accessToken,
+          idToken: googleSignInAuthentication.idToken,
+        );
+
+        final UserCredential authResult =
+            await _auth.signInWithCredential(credential);
+        user = authResult.user;
+      } on Exception catch (e) {
+        log('Error in Signing in:' + e.toString());
+      }
     }
 
     if (user != null) {
