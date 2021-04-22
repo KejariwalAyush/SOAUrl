@@ -305,6 +305,7 @@ class WebMainScreen extends StatelessWidget {
                           ),
                           SizedBox(
                             height: 20,
+                            width: 20,
                           ),
                           ElevatedButton(
                             onPressed: () => Navigator.push(
@@ -326,6 +327,30 @@ class WebMainScreen extends StatelessWidget {
                                   //     size.width > 700 ? 25 : 18,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                            width: 20,
+                          ),
+                          TextButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                              padding:
+                                  MaterialStateProperty.all(EdgeInsets.all(15)),
+
+                              // backgroundColor:
+                              //     MaterialStateProperty.all(Colors.white)
+                            ),
+                            child: AutoSizeText(
+                              'Make QR Code - Download App',
+                              maxFontSize: 25,
+                              minFontSize: 18,
+                              style: TextStyle(
+                                  // fontSize:
+                                  //     size.width > 700 ? 25 : 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                           ),
                         ],
