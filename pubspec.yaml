@@ -34,9 +34,12 @@ dependencies:
   firebase_analytics: ^7.0.1
   firebase_auth: ^0.20.1
   firebase_core: ^0.7.0
+  fl_chart: ^0.12.3
   flutter_slider_drawer: ^2.0.0
   flutter_svg: ^0.19.2+1
   fluttertoast: ^7.1.8
+  font_awesome_flutter: ^8.11.0
+  get: ^4.1.4
   google_fonts: ^1.1.2
   google_sign_in: ^4.5.9
   intl: ^0.16.1
@@ -46,8 +49,7 @@ dependencies:
   share_files_and_screenshot_widgets: ^1.0.3
   shared_preferences: ^0.5.12+4
   url_launcher: ^6.0.2
-  fl_chart: ^0.12.3
-  font_awesome_flutter: ^8.11.0
+  # websafe_svg: ^2.0.0
 
 dev_dependencies:
   flutter_test:
