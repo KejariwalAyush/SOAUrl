@@ -1,9 +1,6 @@
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
-
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -16,5 +13,17 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
+
+  void refreshData() {}
+
+  void quickshort() {}
+  void customshort() {}
+  void scanQR() {}
+  void generateQR() {}
+  void viewProfile() {}
+  void openDrawer() {
+    // (_key.currentState?.isDrawerOpen ?? false)
+    //     ? _key.currentState.closeDrawer()
+    //     : _key.currentState.openDrawer();
+  }
 }

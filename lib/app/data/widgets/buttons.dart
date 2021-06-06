@@ -8,7 +8,7 @@ import '../utils/constants.dart';
 import '../utils/styles.dart';
 
 class KbWhiteButton extends StatelessWidget {
-  KbWhiteButton({
+  const KbWhiteButton({
     Key key,
     @required this.child,
     @required this.onPressed,
@@ -29,7 +29,7 @@ class KbWhiteButton extends StatelessWidget {
         super(key: key);
 
   final Function() onPressed;
-  Widget child;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +53,11 @@ class KBlurButton extends StatelessWidget {
   const KBlurButton({
     Key key,
     @required this.child,
-    this.size,
+    this.width,
     this.onPressed,
   }) : super(key: key);
 
-  final Size size;
+  final double width;
   final Widget child;
   final Function() onPressed;
 
@@ -67,17 +67,16 @@ class KBlurButton extends StatelessWidget {
       onTap: onPressed ?? null,
       child: ClipRect(
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 15.0, sigmaY: 15.0),
+          filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
           child: Container(
-            width: size.width ?? null,
-            height: size.height ?? null,
+            width: width ?? null,
             decoration: BoxDecoration(
               borderRadius: kBorderRadius,
-              color: Colors.transparent,
+              color: kcBlackShadow.withOpacity(0.3),
               border: kBorder,
-              boxShadow: [kShadow],
+              // boxShadow: [kShadow],
             ),
-            child: child,
+            child: child.p8(),
           ),
         ),
       ),

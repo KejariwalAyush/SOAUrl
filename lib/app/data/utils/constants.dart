@@ -10,4 +10,4 @@ final BoxShadow kShadow = BoxShadow(
   offset: Offset(0, 3),
   blurRadius: 6,
 );
-final Border kBorder = Border.all(width: 1.0, color: kcBlackShadow);
+final Border kBorder = Border.all(width: 2.0, color: kcBlackShadow);

@@ -28,20 +28,20 @@ final TextStyle ktsHeading2 = TextStyle(
 );
 
 final TextStyle ktsTitle = TextStyle(
-  fontSize: 30,
+  fontSize: 18,
   color: kcWhite,
   fontWeight: FontWeight.w600,
-  shadows: [
-    Shadow(
-      color: const Color(0xa1363636),
-      offset: Offset(0, 3),
-      blurRadius: 4,
-    )
-  ],
+  // shadows: [
+  //   Shadow(
+  //     color: const Color(0xa1363636),
+  //     offset: Offset(0, 3),
+  //     blurRadius: 4,
+  //   )
+  // ],
 );
 
 final TextStyle ktsSubHeading = TextStyle(
-  fontSize: 15,
+  fontSize: 16,
   color: kcWhite,
   fontWeight: FontWeight.w600,
 );
@@ -53,7 +53,7 @@ final TextStyle ktsButton = TextStyle(
 );
 
 final TextStyle ktsButtonBlank = TextStyle(
-  fontSize: 15,
+  fontSize: 18,
   color: kcWhite,
   fontWeight: FontWeight.w600,
 );
