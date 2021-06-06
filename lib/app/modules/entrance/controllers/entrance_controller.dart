@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:soaurl/app/routes/app_pages.dart';
 
 class EntranceController extends GetxController {
@@ -28,7 +29,12 @@ class EntranceController extends GetxController {
     firebaseApp = await Firebase.initializeApp();
   }
 
+  Future<InitializationStatus> _initGoogleMobileAds() {
+    return MobileAds.instance.initialize();
+  }
+
   Future<void> checkUserLoggedIn() async {
+    _initGoogleMobileAds();
     if (firebaseApp == null) {
       await initlizeFirebaseApp();
     }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:soaurl/app/data/data.dart';
+import 'package:soaurl/app/data/services/ad_service.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../controllers/home_controller.dart';
@@ -27,13 +29,54 @@ class SliverAppBarSnap extends StatefulWidget {
 class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
   final _controller = ScrollController();
 
+  BannerAd _bannerAd;
+  bool _isBannerAdReady = false;
+
   double get maxHeight => 500 + MediaQuery.of(context).padding.top;
   double get minHeight => 180 + MediaQuery.of(context).padding.top;
 
   @override
+  void initState() {
+    super.initState();
+    _bannerAd = BannerAd(
+      adUnitId: AdService.bannerAdUnitId,
+      request: AdRequest(),
+      size: AdSize.banner,
+      listener: AdListener(
+        onAdLoaded: (_) {
+          Get.log('Ad Loaded');
+          setState(() {
+            _isBannerAdReady = true;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          Get.log('Failed to load a banner ad: ${err.message}');
+          _isBannerAdReady = false;
+          ad.dispose();
+        },
+      ),
+    );
+
+    _bannerAd.load();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF0C0101),
+      backgroundColor: kcBlack,
+      bottomNavigationBar: !(_isBannerAdReady)
+          ? null
+          : Container(
+              width: _bannerAd.size.width.toDouble(),
+              height: _bannerAd.size.height.toDouble(),
+              child: AdWidget(ad: _bannerAd),
+            ),
       body: KBackgroundContainer(
         size: Get.mediaQuery.size,
         child: NotificationListener<ScrollEndNotification>(
@@ -71,7 +114,7 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
                   //TODO: if card is less than then add blank cards
                   childCount: 10, // must be min 10
                 ),
-              )
+              ),
             ],
           ),
         ),

@@ -209,13 +209,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_admob:
-    dependency: "direct main"
-    description:
-      name: flutter_admob
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.8"
   flutter_slider_drawer:
     dependency: "direct main"
     description:
@@ -261,6 +254,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  google_mobile_ads:
+    dependency: "direct main"
+    description:
+      name: google_mobile_ads
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.12.2+1"
   google_sign_in:
     dependency: "direct main"
     description:

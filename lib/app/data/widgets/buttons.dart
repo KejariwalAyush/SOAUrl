@@ -66,6 +66,7 @@ class KBlurButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed ?? null,
       child: ClipRect(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
           child: Container(
