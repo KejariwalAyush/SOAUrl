@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -88,30 +87,28 @@ class MenuWidget extends StatelessWidget {
 
   Widget sliderItem(String title, IconData icons, Widget destinaton) => Padding(
         padding: const EdgeInsets.all(8.0),
-        child: OpenContainer(
-          closedBuilder: (context, action) => Row(
-            children: [
-              Icon(
-                icons,
-                color: kcWhite,
-                size: 30,
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                child: Text(
-                  title,
-                  style: ktsSubHeading,
+        child: InkWell(
+          onTap: () => Get.to(() => destinaton),
+          child: Container(
+            child: Row(
+              children: [
+                Icon(
+                  icons,
+                  color: kcWhite,
+                  size: 30,
                 ),
-              ),
-            ],
+                SizedBox(
+                  width: 20,
+                ),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: ktsSubHeading,
+                  ),
+                ),
+              ],
+            ),
           ),
-          openBuilder: (context, action) => destinaton,
-          closedElevation: 0,
-          openElevation: 0,
-          closedColor: Colors.transparent,
-          openColor: Colors.transparent,
         ),
       );
 }

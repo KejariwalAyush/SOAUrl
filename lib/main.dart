@@ -2,7 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:soaurl/Splash.dart';
+import 'app/data/data.dart';
+import 'app/routes/app_pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,13 +15,17 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'SOAUrl',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.grey,
         textTheme: GoogleFonts.cormorantGaramondTextTheme(),
       ),
-      home: Splash(),
+
+      initialRoute: AppPages.INITIAL,
+      getPages: AppPages.routes,
+
+      // home: Splash(),
     );
   }
 }

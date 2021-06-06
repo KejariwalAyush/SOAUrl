@@ -5,7 +5,7 @@ import 'colors.dart';
 
 final Duration kaniBase = 300.milliseconds;
 final BorderRadius kBorderRadius = BorderRadius.circular(17);
-final Shadow kShadow = Shadow(
+final BoxShadow kShadow = BoxShadow(
   color: kcBlackShadow,
   offset: Offset(0, 3),
   blurRadius: 6,

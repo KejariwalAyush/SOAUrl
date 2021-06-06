@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'colors.dart';
 
-TextStyle ktsHeading1 = TextStyle(
+final TextStyle ktsHeading1 = TextStyle(
   fontSize: 65,
   color: kcWhite,
   fontWeight: FontWeight.w700,
@@ -14,7 +14,7 @@ TextStyle ktsHeading1 = TextStyle(
   ],
 );
 
-TextStyle ktsHeading2 = TextStyle(
+final TextStyle ktsHeading2 = TextStyle(
   fontSize: 45,
   color: kcWhite,
   fontWeight: FontWeight.w600,
@@ -27,7 +27,7 @@ TextStyle ktsHeading2 = TextStyle(
   ],
 );
 
-TextStyle ktsTitle = TextStyle(
+final TextStyle ktsTitle = TextStyle(
   fontSize: 30,
   color: kcWhite,
   fontWeight: FontWeight.w600,
@@ -40,19 +40,19 @@ TextStyle ktsTitle = TextStyle(
   ],
 );
 
-TextStyle ktsSubHeading = TextStyle(
+final TextStyle ktsSubHeading = TextStyle(
   fontSize: 15,
   color: kcWhite,
   fontWeight: FontWeight.w600,
 );
 
-TextStyle ktsButton = TextStyle(
+final TextStyle ktsButton = TextStyle(
   fontSize: 20,
-  color: kcBlackShadow,
-  fontWeight: FontWeight.w600,
+  color: kcBlack,
+  fontWeight: FontWeight.w800,
 );
 
-TextStyle ktsButtonBlank = TextStyle(
+final TextStyle ktsButtonBlank = TextStyle(
   fontSize: 15,
   color: kcWhite,
   fontWeight: FontWeight.w600,

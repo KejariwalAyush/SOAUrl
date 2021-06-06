@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:velocity_x/velocity_x.dart';
 import '../utils/colors.dart';
 import '../utils/constants.dart';
 import '../utils/styles.dart';
@@ -15,11 +16,10 @@ class KbWhiteButton extends StatelessWidget {
 
   KbWhiteButton.google({Key key, @required this.onPressed})
       : child = Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(FontAwesomeIcons.google),
-            SizedBox(
-              width: 10,
-            ),
+            16.squareBox,
             Text(
               'Continue with Google',
               style: ktsButton,
@@ -43,7 +43,7 @@ class KbWhiteButton extends StatelessWidget {
           boxShadow: [kShadow],
           border: kBorder,
         ),
-        child: child,
+        child: child.p12(),
       ),
     );
   }
