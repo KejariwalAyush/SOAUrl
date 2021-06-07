@@ -2,15 +2,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'app/data/data.dart';
 import 'app/routes/app_pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  // ignore: unused_local_variable
-  final initAds = MobileAds.instance.initialize();
+  await initServices();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+  ));
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(MyApp()));
 }
@@ -31,4 +32,17 @@ class MyApp extends StatelessWidget {
       // home: Splash(),
     );
   }
+}
+
+initServices() async {
+  print('starting services ...');
+
+  await Firebase.initializeApp();
+
+  /// Here is where you put get_storage, hive, shared_pref initialization.
+  /// or moor connection, or whatever that's async.
+  ///
+  await Get.putAsync(() => AdService().init());
+  // await Get.putAsync(SettingsService()).init();
+  print('All services started...');
 }

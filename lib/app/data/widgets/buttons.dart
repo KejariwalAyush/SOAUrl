@@ -64,6 +64,7 @@ class KBlurButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      borderRadius: kBorderRadius,
       onTap: onPressed ?? null,
       child: ClipRect(
         clipBehavior: Clip.antiAliasWithSaveLayer,
