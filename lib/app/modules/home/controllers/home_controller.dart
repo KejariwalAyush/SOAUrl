@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:soaurl/app/data/data.dart';
 import 'package:soaurl/app/data/services/ad_service.dart';
+import 'package:soaurl/app/routes/app_pages.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomeController extends GetxController {
@@ -60,7 +61,7 @@ class HomeController extends GetxController {
   void customshort() {}
   void scanQR() {}
   void generateQR() {}
-  void viewProfile() {}
+  void viewProfile() => Get.toNamed(Routes.PROFILE);
   void openDrawer() {
     // (_key.currentState?.isDrawerOpen ?? false)
     //     ? _key.currentState.closeDrawer()

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import '../data.dart';
 
+/// For child use Container only
 class SliverAppBarSnap extends StatefulWidget {
   final double maxHeight;
   final double minHeight;
@@ -53,6 +54,7 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
                 pinned: true,
                 stretch: true,
                 elevation: 0,
+                automaticallyImplyLeading: false,
                 backgroundColor: Colors.transparent,
                 flexibleSpace: widget.appBarContent,
                 expandedHeight: maxHeight - Get.mediaQuery.padding.top,
@@ -61,7 +63,10 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
               if (widget.child != null)
                 SliverFillRemaining(
                   hasScrollBody: widget.isChildScrollable,
-                  child: widget.child,
+                  child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                      child: widget.child),
                 ),
               if (widget.sliverChildBuilderDelegate != null)
                 SliverList(delegate: widget.sliverChildBuilderDelegate),

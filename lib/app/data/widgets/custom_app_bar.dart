@@ -112,40 +112,54 @@ class KAppBarContent extends StatelessWidget {
                 height: 30,
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Tween<double>(begin: 0, end: 40).evaluate(animation).heightBox,
-                if (mainIcon != null)
-                  Container(
-                    height:
-                        Tween<double>(begin: 0, end: 125).evaluate(animation),
-                    child: mainIcon,
-                  ),
-                Tween<double>(begin: 0, end: 10).evaluate(animation).heightBox,
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize:
-                        Tween<double>(begin: 30, end: 36).evaluate(animation),
-                    color: Colors.white,
-                    shadows: [kShadow],
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                if (desc != null)
-                  Text(
-                    desc,
-                    style: TextStyle(
-                      fontSize:
-                          Tween<double>(begin: 0, end: 18).evaluate(animation),
-                      color: Colors.white,
-                      fontWeight: FontWeight.w800,
+            Expanded(
+              child: Align(
+                alignment: AlignmentTween(
+                        begin: Alignment.center, end: Alignment.centerLeft)
+                    .evaluate(animation),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Tween<double>(begin: 0, end: 40)
+                        .evaluate(animation)
+                        .heightBox,
+                    if (mainIcon != null)
+                      Container(
+                        height: Tween<double>(begin: 0, end: 125)
+                            .evaluate(animation),
+                        width: Tween<double>(begin: 0, end: 125)
+                            .evaluate(animation),
+                        child: mainIcon,
+                      ),
+                    Tween<double>(begin: 0, end: 15)
+                        .evaluate(animation)
+                        .heightBox,
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: Tween<double>(begin: 30, end: 36)
+                            .evaluate(animation),
+                        color: Colors.white,
+                        shadows: [kShadow],
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
-                  ),
-              ],
+                    if (desc != null)
+                      Text(
+                        desc,
+                        style: TextStyle(
+                          fontSize: Tween<double>(begin: 0, end: 18)
+                              .evaluate(animation),
+                          color: Colors.white,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
             ),
-            if (trailingButton != null) trailingButton,
+            (trailingButton != null) ? trailingButton : 50.widthBox,
           ],
         ),
       ],

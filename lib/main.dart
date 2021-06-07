@@ -16,24 +16,6 @@ void main() async {
       .then((value) => runApp(MyApp()));
 }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: 'SOAUrl',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-        textTheme: GoogleFonts.cormorantGaramondTextTheme(),
-      ),
-
-      initialRoute: AppPages.INITIAL,
-      getPages: AppPages.routes,
-
-      // home: Splash(),
-    );
-  }
-}
-
 initServices() async {
   print('starting services ...');
 
@@ -45,4 +27,23 @@ initServices() async {
   await Get.putAsync(() => AdService().init());
   // await Get.putAsync(SettingsService()).init();
   print('All services started...');
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      title: 'SOAUrl',
+      theme: ThemeData(
+        primarySwatch: Colors.grey,
+        textTheme: GoogleFonts.cormorantGaramondTextTheme(),
+      ),
+      transitionDuration: kaniBase,
+      defaultTransition: Transition.cupertino,
+      initialRoute: AppPages.INITIAL,
+      getPages: AppPages.routes,
+
+      // home: Splash(),
+    );
+  }
 }

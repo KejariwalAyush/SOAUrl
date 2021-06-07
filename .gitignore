@@ -45,4 +45,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-lib/app/data/services/ad_service.dart
+
+lib/app/data/secret/
