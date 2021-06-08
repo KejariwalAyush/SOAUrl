@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:soaurl/app/data/data.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../controllers/settings_controller.dart';
 
@@ -12,6 +13,7 @@ class SettingsView extends GetView<SettingsController> {
     final double _maxHeight = 285.0;
     final KAppBar appbar =
         new KAppBar(collapsedHeight: _minHeight, expandedHeight: _maxHeight);
+
     return SliverAppBarSnap(
       maxHeight: _maxHeight,
       minHeight: _minHeight,
@@ -28,9 +30,11 @@ class SettingsView extends GetView<SettingsController> {
                 title: 'Settings')),
       ),
       isChildScrollable: true,
-      child: Text(
-        "List is empty",
-        style: TextStyle(color: Colors.white),
+      child: CheckboxListTile(
+        value: true,
+        activeColor: kcMainPurple,
+        onChanged: (value) {},
+        title: 'Show Ads'.text.textStyle(ktsSubHeading).make(),
       ),
     );
   }

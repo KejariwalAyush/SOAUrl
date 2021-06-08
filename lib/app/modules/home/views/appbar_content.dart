@@ -75,63 +75,93 @@ class AppBarContentExtended extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
-              child: KBlurButton(
-                child: 'Quick Shorten'
-                    .text
-                    .center
-                    .textStyle(ktsButtonBlank)
-                    .make()
-                    .py2(),
-                onPressed: _hc.quickshort,
-              ).px4(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height:
+                        Tween<double>(begin: 0, end: 50).evaluate(animation),
+                    child: WebsafeSvg.asset(
+                      'assets/icons/quick_link.svg',
+                      color: Colors.white,
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                  'Quick Shorten'.text.xl.center.bold.white.make().p4(),
+                ],
+              )
+                  .p4()
+                  .card
+                  .roundedSM
+                  .color(kcMainPurple.withOpacity(0.2))
+                  .make()
+                  .onInkTap(_hc.quickshort)
+                  .p4(),
             ),
             Expanded(
-              child: KBlurButton(
-                      child: 'Custom Shorten'
-                          .text
-                          .center
-                          .textStyle(ktsButtonBlank)
-                          .make()
-                          .py2(),
-                      onPressed: _hc.customshort)
-                  .px4(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height:
+                        Tween<double>(begin: 0, end: 50).evaluate(animation),
+                    child: WebsafeSvg.asset(
+                      'assets/icons/url.svg',
+                      color: Colors.white,
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                  'Custom Shorten'.text.xl.center.bold.white.make().p4(),
+                ],
+              )
+                  .p4()
+                  .card
+                  .roundedSM
+                  .color(kcMainPurple.withOpacity(0.2))
+                  .make()
+                  .onInkTap(_hc.customshort)
+                  .p4(),
             ),
           ],
         ),
         Tween<double>(begin: 0, end: 5).evaluate(animation).squareBox,
-        if (Tween<double>(begin: 0, end: 80).evaluate(animation) > 70)
+        if (Tween<double>(begin: 0, end: 80).evaluate(animation) > 60)
           Container(
-            height: Tween<double>(begin: 0, end: 80).evaluate(animation),
+            height: Tween<double>(begin: 0, end: 70).evaluate(animation),
             alignment: Alignment.center,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Expanded(
-                  child: KBlurButton(
-                          child: 'QR Scan'
-                              .text
-                              .center
-                              .textStyle(ktsButtonBlank)
-                              .make()
-                              .py2(),
-                          onPressed: _hc.scanQR)
-                      .px4(),
-                ),
-                Expanded(
-                  child: KBlurButton(
-                          child: 'QR Generate'
-                              .text
-                              .center
-                              .textStyle(ktsButtonBlank)
-                              .make()
-                              .py2(),
-                          onPressed: _hc.generateQR)
-                      .px4(),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: kcMainPink.withOpacity(0.25),
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(color: kcMainPurple)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: Tween<double>(begin: 0, end: 50)
+                              .evaluate(animation),
+                          child: WebsafeSvg.asset(
+                            'assets/icons/qr_large.svg',
+                            color: Colors.white,
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
+                        'Generate QR'.text.xl3.bold.white.make().p4(),
+                      ],
+                    ).p8(),
+                  ).px4(),
                 ),
               ],
             ),
           ),
-        Tween<double>(begin: 14, end: 20).evaluate(animation).squareBox,
+        Tween<double>(begin: 20, end: 30).evaluate(animation).squareBox,
         Text(
           "Your Active Shortened Urls",
           style: TextStyle(

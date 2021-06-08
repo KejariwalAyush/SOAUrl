@@ -23,7 +23,7 @@ initServices() async {
   /// Here is where you put get_storage, hive, shared_pref initialization.
   /// or moor connection, or whatever that's async.
   ///
-  await Get.putAsync(() => AdService().init());
+  if (GetPlatform.isAndroid) await Get.putAsync(() => AdService().init());
   await Get.putAsync(() => SettingsService().init());
   await Get.putAsync(() => AuthService().init());
   await Get.putAsync(() => Api().init());

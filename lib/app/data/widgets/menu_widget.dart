@@ -1,7 +1,7 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soaurl/app/data/data.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class MenuWidget extends StatelessWidget {
   final Function() onItemClick;
@@ -34,13 +34,7 @@ class MenuWidget extends StatelessWidget {
                 height: 100,
               ),
             ),
-            AutoSizeText(
-              'user.displayName',
-              minFontSize: 24,
-              maxFontSize: 28,
-              overflow: TextOverflow.ellipsis,
-              style: ktsHeading1,
-            ),
+            'user.displayName'.text.textStyle(ktsHeading1).make(),
             SizedBox(
               height: 20,
             ),
