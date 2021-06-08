@@ -61,7 +61,7 @@ class HomeController extends GetxController {
   void customshort() {}
   void scanQR() {}
   void generateQR() {}
-  void viewProfile() => Get.toNamed(Routes.PROFILE);
+  void openSettings() => Get.toNamed(Routes.SETTINGS);
   void openDrawer() {
     // (_key.currentState?.isDrawerOpen ?? false)
     //     ? _key.currentState.closeDrawer()

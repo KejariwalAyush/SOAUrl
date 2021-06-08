@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:soaurl/app/data/data.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'package:websafe_svg/websafe_svg.dart';
 
 import '../controllers/login_controller.dart';
 
@@ -22,8 +21,8 @@ class LoginView extends GetView<LoginController> {
             children: [
               Column(
                 children: [
-                  WebsafeSvg.asset(
-                    'assets/icons/logo.svg',
+                  Image.asset(
+                    'assets/icons/logo-no-bg.png',
                     width: 250,
                   ),
                   30.squareBox,
@@ -32,7 +31,7 @@ class LoginView extends GetView<LoginController> {
                 ],
               ),
               controller.isLoading.value
-                  ? CircularProgressIndicator()
+                  ? KLoadingWidget()
                   : KbWhiteButton.google(onPressed: controller.onSignin),
             ],
           ),

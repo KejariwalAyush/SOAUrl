@@ -8,6 +8,8 @@ import 'package:soaurl/app/modules/home/bindings/home_binding.dart';
 import 'package:soaurl/app/modules/home/views/home_view.dart';
 import 'package:soaurl/app/modules/profile/bindings/profile_binding.dart';
 import 'package:soaurl/app/modules/profile/views/profile_view.dart';
+import 'package:soaurl/app/modules/settings/bindings/settings_binding.dart';
+import 'package:soaurl/app/modules/settings/views/settings_view.dart';
 
 part 'app_routes.dart';
 
@@ -36,6 +38,11 @@ class AppPages {
       name: _Paths.PROFILE,
       page: () => ProfileView(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.SETTINGS,
+      page: () => SettingsView(),
+      binding: SettingsBinding(),
     ),
   ];
 }

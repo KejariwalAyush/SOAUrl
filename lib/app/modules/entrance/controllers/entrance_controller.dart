@@ -1,53 +1,49 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:soaurl/app/data/data.dart';
 import 'package:soaurl/app/routes/app_pages.dart';
 
 class EntranceController extends GetxController {
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     print('Splash init');
-    checkUserLoggedIn();
+    await Future.delayed(300.milliseconds);
   }
 
   @override
   void onReady() {
     super.onReady();
+    Get.find<AuthService>().fireUser == null
+        ? Get.offNamed(Routes.LOGIN)
+        : Get.offNamed(Routes.HOME);
   }
 
   @override
   void onClose() {}
 
-  // Intilize the flutter app
-  FirebaseApp firebaseApp;
-  User firebaseUser;
-  FirebaseAuth firebaseAuth;
-
-  Future<void> initlizeFirebaseApp() async {
-    firebaseApp = await Firebase.initializeApp();
-  }
-
-  Future<InitializationStatus> _initGoogleMobileAds() {
-    return MobileAds.instance.initialize();
-  }
-
-  Future<void> checkUserLoggedIn() async {
-    _initGoogleMobileAds();
-    if (firebaseApp == null) {
-      await initlizeFirebaseApp();
-    }
-    if (firebaseAuth == null) {
-      firebaseAuth = FirebaseAuth.instance;
-      update();
-    }
-    if (firebaseAuth.currentUser == null) {
-      Get.offNamed(Routes.LOGIN);
-    } else {
-      firebaseUser = firebaseAuth.currentUser;
-      update();
-      Get.offNamed(Routes.HOME);
-    }
-  }
+  // Future<void> checkUserLoggedIn() async {
+  //   FirebaseAuth.instance.authStateChanges().listen((User user) {
+  //     if (user == null) {
+  //       print('User is currently signed out!');
+  //       Get.offNamed(Routes.LOGIN);
+  //     } else {
+  //       print('User is signed in!');
+  //       final ss = Get.find<SettingsService>();
+  //       ss.fireUser = user;
+  //       update();
+  //       Get.offNamed(Routes.HOME);
+  //     }
+  //   });
+  //   // if (firebaseAuth == null) {
+  //   //   firebaseAuth = FirebaseAuth.instance;
+  //   //   update();
+  //   // }
+  //   // if (firebaseAuth.currentUser == null) {
+  //   //   Get.offNamed(Routes.LOGIN);
+  //   // } else {
+  //   //   firebaseUser = firebaseAuth.currentUser;
+  //   //   update();
+  //   //   Get.offNamed(Routes.HOME);
+  //   // }
+  // }
 }

@@ -17,16 +17,17 @@ void main() async {
 }
 
 initServices() async {
-  print('starting services ...');
-
+  Get.log('starting services ...');
   await Firebase.initializeApp();
 
   /// Here is where you put get_storage, hive, shared_pref initialization.
   /// or moor connection, or whatever that's async.
   ///
   await Get.putAsync(() => AdService().init());
-  // await Get.putAsync(SettingsService()).init();
-  print('All services started...');
+  await Get.putAsync(() => SettingsService().init());
+  await Get.putAsync(() => AuthService().init());
+  await Get.putAsync(() => Api().init());
+  Get.log('All services started...');
 }
 
 class MyApp extends StatelessWidget {

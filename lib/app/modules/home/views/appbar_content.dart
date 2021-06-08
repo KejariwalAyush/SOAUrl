@@ -23,9 +23,9 @@ class AppBarContentExtended extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             InkWell(
-              onTap: _hc.viewProfile,
+              onTap: _hc.openDrawer,
               child: WebsafeSvg.asset(
-                'assets/icons/profile.svg',
+                'assets/icons/menu.svg',
                 fit: BoxFit.fill,
                 height: 30,
               ),
@@ -61,14 +61,11 @@ class AppBarContentExtended extends StatelessWidget {
               ],
             ),
             InkWell(
-              onTap: _hc.openDrawer,
-              child: RotatedBox(
-                quarterTurns: 2,
-                child: WebsafeSvg.asset(
-                  'assets/icons/menu.svg',
-                  fit: BoxFit.fill,
-                  height: 30,
-                ),
+              onTap: _hc.openSettings,
+              child: Icon(
+                Icons.settings_outlined,
+                color: kcBlack,
+                size: 30,
               ),
             ),
           ],

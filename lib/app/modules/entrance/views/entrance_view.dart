@@ -22,10 +22,10 @@ class Splash extends GetView<EntranceController> {
               Container(
                 child: Image.asset(
                   'assets/icons/logo-no-bg.png',
-                  height: 500,
+                  height: 300,
                 ),
               ),
-              20.squareBox,
+              50.squareBox,
               'SOAUrl'.text.textStyle(ktsHeading2).make().py8(),
               'Shortform Of Any Url'.text.textStyle(ktsSubHeading).make(),
             ],

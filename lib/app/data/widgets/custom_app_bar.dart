@@ -52,6 +52,14 @@ class KAppBar {
             bottom: Tween<double>(begin: 0, end: 10).evaluate(animation),
           ),
           decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(
+                  Tween<double>(begin: kBorderRadius.bottomLeft.x, end: 0)
+                      .evaluate(animation)),
+              bottomRight: Radius.circular(
+                  Tween<double>(begin: kBorderRadius.bottomLeft.x, end: 0)
+                      .evaluate(animation)),
+            ),
             gradient: LinearGradient(
               begin: Alignment(1.0, -1.0),
               end: Alignment(-1.0, 5.0),
@@ -96,8 +104,8 @@ class KAppBarContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+    return Stack(
+      // alignment:Alignment.,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,55 +120,47 @@ class KAppBarContent extends StatelessWidget {
                 height: 30,
               ),
             ),
-            Expanded(
-              child: Align(
-                alignment: AlignmentTween(
-                        begin: Alignment.center, end: Alignment.centerLeft)
-                    .evaluate(animation),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Tween<double>(begin: 0, end: 40)
-                        .evaluate(animation)
-                        .heightBox,
-                    if (mainIcon != null)
-                      Container(
-                        height: Tween<double>(begin: 0, end: 125)
-                            .evaluate(animation),
-                        width: Tween<double>(begin: 0, end: 125)
-                            .evaluate(animation),
-                        child: mainIcon,
-                      ),
-                    Tween<double>(begin: 0, end: 15)
-                        .evaluate(animation)
-                        .heightBox,
-                    Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: Tween<double>(begin: 30, end: 36)
-                            .evaluate(animation),
-                        color: Colors.white,
-                        shadows: [kShadow],
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                    if (desc != null)
-                      Text(
-                        desc,
-                        style: TextStyle(
-                          fontSize: Tween<double>(begin: 0, end: 18)
-                              .evaluate(animation),
-                          color: Colors.white,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
             (trailingButton != null) ? trailingButton : 50.widthBox,
           ],
+        ),
+        Align(
+          alignment:
+              AlignmentTween(begin: Alignment.center, end: Alignment.centerLeft)
+                  .evaluate(animation),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Tween<double>(begin: 0, end: 50).evaluate(animation).heightBox,
+              if (mainIcon != null)
+                Container(
+                  height: Tween<double>(begin: 0, end: 125).evaluate(animation),
+                  width: Tween<double>(begin: 0, end: 125).evaluate(animation),
+                  child: mainIcon,
+                ),
+              Tween<double>(begin: 0, end: 15).evaluate(animation).heightBox,
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize:
+                      Tween<double>(begin: 30, end: 36).evaluate(animation),
+                  color: Colors.white,
+                  shadows: [kShadow],
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              if (desc != null)
+                Text(
+                  desc,
+                  style: TextStyle(
+                    fontSize:
+                        Tween<double>(begin: 0, end: 18).evaluate(animation),
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+            ],
+          ),
         ),
       ],
     );

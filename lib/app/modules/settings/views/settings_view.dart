@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:soaurl/app/data/data.dart';
-import 'package:websafe_svg/websafe_svg.dart';
 
-import '../controllers/profile_controller.dart';
+import '../controllers/settings_controller.dart';
 
-class ProfileView extends GetView<ProfileController> {
+class SettingsView extends GetView<SettingsController> {
   @override
   Widget build(BuildContext context) {
     final double _minHeight = 78.0;
@@ -21,11 +20,12 @@ class ProfileView extends GetView<ProfileController> {
         builder: (context, constraints) =>
             appbar.appBarContainer(KAppBarContent(
                 animation: appbar.getAnimation(constraints),
-                mainIcon: WebsafeSvg.asset(
-                  'assets/icons/profile.svg',
-                  fit: BoxFit.fill,
+                mainIcon: Icon(
+                  Icons.settings_outlined,
+                  size: Tween<double>(begin: 0, end: 125)
+                      .evaluate(appbar.getAnimation(constraints)),
                 ),
-                title: 'Profile')),
+                title: 'Settings')),
       ),
       isChildScrollable: true,
       child: Text(
