@@ -12,11 +12,10 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     final KAppBar appbar =
         new KAppBar(collapsedHeight: 200, expandedHeight: 550);
-
     return SliverAppBarSnap(
       maxHeight: 550,
       minHeight: 200,
-      showAd: false,
+      showAd: Get.find<SettingsService>().showAd.value,
       appBarContent: LayoutBuilder(
         builder: (context, constraints) => appbar.appBarContainer(
             AppBarContentExtended(animation: appbar.getAnimation(constraints))),

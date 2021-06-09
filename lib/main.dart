@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +25,11 @@ initServices() async {
   /// Here is where you put get_storage, hive, shared_pref initialization.
   /// or moor connection, or whatever that's async.
   ///
-  if (GetPlatform.isAndroid) await Get.putAsync(() => AdService().init());
+  if (GetPlatform.isAndroid) {
+    await Get.putAsync(() => AdService().init());
+    await Get.putAsync(() => AnalyticsService().init());
+  }
+  await Get.putAsync(() => StorageService().init());
   await Get.putAsync(() => SettingsService().init());
   await Get.putAsync(() => AuthService().init());
   await Get.putAsync(() => Api().init());
@@ -33,6 +39,7 @@ initServices() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalytics analytics = FirebaseAnalytics();
     return GetMaterialApp(
       title: 'SOAUrl',
       theme: ThemeData(
@@ -43,8 +50,9 @@ class MyApp extends StatelessWidget {
       defaultTransition: Transition.cupertino,
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
-
-      // home: Splash(),
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: analytics),
+      ],
     );
   }
 }

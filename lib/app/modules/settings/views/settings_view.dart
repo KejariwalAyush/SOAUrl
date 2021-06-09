@@ -13,11 +13,11 @@ class SettingsView extends GetView<SettingsController> {
     final double _maxHeight = 285.0;
     final KAppBar appbar =
         new KAppBar(collapsedHeight: _minHeight, expandedHeight: _maxHeight);
-
+    final _ss = Get.find<SettingsService>();
     return SliverAppBarSnap(
       maxHeight: _maxHeight,
       minHeight: _minHeight,
-      showAd: false,
+      showAd: _ss.showAd.value,
       appBarContent: LayoutBuilder(
         builder: (context, constraints) =>
             appbar.appBarContainer(KAppBarContent(
@@ -30,11 +30,21 @@ class SettingsView extends GetView<SettingsController> {
                 title: 'Settings')),
       ),
       isChildScrollable: true,
-      child: CheckboxListTile(
-        value: true,
-        activeColor: kcMainPurple,
-        onChanged: (value) {},
-        title: 'Show Ads'.text.textStyle(ktsSubHeading).make(),
+      child: Column(
+        children: [
+          Obx(() => CheckboxListTile(
+                value: _ss.showAd.value,
+                activeColor: kcMainPurple,
+                onChanged: (value) => _ss.showAd.toggle(),
+                title: 'Show Ads'.text.textStyle(ktsSubHeading).make(),
+              )),
+          Obx(() => CheckboxListTile(
+                value: _ss.showLogoinQR.value,
+                activeColor: kcMainPurple,
+                onChanged: (value) => _ss.showLogoinQR.toggle(),
+                title: 'Show Logo on QR'.text.textStyle(ktsSubHeading).make(),
+              )),
+        ],
       ),
     );
   }
