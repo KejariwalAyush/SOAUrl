@@ -63,7 +63,7 @@ class HomeController extends GetxController {
     );
   }
 
-  void customshort() {}
+  void customshort() => Get.toNamed(Routes.SHORT);
   void generateQR() => Get.toNamed(Routes.QR);
   void openProfile() => Get.toNamed(Routes.PROFILE);
   void openDrawer() {

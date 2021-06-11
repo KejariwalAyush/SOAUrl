@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:soaurl/app/data/data.dart';
 import 'package:soaurl/app/routes/app_pages.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:velocity_x/velocity_x.dart';
+import 'package:websafe_svg/websafe_svg.dart';
 
 class MenuWidget extends StatelessWidget {
   final Function() onItemClick;
@@ -22,6 +25,7 @@ class MenuWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
+            20.heightBox,
             SizedBox(
               height: 75,
               width: 75,
@@ -37,41 +41,17 @@ class MenuWidget extends StatelessWidget {
             ),
             Column(
               children: [
+                sliderItem('Notifications', Icons.notifications, null),
                 sliderItem(
                     'Profile', Icons.person, () => Get.toNamed(Routes.PROFILE)),
+                sliderItem('Share App', Icons.ios_share_rounded, null),
                 sliderItem('Settings', Icons.settings,
                     () => Get.toNamed(Routes.SETTINGS)),
                 sliderItem('About Us', Icons.adb_rounded, null),
+                sliderItem('Log-out', Icons.logout, null),
               ],
             ),
-            GestureDetector(
-              // onTap: () => SignInService.signOutGoogle().then((value) =>
-              //     Navigator.of(context).pushReplacement(MaterialPageRoute(
-              //         builder: (BuildContext context) => LoginRegister()))),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.logout,
-                        color: kcWhite,
-                        size: 30,
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Expanded(
-                        child: Text(
-                          'LogOut',
-                          style: ktsSubHeading,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            )
+            buyMeACoffeeWidget(),
           ],
         ),
       ),
@@ -97,6 +77,42 @@ class MenuWidget extends StatelessWidget {
                   child: Text(
                     title,
                     style: ktsSubHeading,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+  Widget buyMeACoffeeWidget() => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: InkWell(
+          onTap: () async {
+            final urlString = 'https://www.buymeacoffee.com/KejariwalAyush';
+            if (await canLaunch(urlString)) {
+              await launch(urlString);
+            } else {
+              throw "BuyMeACoffeeWidget - Something went wrong!";
+            }
+          },
+          child: Container(
+            child: Row(
+              children: [
+                WebsafeSvg.network(
+                  "https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg",
+                  width: 25.0,
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Expanded(
+                  child: Text(
+                    'Buy me a coffee',
+                    style: GoogleFonts.cookie(
+                      color: Colors.white,
+                      fontSize: 28.0,
+                      letterSpacing: 0.6,
+                    ),
                   ),
                 ),
               ],

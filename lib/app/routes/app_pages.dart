@@ -12,6 +12,8 @@ import 'package:soaurl/app/modules/qr/bindings/qr_binding.dart';
 import 'package:soaurl/app/modules/qr/views/qr_view.dart';
 import 'package:soaurl/app/modules/settings/bindings/settings_binding.dart';
 import 'package:soaurl/app/modules/settings/views/settings_view.dart';
+import 'package:soaurl/app/modules/short/bindings/short_binding.dart';
+import 'package:soaurl/app/modules/short/views/short_view.dart';
 
 part 'app_routes.dart';
 
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.QR,
       page: () => QrView(),
       binding: QrBinding(),
+    ),
+    GetPage(
+      name: _Paths.SHORT,
+      page: () => ShortView(),
+      binding: ShortBinding(),
     ),
   ];
 }
