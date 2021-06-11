@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soaurl/app/data/data.dart';
+import 'package:soaurl/app/routes/app_pages.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MenuWidget extends StatelessWidget {
@@ -10,39 +10,38 @@ class MenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthService _auth = Get.find<AuthService>();
     return Material(
       child: Container(
         decoration: BoxDecoration(
-          //color: const Color(0xffc651cd)
           gradient: kcgSec,
         ),
-        padding: const EdgeInsets.only(top: 30, right: 10, left: 10),
+        padding: EdgeInsets.only(
+            top: Get.mediaQuery.padding.top, right: 10, left: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             SizedBox(
-              height: 30,
+              height: 75,
+              width: 75,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(25),
+                  child: Image.network(_auth.fireUser.photoURL)),
             ),
-            RotatedBox(
-              quarterTurns: 1,
-              child: SvgPicture.asset(
-                'assets/icons/menu.svg',
-                allowDrawingOutsideViewBox: true,
-                fit: BoxFit.fill,
-                color: kcWhite,
-                height: 100,
-              ),
-            ),
-            'user.displayName'.text.textStyle(ktsHeading1).make(),
+            _auth.fireUser.displayName.text
+                .textStyle(ktsTitle.copyWith(fontSize: 25))
+                .make(),
             SizedBox(
               height: 20,
             ),
             Column(
               children: [
-                sliderItem('Profile', Icons.person, null), //ProfilePage(),),
-                sliderItem('History', Icons.history, null), //History(),),
-                sliderItem('Saved', Icons.bookmark, null), //Saved(),),
+                sliderItem(
+                    'Profile', Icons.person, () => Get.toNamed(Routes.PROFILE)),
+                sliderItem('Settings', Icons.settings,
+                    () => Get.toNamed(Routes.SETTINGS)),
+                sliderItem('About Us', Icons.adb_rounded, null),
               ],
             ),
             GestureDetector(
@@ -79,10 +78,10 @@ class MenuWidget extends StatelessWidget {
     );
   }
 
-  Widget sliderItem(String title, IconData icons, Widget destinaton) => Padding(
+  Widget sliderItem(String title, IconData icons, Function() onTap) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
-          onTap: () => Get.to(() => destinaton),
+          onTap: onTap,
           child: Container(
             child: Row(
               children: [

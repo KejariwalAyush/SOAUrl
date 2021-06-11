@@ -14,10 +14,10 @@ class AuthService extends GetxService {
   }
 
   // Intilize the flutter app
-  User _fireUser;
+  User fireUser;
   FirebaseAuth _firebaseAuth;
 
-  get fireUser => this._fireUser;
+  // get fireUser => this.fireUser;
 
   Future<User> signInWithGoogle() async {
     try {
@@ -34,9 +34,9 @@ class AuthService extends GetxService {
       );
       final userCredentialData =
           await FirebaseAuth.instance.signInWithCredential(credential);
-      _fireUser = userCredentialData.user;
+      fireUser = userCredentialData.user;
       // update the state of controller variable to be reflected throughout the app
-      return _fireUser;
+      return fireUser;
     } catch (ex) {
       Get.back();
       // Show Error if we catch any error
@@ -66,10 +66,10 @@ class AuthService extends GetxService {
     _firebaseAuth.authStateChanges().listen((User user) {
       if (user == null) {
         print('User is currently signed out!');
-        _fireUser = null;
+        fireUser = null;
       } else {
         print('User is signed in!');
-        _fireUser = user;
+        fireUser = user;
       }
     });
     // if (firebaseAuth == null) {

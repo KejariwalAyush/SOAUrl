@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.grey,
         textTheme: GoogleFonts.cormorantGaramondTextTheme(),
       ),
-      transitionDuration: kaniBase,
+      transitionDuration: kAnimationDuration,
       defaultTransition: Transition.cupertino,
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,

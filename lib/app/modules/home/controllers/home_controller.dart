@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:soaurl/app/data/data.dart';
@@ -9,12 +10,16 @@ import 'package:velocity_x/velocity_x.dart';
 
 class HomeController extends GetxController {
   InterstitialAd _interstitialAd;
-  AdService _ad = Get.find<AdService>();
+  final AdService _ad = Get.find<AdService>();
+  final SettingsService _ss = Get.find<SettingsService>();
+  final GlobalKey<SliderMenuContainerState> menuKey =
+      new GlobalKey<SliderMenuContainerState>();
 
   RxBool _isInterstitialAdReady = false.obs;
   @override
   void onInit() {
     super.onInit();
+
     _interstitialAd = _ad.fullPageAd();
   }
 
@@ -29,7 +34,7 @@ class HomeController extends GetxController {
   void refreshData() {}
 
   void quickshort() {
-    _interstitialAd.load();
+    if (_ss.showAd.value) _interstitialAd.load();
     Get.bottomSheet(
       Container(
         decoration: BoxDecoration(
@@ -59,12 +64,11 @@ class HomeController extends GetxController {
   }
 
   void customshort() {}
-  void scanQR() {}
-  void generateQR() {}
-  void openSettings() => Get.toNamed(Routes.SETTINGS);
+  void generateQR() => Get.toNamed(Routes.QR);
+  void openProfile() => Get.toNamed(Routes.PROFILE);
   void openDrawer() {
-    // (_key.currentState?.isDrawerOpen ?? false)
-    //     ? _key.currentState.closeDrawer()
-    //     : _key.currentState.openDrawer();
+    (menuKey.currentState?.isDrawerOpen ?? false)
+        ? menuKey.currentState.closeDrawer()
+        : menuKey.currentState.openDrawer();
   }
 }

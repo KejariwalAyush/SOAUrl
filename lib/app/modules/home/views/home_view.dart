@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 
 import 'package:get/get.dart';
 import 'package:soaurl/app/data/data.dart';
@@ -12,26 +13,50 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     final KAppBar appbar =
         new KAppBar(collapsedHeight: 200, expandedHeight: 550);
-    return SliverAppBarSnap(
-      maxHeight: 550,
-      minHeight: 200,
-      showAd: Get.find<SettingsService>().showAd.value,
-      appBarContent: LayoutBuilder(
-        builder: (context, constraints) => appbar.appBarContainer(
-            AppBarContentExtended(animation: appbar.getAnimation(constraints))),
-      ),
-      sliverChildBuilderDelegate: SliverChildBuilderDelegate(
-        (context, index) {
-          // if (index > 5) return 50.heightBox;
-          return KBlurButton(
-            child: Text(
-              "Item $index",
-              style: ktsTitle,
-            ).p8(),
-          ).px16().py8();
-        },
-        //TODO: if card is less than then add blank cards
-        childCount: 10, // must be min 10
+
+    Size size = MediaQuery.of(context).size;
+
+    return WillPopScope(
+      onWillPop: () {
+        if (controller.menuKey.currentState.isDrawerOpen) {
+          controller.menuKey.currentState.closeDrawer();
+          return Future.value(false);
+        } else
+          return Future.value(true);
+      },
+      child: SliderMenuContainer(
+        hasAppBar: false,
+        key: controller.menuKey,
+        animationDuration: 300,
+        isDraggable: true,
+        sliderMenuOpenSize: size.width * 0.6,
+        slideDirection: SlideDirection.LEFT_TO_RIGHT,
+        sliderMenu: MenuWidget(
+          onItemClick: () => controller.menuKey.currentState.closeDrawer(),
+        ),
+        sliderMain: SliverAppBarSnap(
+          maxHeight: 550,
+          minHeight: 200,
+          showAd: Get.find<SettingsService>().showAd.value,
+          appBarContent: LayoutBuilder(
+            builder: (context, constraints) => appbar.appBarContainer(
+                AppBarContentExtended(
+                    animation: appbar.getAnimation(constraints))),
+          ),
+          sliverChildBuilderDelegate: SliverChildBuilderDelegate(
+            (context, index) {
+              // if (index > 5) return 50.heightBox;
+              return KBlurButton(
+                child: Text(
+                  "Item $index",
+                  style: ktsTitle,
+                ).p8(),
+              ).px16().py8();
+            },
+            //TODO: if card is less than then add blank cards
+            childCount: 10, // must be min 10
+          ),
+        ),
       ),
     );
   }

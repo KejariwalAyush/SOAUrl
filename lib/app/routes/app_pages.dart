@@ -8,6 +8,8 @@ import 'package:soaurl/app/modules/home/bindings/home_binding.dart';
 import 'package:soaurl/app/modules/home/views/home_view.dart';
 import 'package:soaurl/app/modules/profile/bindings/profile_binding.dart';
 import 'package:soaurl/app/modules/profile/views/profile_view.dart';
+import 'package:soaurl/app/modules/qr/bindings/qr_binding.dart';
+import 'package:soaurl/app/modules/qr/views/qr_view.dart';
 import 'package:soaurl/app/modules/settings/bindings/settings_binding.dart';
 import 'package:soaurl/app/modules/settings/views/settings_view.dart';
 
@@ -43,6 +45,11 @@ class AppPages {
       name: _Paths.SETTINGS,
       page: () => SettingsView(),
       binding: SettingsBinding(),
+    ),
+    GetPage(
+      name: _Paths.QR,
+      page: () => QrView(),
+      binding: QrBinding(),
     ),
   ];
 }

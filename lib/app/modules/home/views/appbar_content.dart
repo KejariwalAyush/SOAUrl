@@ -61,11 +61,14 @@ class AppBarContentExtended extends StatelessWidget {
               ],
             ),
             InkWell(
-              onTap: _hc.openSettings,
-              child: Icon(
-                Icons.settings_outlined,
-                color: kcBlack,
-                size: 30,
+              onTap: _hc.openProfile,
+              child: SizedBox(
+                height: 30,
+                width: 30,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(
+                        Get.find<AuthService>().fireUser.photoURL)),
               ),
             ),
           ],
@@ -87,16 +90,15 @@ class AppBarContentExtended extends StatelessWidget {
                       color: Colors.white,
                       fit: BoxFit.fitHeight,
                     ),
-                  ),
+                  ).p4(),
                   'Quick Shorten'.text.xl.center.bold.white.make().p4(),
                 ],
               )
-                  .p4()
+                  .onInkTap(_hc.quickshort)
                   .card
                   .roundedSM
                   .color(kcMainPurple.withOpacity(0.2))
                   .make()
-                  .onInkTap(_hc.quickshort)
                   .p4(),
             ),
             Expanded(
@@ -112,16 +114,15 @@ class AppBarContentExtended extends StatelessWidget {
                       color: Colors.white,
                       fit: BoxFit.fitHeight,
                     ),
-                  ),
+                  ).p4(),
                   'Custom Shorten'.text.xl.center.bold.white.make().p4(),
                 ],
               )
-                  .p4()
+                  .onInkTap(_hc.customshort)
                   .card
                   .roundedSM
                   .color(kcMainPurple.withOpacity(0.2))
                   .make()
-                  .onInkTap(_hc.customshort)
                   .p4(),
             ),
           ],
@@ -135,27 +136,31 @@ class AppBarContentExtended extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: kcMainPink.withOpacity(0.25),
-                        borderRadius: BorderRadius.circular(15),
-                        border: Border.all(color: kcMainPurple)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: Tween<double>(begin: 0, end: 50)
-                              .evaluate(animation),
-                          child: WebsafeSvg.asset(
-                            'assets/icons/qr_large.svg',
-                            color: Colors.white,
-                            fit: BoxFit.fitWidth,
+                  child: InkWell(
+                    onTap: _hc.generateQR,
+                    borderRadius: BorderRadius.circular(15),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: kcMainPink.withOpacity(0.25),
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(color: kcMainPurple)),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: Tween<double>(begin: 0, end: 50)
+                                .evaluate(animation),
+                            child: WebsafeSvg.asset(
+                              'assets/icons/qr_large.svg',
+                              color: Colors.white,
+                              fit: BoxFit.fitWidth,
+                            ),
                           ),
-                        ),
-                        'Generate QR'.text.xl3.bold.white.make().p4(),
-                      ],
-                    ).p8(),
+                          'Generate QR'.text.xl3.bold.white.make().p4(),
+                        ],
+                      ).p8(),
+                    ),
                   ).px4(),
                 ),
               ],

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'colors.dart';
 
-final Duration kaniBase = 300.milliseconds;
+final Duration kAnimationDuration = 300.milliseconds;
 final BorderRadius kBorderRadius = BorderRadius.circular(17);
 final BoxShadow kShadow = BoxShadow(
   color: kcBlackShadow,
