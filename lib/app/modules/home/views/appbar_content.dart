@@ -61,14 +61,13 @@ class AppBarContentExtended extends StatelessWidget {
               ],
             ),
             InkWell(
-              onTap: _hc.openProfile,
+              onTap: _hc.openNotification,
               child: SizedBox(
                 height: 30,
                 width: 30,
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                        Get.find<AuthService>().fireUser.photoURL)),
+                    child: Icon(Icons.notifications)),
               ),
             ),
           ],

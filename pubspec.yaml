@@ -28,6 +28,7 @@ dependencies:
   url_launcher: ^6.0.6
   velocity_x: ^3.2.0
   websafe_svg: ^2.0.0
+  receive_sharing_intent: ^1.4.5
 
 dev_dependencies:
   flutter_test:

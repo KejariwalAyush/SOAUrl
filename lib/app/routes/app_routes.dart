@@ -11,6 +11,8 @@ abstract class Routes {
   static const SETTINGS = _Paths.SETTINGS;
   static const QR = _Paths.QR;
   static const SHORT = _Paths.SHORT;
+  static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
+  static const ABOUT_US = _Paths.ABOUT_US;
 }
 
 abstract class _Paths {
@@ -21,4 +23,6 @@ abstract class _Paths {
   static const SETTINGS = '/settings';
   static const QR = '/qr';
   static const SHORT = '/short';
+  static const NOTIFICATIONS = '/notifications';
+  static const ABOUT_US = '/about-us';
 }

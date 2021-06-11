@@ -11,24 +11,22 @@ class SettingsService extends GetxService {
     if (GetPlatform.isWeb) // || kDebugMode)
       showAd.toggle();
     else {
-      showAd.update((val) {
-        val = box.read("showAd") ?? true;
-      });
-      showLogoinQR.update((val) {
-        val = box.read("showLogoinQR") ?? true;
-      });
+      showAd.value = box.read('showAd') ?? true;
+      showLogoinQR.value = box.read('showLogoinQR') ?? true;
+      Get.log('ShowAd: ${showAd.value}');
     }
     print('$runtimeType ready!');
     return this;
   }
 
-  void toggleShowAd() async {
+  void toggleShowAd() {
     showAd.toggle();
-    await box.write("showAd", showAd.value);
+    box.write("showAd", showAd.value);
+    Get.log(box.read("showAd").toString());
   }
 
-  void toggleShowLogoinQR() async {
+  void toggleShowLogoinQR() {
     showLogoinQR.toggle();
-    await box.write("showLogoinQR", showLogoinQR.value);
+    box.write("showLogoinQR", showLogoinQR.value);
   }
 }

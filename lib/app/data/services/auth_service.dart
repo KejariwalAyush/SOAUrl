@@ -56,6 +56,7 @@ class AuthService extends GetxService {
   Future<void> signOut() async {
     // Show loading widget till we sign out
     Get.dialog(Center(child: KLoadingWidget()), barrierDismissible: false);
+    GoogleSignIn().signOut();
     await _firebaseAuth.signOut();
     Get.back();
     // Navigate to Login again

@@ -33,21 +33,28 @@ class MenuWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(25),
                   child: Image.network(_auth.fireUser.photoURL)),
             ),
-            _auth.fireUser.displayName.text
-                .textStyle(ktsTitle.copyWith(fontSize: 25))
-                .make(),
+            Column(
+              children: [
+                _auth.fireUser.displayName.text
+                    .textStyle(ktsTitle.copyWith(fontSize: 25))
+                    .make(),
+                _auth.fireUser.email.text.textStyle(ktsSubHeading).make(),
+              ],
+            ),
             SizedBox(
               height: 20,
             ),
             Column(
               children: [
-                sliderItem('Notifications', Icons.notifications, null),
-                sliderItem(
-                    'Profile', Icons.person, () => Get.toNamed(Routes.PROFILE)),
+                sliderItem('Notifications', Icons.notifications,
+                    () => Get.toNamed(Routes.NOTIFICATIONS)),
+                // sliderItem(
+                //     'Profile', Icons.person, () => Get.toNamed(Routes.PROFILE)),
                 sliderItem('Share App', Icons.ios_share_rounded, null),
                 sliderItem('Settings', Icons.settings,
                     () => Get.toNamed(Routes.SETTINGS)),
-                sliderItem('About Us', Icons.adb_rounded, null),
+                sliderItem('About Us', Icons.info_outline,
+                    () => Get.toNamed(Routes.ABOUT_US)),
                 sliderItem('Log-out', Icons.logout,
                     () => Get.find<AuthService>().signOut()),
               ],

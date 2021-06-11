@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'app/data/data.dart';
 import 'app/routes/app_pages.dart';
 
@@ -36,7 +39,11 @@ initServices() async {
   Get.log('All services started...');
 }
 
+// ignore: must_be_immutable
 class MyApp extends StatelessWidget {
+  StreamSubscription _intentDataStreamSubscription;
+  RxString _sharedText = ''.obs;
+
   @override
   Widget build(BuildContext context) {
     FirebaseAnalytics analytics = FirebaseAnalytics();
@@ -53,6 +60,30 @@ class MyApp extends StatelessWidget {
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: analytics),
       ],
+      onInit: onInit,
+      onDispose: onDispose,
     );
+  }
+
+  void onInit() {
+    _sharedText.value = '';
+    // For sharing or opening urls/text coming from outside the app while the app is in the memory
+    _intentDataStreamSubscription =
+        ReceiveSharingIntent.getTextStream().listen((String value) {
+      _sharedText.value = value;
+      Get.log('Sharing Intent: $value');
+    }, onError: (err) {
+      print("getLinkStream error: $err");
+    });
+
+    // For sharing or opening urls/text coming from outside the app while the app is closed
+    ReceiveSharingIntent.getInitialText().then((String value) {
+      _sharedText.value = value;
+      Get.log('Sharing Intent: $value');
+    });
+  }
+
+  void onDispose() {
+    _intentDataStreamSubscription.cancel();
   }
 }

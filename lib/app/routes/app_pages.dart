@@ -1,11 +1,15 @@
 import 'package:get/get.dart';
 
+import 'package:soaurl/app/modules/aboutUs/bindings/about_us_binding.dart';
+import 'package:soaurl/app/modules/aboutUs/views/about_us_view.dart';
 import 'package:soaurl/app/modules/entrance/bindings/entrance_binding.dart';
 import 'package:soaurl/app/modules/entrance/bindings/login_binding.dart';
 import 'package:soaurl/app/modules/entrance/views/entrance_view.dart';
 import 'package:soaurl/app/modules/entrance/views/login_view.dart';
 import 'package:soaurl/app/modules/home/bindings/home_binding.dart';
 import 'package:soaurl/app/modules/home/views/home_view.dart';
+import 'package:soaurl/app/modules/notifications/bindings/notifications_binding.dart';
+import 'package:soaurl/app/modules/notifications/views/notifications_view.dart';
 import 'package:soaurl/app/modules/profile/bindings/profile_binding.dart';
 import 'package:soaurl/app/modules/profile/views/profile_view.dart';
 import 'package:soaurl/app/modules/qr/bindings/qr_binding.dart';
@@ -57,6 +61,16 @@ class AppPages {
       name: _Paths.SHORT,
       page: () => ShortView(),
       binding: ShortBinding(),
+    ),
+    GetPage(
+      name: _Paths.NOTIFICATIONS,
+      page: () => NotificationsView(),
+      binding: NotificationsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ABOUT_US,
+      page: () => AboutUsView(),
+      binding: AboutUsBinding(),
     ),
   ];
 }
