@@ -36,9 +36,14 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
 
   @override
   Widget build(BuildContext context) {
+    final _ss = Get.find<SettingsService>();
     return Scaffold(
       backgroundColor: kcBlack,
-      bottomNavigationBar: widget.showAd ? BannerAdWidget() : null,
+      bottomNavigationBar: !widget.showAd
+          ? null
+          : Obx(() => (_ss.showAd.value ?? false)
+              ? BannerAdWidget()
+              : SizedBox.shrink()),
       body: KBackgroundContainer(
         size: Get.mediaQuery.size,
         child: NotificationListener<ScrollEndNotification>(

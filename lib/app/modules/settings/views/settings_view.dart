@@ -17,7 +17,6 @@ class SettingsView extends GetView<SettingsController> {
     return SliverAppBarSnap(
       maxHeight: _maxHeight,
       minHeight: _minHeight,
-      showAd: _ss.showAd.value,
       appBarContent: LayoutBuilder(
         builder: (context, constraints) =>
             appbar.appBarContainer(KAppBarContent(
@@ -35,7 +34,17 @@ class SettingsView extends GetView<SettingsController> {
           Obx(() => CheckboxListTile(
                 value: _ss.showAd.value,
                 activeColor: kcMainPurple,
-                onChanged: (value) => _ss.showAd.toggle(),
+                onChanged: (value) async {
+                  // Get.dialog(Center(child: KLoadingWidget()),
+                  //     barrierDismissible: false);
+                  // AdService _ad = Get.find<AdService>();
+                  // _ad.fullPageAd(
+                  //   onClose: (_ad) {
+                  //     // Get.log(_ad.type);
+                  //   },
+                  // )..load();
+                  _ss.toggleShowAd();
+                },
                 title: 'Show Ads'.text.textStyle(ktsSubHeading).make(),
               )),
           Obx(() => CheckboxListTile(

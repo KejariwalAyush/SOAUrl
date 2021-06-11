@@ -25,9 +25,14 @@ class Splash extends GetView<EntranceController> {
                   height: 300,
                 ),
               ),
-              50.squareBox,
-              'SOAUrl'.text.textStyle(ktsHeading2).make().py8(),
-              'Shortform Of Any Url'.text.textStyle(ktsSubHeading).make(),
+              // 50.squareBox,
+              Column(
+                children: [
+                  'SOAUrl'.text.textStyle(ktsHeading2).make().py8(),
+                  'Shortform Of Any Url'.text.textStyle(ktsSubHeading).make(),
+                ],
+              ),
+              KLoadingWidget()
             ],
           ),
         ),

@@ -82,16 +82,20 @@ class AppBarContentExtended extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height:
-                        Tween<double>(begin: 0, end: 50).evaluate(animation),
-                    child: WebsafeSvg.asset(
-                      'assets/icons/quick_link.svg',
-                      color: Colors.white,
-                      fit: BoxFit.fitHeight,
+                  Padding(
+                    padding: EdgeInsets.all(
+                        Tween<double>(begin: 0, end: 4).evaluate(animation)),
+                    child: SizedBox(
+                      height:
+                          Tween<double>(begin: 0, end: 50).evaluate(animation),
+                      child: WebsafeSvg.asset(
+                        'assets/icons/quick_link.svg',
+                        color: Colors.white,
+                        fit: BoxFit.fitHeight,
+                      ),
                     ),
-                  ).p4(),
-                  'Quick Shorten'.text.xl.center.bold.white.make().p4(),
+                  ),
+                  'Quick Shorten'.text.xl.center.bold.white.make().p8(),
                 ],
               )
                   .onInkTap(_hc.quickshort)
@@ -106,16 +110,20 @@ class AppBarContentExtended extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height:
-                        Tween<double>(begin: 0, end: 50).evaluate(animation),
-                    child: WebsafeSvg.asset(
-                      'assets/icons/url.svg',
-                      color: Colors.white,
-                      fit: BoxFit.fitHeight,
+                  Padding(
+                    padding: EdgeInsets.all(
+                        Tween<double>(begin: 0, end: 4).evaluate(animation)),
+                    child: SizedBox(
+                      height:
+                          Tween<double>(begin: 0, end: 50).evaluate(animation),
+                      child: WebsafeSvg.asset(
+                        'assets/icons/url.svg',
+                        color: Colors.white,
+                        fit: BoxFit.fitHeight,
+                      ),
                     ),
-                  ).p4(),
-                  'Custom Shorten'.text.xl.center.bold.white.make().p4(),
+                  ),
+                  'Custom Shorten'.text.xl.center.bold.white.make().p8(),
                 ],
               )
                   .onInkTap(_hc.customshort)
@@ -166,7 +174,7 @@ class AppBarContentExtended extends StatelessWidget {
               ],
             ),
           ),
-        Tween<double>(begin: 20, end: 30).evaluate(animation).squareBox,
+        20.squareBox,
         Text(
           "Your Active Shortened Urls",
           style: TextStyle(

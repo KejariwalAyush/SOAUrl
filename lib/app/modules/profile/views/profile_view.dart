@@ -16,7 +16,6 @@ class ProfileView extends GetView<ProfileController> {
     return SliverAppBarSnap(
       maxHeight: _maxHeight,
       minHeight: _minHeight,
-      showAd: false,
       appBarContent: LayoutBuilder(
         builder: (context, constraints) =>
             appbar.appBarContainer(KAppBarContent(

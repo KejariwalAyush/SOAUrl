@@ -15,8 +15,10 @@ class AdService extends GetxService {
 
   String get bannerAdUnitId {
     if (Platform.isAndroid) {
-      return AdSecrets.androidtestBannerAdUnitId; // test ad
-      // return AdSecrets.androidBannerAdUnitId;;
+      if (kDebugMode || kProfileMode)
+        return AdSecrets.androidtestBannerAdUnitId;
+      else
+        return AdSecrets.androidBannerAdUnitId;
     } else {
       throw new UnsupportedError('Unsupported platform');
     }
@@ -24,9 +26,10 @@ class AdService extends GetxService {
 
   String get interstitialAdUnitId {
     if (Platform.isAndroid) {
-      return AdSecrets.androidtestInterstitialAdUnitId;
-
-      // return AdSecrets.androidInterstitialAdUnitId;
+      if (kDebugMode || kProfileMode)
+        return AdSecrets.androidtestInterstitialAdUnitId;
+      else
+        return AdSecrets.androidInterstitialAdUnitId;
     } else {
       throw new UnsupportedError("Unsupported platform");
     }
@@ -34,9 +37,10 @@ class AdService extends GetxService {
 
   String get rewardedAdUnitId {
     if (Platform.isAndroid) {
-      return AdSecrets.androidtestRewardedAdUnitId;
-      // return AdSecrets.androidRewardedAdUnitId;
-
+      if (kDebugMode || kProfileMode)
+        return AdSecrets.androidtestRewardedAdUnitId;
+      else
+        return AdSecrets.androidRewardedAdUnitId;
     } else {
       throw new UnsupportedError("Unsupported platform");
     }

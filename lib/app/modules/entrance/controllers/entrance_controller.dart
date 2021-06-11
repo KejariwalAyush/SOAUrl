@@ -7,7 +7,7 @@ class EntranceController extends GetxController {
   void onInit() async {
     super.onInit();
     print('Splash init');
-    await Future.delayed(300.milliseconds);
+    await Future.delayed(700.milliseconds);
   }
 
   @override
@@ -20,30 +20,4 @@ class EntranceController extends GetxController {
 
   @override
   void onClose() {}
-
-  // Future<void> checkUserLoggedIn() async {
-  //   FirebaseAuth.instance.authStateChanges().listen((User user) {
-  //     if (user == null) {
-  //       print('User is currently signed out!');
-  //       Get.offNamed(Routes.LOGIN);
-  //     } else {
-  //       print('User is signed in!');
-  //       final ss = Get.find<SettingsService>();
-  //       ss.fireUser = user;
-  //       update();
-  //       Get.offNamed(Routes.HOME);
-  //     }
-  //   });
-  //   // if (firebaseAuth == null) {
-  //   //   firebaseAuth = FirebaseAuth.instance;
-  //   //   update();
-  //   // }
-  //   // if (firebaseAuth.currentUser == null) {
-  //   //   Get.offNamed(Routes.LOGIN);
-  //   // } else {
-  //   //   firebaseUser = firebaseAuth.currentUser;
-  //   //   update();
-  //   //   Get.offNamed(Routes.HOME);
-  //   // }
-  // }
 }

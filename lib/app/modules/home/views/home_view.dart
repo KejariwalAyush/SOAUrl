@@ -37,7 +37,6 @@ class HomeView extends GetView<HomeController> {
         sliderMain: SliverAppBarSnap(
           maxHeight: 550,
           minHeight: 200,
-          showAd: Get.find<SettingsService>().showAd.value,
           appBarContent: LayoutBuilder(
             builder: (context, constraints) => appbar.appBarContainer(
                 AppBarContentExtended(

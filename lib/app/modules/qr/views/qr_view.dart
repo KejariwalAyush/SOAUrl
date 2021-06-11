@@ -14,11 +14,9 @@ class QrView extends GetView<QrController> {
     final double _maxHeight = 285.0;
     final KAppBar appbar =
         new KAppBar(collapsedHeight: _minHeight, expandedHeight: _maxHeight);
-    final _ss = Get.find<SettingsService>();
     return SliverAppBarSnap(
       maxHeight: _maxHeight,
       minHeight: _minHeight,
-      showAd: _ss.showAd.value,
       appBarContent: LayoutBuilder(
         builder: (context, constraints) =>
             appbar.appBarContainer(KAppBarContent(
