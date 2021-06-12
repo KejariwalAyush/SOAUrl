@@ -32,51 +32,57 @@ class QrView extends GetView<QrController> {
                 title: 'Generate QR')),
       ),
       isChildScrollable: true,
-      child: Column(
-        children: [
-          TextField(
-            controller: controller.qrdataFeed,
-            style: GoogleFonts.varela(color: Colors.white),
-            maxLines: 2,
-            minLines: 1,
-            decoration: InputDecoration(
-                labelStyle: TextStyle(color: Colors.white),
-                hintStyle: TextStyle(color: Colors.grey),
-                icon: Icon(
-                  Icons.text_fields_rounded,
-                  size: 30,
-                  color: Colors.white,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            TextField(
+              controller: controller.qrdataFeed,
+              style: GoogleFonts.varela(color: Colors.white),
+              maxLines: 2,
+              minLines: 1,
+              // onTap: ,
+              decoration: InputDecoration(
+                  labelStyle: TextStyle(color: Colors.white),
+                  hintStyle: TextStyle(color: Colors.white54),
+                  icon: Icon(
+                    Icons.text_fields_rounded,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                  hintText: "Enter your link/text here...",
+                  fillColor: Colors.white),
+            ),
+            20.heightBox,
+            KBlurButton(
+              child: 'Generate Qr'.text.textStyle(ktsButtonBlank).make().p8(),
+              onPressed: controller.updateQR,
+            ),
+            20.heightBox,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Obx(() => DisplayQR(
+                      previewContainer: controller.previewContainer,
+                      qrData: controller.qrData.value,
+                    )),
+                IconButton(
+                  icon:
+                      Icon(Icons.share_rounded, size: 30, color: Colors.white),
+                  tooltip: 'Share QR',
+                  onPressed: () {
+                    // ShareFilesAndScreenshotWidgets().shareScreenshot(
+                    //     previewContainer, 800, "QR", "qr.png", "image/png",
+                    //     text: "");
+                  },
                 ),
-                hintText: "Enter your link/text here...",
-                fillColor: Colors.white),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Obx(() => DisplayQR(
-                    previewContainer: controller.previewContainer,
-                    qrData: controller.qrData.value,
-                  )),
-              KBlurButton(
-                child: 'GenerateQr'.text.textStyle(ktsButtonBlank).make(),
-                onPressed: controller.updateQR,
-              ),
-              IconButton(
-                icon: Icon(Icons.share_rounded, size: 30, color: Colors.white),
-                tooltip: 'Share QR',
-                onPressed: () {
-                  // ShareFilesAndScreenshotWidgets().shareScreenshot(
-                  //     previewContainer, 800, "QR", "qr.png", "image/png",
-                  //     text: "");
-                },
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-        ],
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+          ],
+        ),
       ),
     );
   }

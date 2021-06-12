@@ -30,8 +30,8 @@ class NotificationsView extends GetView<NotificationsController> {
       isChildScrollable: true,
       child: Center(
         child: Text(
-          'NotificationsView is working',
-          style: TextStyle(fontSize: 20),
+          'No Notifications Yet',
+          style: ktsTitle,
         ),
       ),
     );

@@ -48,7 +48,7 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
         size: Get.mediaQuery.size,
         child: NotificationListener<ScrollEndNotification>(
           onNotification: (_) {
-            _snapAppbar();
+            snapAppbar();
             return false;
           },
           child: CustomScrollView(
@@ -82,7 +82,7 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
     );
   }
 
-  void _snapAppbar() {
+  void snapAppbar() {
     final scrollDistance = maxHeight - minHeight;
 
     if (_controller.offset > 0 && _controller.offset < scrollDistance) {
