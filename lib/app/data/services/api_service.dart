@@ -9,10 +9,18 @@ class Api extends GetConnect {
   // Get request
   Future<Response> getResp(String url) => get(url);
   Future<Response> getUser(int id) => get('http://youapi/users/id');
+
   // Post request
-  Future<Response> getUrlList() {
+  Future<UrlList> getUrlList() async {
     final _auth = Get.find<AuthService>();
-    return post(baseUrl + '/get', jsonEncode({'userId': _auth.fireUser.uid}));
+    var resp = await post(
+        baseUrl + '/get', jsonEncode({'userId': _auth.fireUser.uid}));
+    var value = resp.bodyString;
+    if (value.toString().contains("status") &&
+        value.toString().contains("error")) return UrlList(urlDetails: null);
+    var urlList = UrlList.fromJson('{"urlDetails":' + value.toString() + '}');
+    Get.log('Got UrlList from Server');
+    return urlList;
   }
 
   /// Check if the Url is valid or not

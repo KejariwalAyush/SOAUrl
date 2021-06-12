@@ -42,18 +42,47 @@ class HomeView extends GetView<HomeController> {
                 AppBarContentExtended(
                     animation: appbar.getAnimation(constraints))),
           ),
-          sliverChildBuilderDelegate: SliverChildBuilderDelegate(
-            (context, index) {
-              // if (index > 5) return 50.heightBox;
-              return KBlurButton(
-                child: Text(
-                  "Item $index",
-                  style: ktsTitle,
-                ).p8(),
-              ).px16().py8();
+          sliverList: FutureBuilder<UrlList>(
+            future: Get.find<Api>().getUrlList(),
+            // initialData: InitialData,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (!snapshot.hasData)
+                return SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: KLoadingWidget(),
+                  fillOverscroll: true,
+                );
+              if (snapshot.data == null)
+                return SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Center(
+                    child: Text(
+                      'List is Empty',
+                      style: ktsSubHeading,
+                    ),
+                  ),
+                );
+
+              UrlList _urlList = snapshot.data;
+              return SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    if (index >= _urlList.urlDetails.length)
+                      return 50.heightBox;
+                    UrlDetails urlDetails = _urlList.urlDetails[index];
+                    return KBlurButton(
+                      child: Text(
+                        urlDetails.shortUrl,
+                        style: ktsTitle,
+                      ).p8(),
+                    ).px16().py8();
+                  },
+                  childCount: _urlList.urlDetails.length < 10
+                      ? 10
+                      : _urlList.urlDetails.length, // must be min 10
+                ),
+              );
             },
-            //TODO: if card is less than then add blank cards
-            childCount: 10, // must be min 10
           ),
         ),
       ),

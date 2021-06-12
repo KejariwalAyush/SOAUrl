@@ -10,7 +10,7 @@ class SliverAppBarSnap extends StatefulWidget {
   final bool showAd;
   final Widget child;
   final bool isChildScrollable;
-  final SliverChildBuilderDelegate sliverChildBuilderDelegate;
+  final Widget sliverList;
   final Widget appBarContent;
 
   const SliverAppBarSnap(
@@ -19,10 +19,10 @@ class SliverAppBarSnap extends StatefulWidget {
       this.minHeight = 180,
       this.showAd = true,
       this.child,
-      this.sliverChildBuilderDelegate,
+      this.sliverList,
       this.isChildScrollable = false,
       @required this.appBarContent})
-      : assert(child != null || sliverChildBuilderDelegate != null),
+      : assert(child != null || sliverList != null),
         super(key: key);
   @override
   _SliverAppBarSnapState createState() => _SliverAppBarSnapState();
@@ -73,8 +73,8 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
                           EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                       child: widget.child),
                 ),
-              if (widget.sliverChildBuilderDelegate != null)
-                SliverList(delegate: widget.sliverChildBuilderDelegate),
+              if (widget.sliverList != null) widget.sliverList,
+              // SliverList(delegate: widget.sliverList),
             ],
           ),
         ),

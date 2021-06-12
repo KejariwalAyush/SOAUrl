@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:soaurl/app/data/data.dart';
+import 'package:velocity_x/velocity_x.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 import '../controllers/qr_controller.dart';
@@ -32,36 +34,33 @@ class QrView extends GetView<QrController> {
       isChildScrollable: true,
       child: Column(
         children: [
+          TextField(
+            controller: controller.qrdataFeed,
+            style: GoogleFonts.varela(color: Colors.white),
+            maxLines: 2,
+            minLines: 1,
+            decoration: InputDecoration(
+                labelStyle: TextStyle(color: Colors.white),
+                hintStyle: TextStyle(color: Colors.grey),
+                icon: Icon(
+                  Icons.text_fields_rounded,
+                  size: 30,
+                  color: Colors.white,
+                ),
+                hintText: "Enter your link/text here...",
+                fillColor: Colors.white),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                key: UniqueKey(),
-                child: RepaintBoundary(
-                  key: controller.previewContainer,
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(17),
-                        color: Colors.white),
-                    child: PrettyQr(
-                      data: controller.qrData,
-                      size: 200,
-                      roundEdges: true, //roundedQr,
-                      typeNumber: 3,
-                      errorCorrectLevel: QrErrorCorrectLevel.M,
-                      image: AssetImage(
-                        'assets/icons/logo-no-bg.png',
-                      ),
-                      // qrWithLogo
-                      //     ? AssetImage(
-                      //         'assets/icons/logo-no-bg.png',
-                      //       )
-                      //     : null,
-                    ),
-                  ),
-                ),
+              Obx(() => DisplayQR(
+                    previewContainer: controller.previewContainer,
+                    qrData: controller.qrData.value,
+                  )),
+              KBlurButton(
+                child: 'GenerateQr'.text.textStyle(ktsButtonBlank).make(),
+                onPressed: controller.updateQR,
               ),
               IconButton(
                 icon: Icon(Icons.share_rounded, size: 30, color: Colors.white),
@@ -78,6 +77,48 @@ class QrView extends GetView<QrController> {
             height: 20,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class DisplayQR extends StatelessWidget {
+  const DisplayQR({
+    Key key,
+    @required this.previewContainer,
+    @required this.qrData,
+    this.size = 200,
+    this.roundedQR = true,
+  }) : super(key: key);
+
+  final String qrData;
+  final GlobalKey previewContainer;
+  final double size;
+  final bool roundedQR;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      key: UniqueKey(),
+      child: RepaintBoundary(
+        key: previewContainer,
+        child: Container(
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(17), color: Colors.white),
+          child: PrettyQr(
+            data: qrData,
+            size: size,
+            roundEdges: roundedQR,
+            typeNumber: 3,
+            errorCorrectLevel: QrErrorCorrectLevel.M,
+            image: Get.find<SettingsService>().showLogoinQR.value
+                ? AssetImage(
+                    'assets/icons/logo-no-bg.png',
+                  )
+                : null,
+          ),
+        ),
       ),
     );
   }

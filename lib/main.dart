@@ -69,16 +69,16 @@ class MyApp extends StatelessWidget {
     _sharedText.value = '';
     // For sharing or opening urls/text coming from outside the app while the app is in the memory
     _intentDataStreamSubscription =
-        ReceiveSharingIntent.getTextStream().listen((String value) {
-      _sharedText.value = value;
+        ReceiveSharingIntent.getTextStreamAsUri().listen((Uri value) {
+      _sharedText.value = value.toString();
       Get.log('Sharing Intent: $value');
     }, onError: (err) {
       print("getLinkStream error: $err");
     });
 
     // For sharing or opening urls/text coming from outside the app while the app is closed
-    ReceiveSharingIntent.getInitialText().then((String value) {
-      _sharedText.value = value;
+    ReceiveSharingIntent.getInitialTextAsUri().then((Uri value) {
+      _sharedText.value = value.toString();
       Get.log('Sharing Intent: $value');
     });
   }
