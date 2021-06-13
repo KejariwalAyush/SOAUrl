@@ -93,7 +93,7 @@ class AboutUsView extends GetView<AboutUsController> {
       String linkedIn}) {
     return Container(
       padding: const EdgeInsets.all(8.0),
-      width: 200,
+      // width: 200,
       child: Column(
         children: [
           CircleAvatar(

@@ -70,11 +70,49 @@ class HomeView extends GetView<HomeController> {
                     if (index >= _urlList.urlDetails.length)
                       return 50.heightBox;
                     UrlDetails urlDetails = _urlList.urlDetails[index];
-                    return KBlurButton(
-                      child: Text(
-                        urlDetails.shortUrl,
-                        style: ktsTitle,
-                      ).p8(),
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: kBorderRadius,
+                        color: kcBlackShadow.withOpacity(0.3),
+                        border: kBorder,
+                        // boxShadow: [kShadow],
+                      ),
+                      child: ExpansionTile(
+                        initiallyExpanded: false,
+                        childrenPadding: EdgeInsets.all(8),
+                        title:
+                            urlDetails.shortUrl.text.textStyle(ktsTitle).make(),
+                        subtitle: urlDetails.longUrl.text
+                            .textStyle(ktsSubHeading)
+                            .color(kcWhite.withOpacity(0.5))
+                            .ellipsis
+                            .make(),
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              (urlDetails.dateTime.day.toString() +
+                                      ' / ' +
+                                      urlDetails.dateTime.month.toString() +
+                                      ' / ' +
+                                      urlDetails.dateTime.year.toString())
+                                  .text
+                                  .textStyle(ktsTitle)
+                                  .make(),
+                              'Views:  ${urlDetails.stats.length}'
+                                  .text
+                                  .textStyle(ktsTitle)
+                                  .make(),
+                            ],
+                          ),
+                          'View Stats'
+                              .text
+                              .center
+                              .textStyle(ktsButtonBlank)
+                              .make()
+                              .onInkTap(() {}),
+                        ],
+                      ),
                     ).px16().py8();
                   },
                   childCount: _urlList.urlDetails.length < 10

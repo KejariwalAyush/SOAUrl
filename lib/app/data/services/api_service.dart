@@ -14,7 +14,10 @@ class Api extends GetConnect {
   Future<UrlList> getUrlList() async {
     final _auth = Get.find<AuthService>();
     var resp = await post(
-        baseUrl + '/get', jsonEncode({'userId': _auth.fireUser.uid}));
+        baseUrl + '/get',
+        jsonEncode(
+          {'userId': _auth.fireUser.uid},
+        ));
     var value = resp.bodyString;
     if (value.toString().contains("status") &&
         value.toString().contains("error")) return UrlList(urlDetails: null);
