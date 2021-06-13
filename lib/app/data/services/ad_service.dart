@@ -8,7 +8,7 @@ import '../data.dart';
 
 class AdService extends GetxService {
   Future<AdService> init() async {
-    await MobileAds.instance.initialize();
+    if (GetPlatform.isMobile) await MobileAds.instance.initialize();
     print('$runtimeType ready!');
     return this;
   }

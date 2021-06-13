@@ -18,6 +18,8 @@ import 'package:soaurl/app/modules/settings/bindings/settings_binding.dart';
 import 'package:soaurl/app/modules/settings/views/settings_view.dart';
 import 'package:soaurl/app/modules/short/bindings/short_binding.dart';
 import 'package:soaurl/app/modules/short/views/short_view.dart';
+import 'package:soaurl/app/modules/urlStats/bindings/url_stats_binding.dart';
+import 'package:soaurl/app/modules/urlStats/views/url_stats_view.dart';
 
 part 'app_routes.dart';
 
@@ -71,6 +73,11 @@ class AppPages {
       name: _Paths.ABOUT_US,
       page: () => AboutUsView(),
       binding: AboutUsBinding(),
+    ),
+    GetPage(
+      name: _Paths.URL_STATS + '/:data',
+      page: () => UrlStatsView(),
+      binding: UrlStatsBinding(),
     ),
   ];
 }

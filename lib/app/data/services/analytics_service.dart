@@ -8,7 +8,7 @@ class AnalyticsService extends GetxService {
 
   Future<AnalyticsService> init() async {
     analytics = FirebaseAnalytics();
-    if (kDebugMode) {
+    if (kDebugMode && GetPlatform.isWeb) {
       // Force disable Crashlytics collection while doing every day development.
       // Temporarily toggle this to true if you want to test crash reporting in your app.
       await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);

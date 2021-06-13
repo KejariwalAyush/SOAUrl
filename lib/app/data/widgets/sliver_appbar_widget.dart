@@ -39,7 +39,7 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
     final _ss = Get.find<SettingsService>();
     return Scaffold(
       backgroundColor: kcBlack,
-      bottomNavigationBar: !widget.showAd
+      bottomNavigationBar: !widget.showAd || GetPlatform.isWeb
           ? null
           : Obx(
               () => (_ss.showAd.value) ? BannerAdWidget() : SizedBox.shrink()),

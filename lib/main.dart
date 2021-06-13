@@ -31,6 +31,7 @@ initServices() async {
   if (GetPlatform.isAndroid) {
     await Get.putAsync(() => AdService().init());
     await Get.putAsync(() => AnalyticsService().init());
+    await Get.putAsync(() => FCMService().init());
   }
   await Get.putAsync(() => StorageService().init());
   await Get.putAsync(() => SettingsService().init());

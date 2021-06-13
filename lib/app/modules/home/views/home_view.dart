@@ -3,6 +3,7 @@ import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 
 import 'package:get/get.dart';
 import 'package:soaurl/app/data/data.dart';
+import 'package:soaurl/app/routes/app_pages.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../controllers/home_controller.dart';
@@ -80,8 +81,9 @@ class HomeView extends GetView<HomeController> {
                       child: ExpansionTile(
                         initiallyExpanded: false,
                         childrenPadding: EdgeInsets.all(8),
-                        title:
-                            urlDetails.shortUrl!.text.textStyle(ktsTitle).make(),
+                        title: urlDetails.shortUrl!.text
+                            .textStyle(ktsTitle)
+                            .make(),
                         subtitle: urlDetails.longUrl!.text
                             .textStyle(ktsSubHeading)
                             .color(kcWhite.withOpacity(0.5))
@@ -110,7 +112,8 @@ class HomeView extends GetView<HomeController> {
                               .center
                               .textStyle(ktsButtonBlank)
                               .make()
-                              .onInkTap(() {}),
+                              .onInkTap(() => Get.toNamed(Routes.URL_STATS +
+                                  '/${urlDetails.shortUrl}')),
                         ],
                       ),
                     ).px16().py8();

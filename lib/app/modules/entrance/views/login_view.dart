@@ -51,7 +51,10 @@ class LoginView extends GetView<LoginController> {
                   ),
                   controller.isLoading.value
                       ? KLoadingWidget()
-                      : KbWhiteButton.google(onPressed: controller.onSignin),
+                      : Container(
+                          constraints: BoxConstraints(maxWidth: 400),
+                          child: KbWhiteButton.google(
+                              onPressed: controller.onSignin)),
                 ],
               ).px24(),
             ),

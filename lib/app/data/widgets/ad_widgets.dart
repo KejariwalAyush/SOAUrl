@@ -35,7 +35,7 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (_isBannerAdReady)
+    if (!GetPlatform.isWeb && _isBannerAdReady)
       return Container(
         alignment: Alignment.bottomCenter,
         width: _bannerAd.size.width.toDouble(),

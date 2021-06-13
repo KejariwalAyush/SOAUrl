@@ -9,7 +9,7 @@ class SettingsService extends GetxService {
   Future<SettingsService> init() async {
     if (kDebugMode) print('Debug Mode Active');
     if (GetPlatform.isWeb) // || kDebugMode)
-      showAd.toggle();
+      showAd.value = false;
     else {
       showAd.value = box.read('showAd') ?? true;
       showLogoinQR.value = box.read('showLogoinQR') ?? true;

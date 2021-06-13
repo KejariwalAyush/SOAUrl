@@ -22,11 +22,14 @@ class LoginController extends GetxController {
   Future<void> onSignin() async {
     isLoading.toggle();
     update();
-    await Future.microtask(() => Get.find<AuthService>().signInWithGoogle())
-        .whenComplete(() {
-      print('Login');
+    if (!GetPlatform.isAndroid)
       Get.offNamed(Routes.HOME);
-    });
+    else
+      await Future.microtask(() => Get.find<AuthService>().signInWithGoogle())
+          .whenComplete(() {
+        print('Login');
+        Get.offNamed(Routes.HOME);
+      });
     // Future.delayed().whenComplete(() {
     // });
     isLoading.toggle();
