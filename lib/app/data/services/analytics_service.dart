@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:soaurl/app/data/data.dart';
 
 class AnalyticsService extends GetxService {
-  FirebaseAnalytics analytics;
+  FirebaseAnalytics? analytics;
 
   Future<AnalyticsService> init() async {
     analytics = FirebaseAnalytics();

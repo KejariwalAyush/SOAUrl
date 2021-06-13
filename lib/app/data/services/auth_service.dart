@@ -14,19 +14,20 @@ class AuthService extends GetxService {
   }
 
   // Intilize the flutter app
-  User fireUser;
-  FirebaseAuth _firebaseAuth;
+  User? fireUser;
+  late FirebaseAuth _firebaseAuth;
 
   // get fireUser => this.fireUser;
 
-  Future<User> signInWithGoogle() async {
+  Future<User?> signInWithGoogle() async {
     try {
       // Show loading screen till we complete our login workflow
       Get.dialog(Center(child: KLoadingWidget()), barrierDismissible: false);
       // Create Firebase auth for storing auth related info such as logged in user etc.
       // _firebaseAuth = FirebaseAuth.instance;
       // Start of google sign in workflow
-      final googleUser = await GoogleSignIn().signIn();
+      final googleUser =
+          await (GoogleSignIn().signIn() as Future<GoogleSignInAccount>);
       final googleAuth = await googleUser.authentication;
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
@@ -64,7 +65,7 @@ class AuthService extends GetxService {
   }
 
   Future<void> checkUserLoggedIn() async {
-    _firebaseAuth.authStateChanges().listen((User user) {
+    _firebaseAuth.authStateChanges().listen((User? user) {
       if (user == null) {
         print('User is currently signed out!');
         fireUser = null;

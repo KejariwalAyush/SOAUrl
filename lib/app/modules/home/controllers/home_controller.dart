@@ -9,7 +9,7 @@ import 'package:soaurl/app/routes/app_pages.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomeController extends GetxController {
-  InterstitialAd _interstitialAd;
+  late InterstitialAd _interstitialAd;
   final AdService _ad = Get.find<AdService>();
   final SettingsService _ss = Get.find<SettingsService>();
   final GlobalKey<SliderMenuContainerState> menuKey =
@@ -68,7 +68,7 @@ class HomeController extends GetxController {
   void openNotification() => Get.toNamed(Routes.NOTIFICATIONS);
   void openDrawer() {
     (menuKey.currentState?.isDrawerOpen ?? false)
-        ? menuKey.currentState.closeDrawer()
-        : menuKey.currentState.openDrawer();
+        ? menuKey.currentState!.closeDrawer()
+        : menuKey.currentState!.openDrawer();
   }
 }

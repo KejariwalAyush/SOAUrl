@@ -90,9 +90,9 @@ class QrView extends GetView<QrController> {
 
 class DisplayQR extends StatelessWidget {
   const DisplayQR({
-    Key key,
-    @required this.previewContainer,
-    @required this.qrData,
+    Key? key,
+    required this.previewContainer,
+    required this.qrData,
     this.size = 200,
     this.roundedQR = true,
   }) : super(key: key);

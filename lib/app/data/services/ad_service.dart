@@ -46,7 +46,7 @@ class AdService extends GetxService {
     }
   }
 
-  BannerAd bannerAd({Function() onLoaded, Function() onFailed}) {
+  BannerAd bannerAd({Function()? onLoaded, Function()? onFailed}) {
     return BannerAd(
       adUnitId: bannerAdUnitId,
       request: AdRequest(),
@@ -66,7 +66,7 @@ class AdService extends GetxService {
     );
   }
 
-  InterstitialAd fullPageAd({Function(Ad) onClose}) {
+  InterstitialAd fullPageAd({Function(Ad)? onClose}) {
     return InterstitialAd(
         adUnitId: interstitialAdUnitId,
         listener: AdListener(
@@ -83,8 +83,8 @@ class AdService extends GetxService {
   }
 
   RewardedAd rewardedAd(
-      {Function(Ad) onClose,
-      @required Function(RewardedAd, RewardItem) onCompleteWatching}) {
+      {Function(Ad)? onClose,
+      required Function(RewardedAd, RewardItem) onCompleteWatching}) {
     return RewardedAd(
         adUnitId: rewardedAdUnitId,
         listener: AdListener(

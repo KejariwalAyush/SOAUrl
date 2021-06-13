@@ -8,20 +8,20 @@ class SliverAppBarSnap extends StatefulWidget {
   final double maxHeight;
   final double minHeight;
   final bool showAd;
-  final Widget child;
+  final Widget? child;
   final bool isChildScrollable;
-  final Widget sliverList;
+  final Widget? sliverList;
   final Widget appBarContent;
 
   const SliverAppBarSnap(
-      {Key key,
+      {Key? key,
       this.maxHeight = 500,
       this.minHeight = 180,
       this.showAd = true,
       this.child,
       this.sliverList,
       this.isChildScrollable = false,
-      @required this.appBarContent})
+      required this.appBarContent})
       : assert(child != null || sliverList != null),
         super(key: key);
   @override
@@ -41,9 +41,8 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
       backgroundColor: kcBlack,
       bottomNavigationBar: !widget.showAd
           ? null
-          : Obx(() => (_ss.showAd.value ?? false)
-              ? BannerAdWidget()
-              : SizedBox.shrink()),
+          : Obx(
+              () => (_ss.showAd.value) ? BannerAdWidget() : SizedBox.shrink()),
       body: KBackgroundContainer(
         size: Get.mediaQuery.size,
         child: NotificationListener<ScrollEndNotification>(
@@ -73,7 +72,7 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
                           EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                       child: widget.child),
                 ),
-              if (widget.sliverList != null) widget.sliverList,
+              if (widget.sliverList != null) widget.sliverList!,
               // SliverList(delegate: widget.sliverList),
             ],
           ),

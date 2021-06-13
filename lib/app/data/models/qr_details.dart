@@ -4,24 +4,22 @@
 
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
 class QrDetails {
   QrDetails({
     this.id,
-    @required this.text,
+    required this.text,
     this.title,
-    @required this.time,
+    required this.time,
     this.tags,
-    @required this.scanned,
+    required this.scanned,
   });
 
-  final String id;
-  final String text;
-  final String title;
+  final String? id;
+  final String? text;
+  final String? title;
   final DateTime time;
-  final List<String> tags;
-  final bool scanned;
+  final List<String>? tags;
+  final bool? scanned;
 
   factory QrDetails.fromJson(String str) => QrDetails.fromMap(json.decode(str));
 
@@ -32,7 +30,7 @@ class QrDetails {
         text: json["text"],
         title: json["title"] ?? '',
         time: DateTime.parse(json["time"]),
-        tags: List<String>.from(json["tags"]?.map((x) => x) ?? []) ?? [],
+        tags: List<String>.from(json["tags"]?.map((x) => x) ?? []),
         scanned: json["scanned"],
       );
 
@@ -41,7 +39,7 @@ class QrDetails {
         "text": text,
         "title": title ?? '',
         "time": time.toIso8601String(),
-        "tags": List<String>.from(tags?.map((x) => x) ?? []) ?? [],
+        "tags": List<String>.from(tags?.map((x) => x) ?? []),
         "scanned": scanned,
       };
 }

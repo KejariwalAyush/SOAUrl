@@ -16,7 +16,7 @@ class Api extends GetConnect {
     var resp = await post(
         baseUrl + '/get',
         jsonEncode(
-          {'userId': _auth.fireUser.uid},
+          {'userId': _auth.fireUser!.uid},
         ));
     var value = resp.bodyString;
     if (value.toString().contains("status") &&

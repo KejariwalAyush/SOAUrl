@@ -9,12 +9,12 @@ import '../utils/styles.dart';
 
 class KbWhiteButton extends StatelessWidget {
   const KbWhiteButton({
-    Key key,
-    @required this.child,
-    @required this.onPressed,
+    Key? key,
+    required this.child,
+    required this.onPressed,
   }) : super(key: key);
 
-  KbWhiteButton.google({Key key, @required this.onPressed})
+  KbWhiteButton.google({Key? key, required this.onPressed})
       : child = Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -55,15 +55,15 @@ class KbWhiteButton extends StatelessWidget {
 
 class KBlurButton extends StatelessWidget {
   const KBlurButton({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
     this.width,
     this.onPressed,
   }) : super(key: key);
 
-  final double width;
+  final double? width;
   final Widget child;
-  final Function() onPressed;
+  final Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {

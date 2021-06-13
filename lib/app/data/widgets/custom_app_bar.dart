@@ -10,7 +10,7 @@ class KAppBar {
   final double expandedHeight;
   final double collapsedHeight;
 
-  KAppBar({this.expandedHeight, this.collapsedHeight})
+  KAppBar({required this.expandedHeight, required this.collapsedHeight})
       : this._maxHeight = expandedHeight + Get.mediaQuery.padding.top,
         this._minHeight = collapsedHeight + Get.mediaQuery.padding.top;
 
@@ -65,9 +65,9 @@ class KAppBar {
               end: Alignment(-1.0, 5.0),
               colors: [
                 ColorTween(begin: kcMainPink, end: Colors.transparent)
-                    .evaluate(animation),
+                    .evaluate(animation)!,
                 ColorTween(begin: kcMainPurple, end: Colors.transparent)
-                    .evaluate(animation)
+                    .evaluate(animation)!
               ],
               stops: [0.0, 1.0],
             ),
@@ -88,17 +88,17 @@ class KAppBar {
 
 class KAppBarContent extends StatelessWidget {
   final AlwaysStoppedAnimation<double> animation;
-  final Widget trailingButton;
-  final Widget mainIcon;
+  final Widget? trailingButton;
+  final Widget? mainIcon;
   final String title;
-  final String desc;
+  final String? desc;
 
   const KAppBarContent(
-      {Key key,
-      @required this.animation,
+      {Key? key,
+      required this.animation,
       this.trailingButton,
-      @required this.mainIcon,
-      @required this.title,
+      required this.mainIcon,
+      required this.title,
       this.desc})
       : super(key: key);
 
@@ -120,7 +120,7 @@ class KAppBarContent extends StatelessWidget {
                 height: 30,
               ),
             ),
-            (trailingButton != null) ? trailingButton : 50.widthBox,
+            (trailingButton != null) ? trailingButton! : 50.widthBox,
           ],
         ),
         Align(
@@ -151,7 +151,7 @@ class KAppBarContent extends StatelessWidget {
               ),
               if (desc != null)
                 Text(
-                  desc,
+                  desc!,
                   style: TextStyle(
                     fontSize:
                         Tween<double>(begin: 0, end: 18).evaluate(animation),

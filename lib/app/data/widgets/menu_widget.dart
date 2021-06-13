@@ -7,9 +7,9 @@ import 'package:velocity_x/velocity_x.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 class MenuWidget extends StatelessWidget {
-  final Function() onItemClick;
+  final Function()? onItemClick;
 
-  const MenuWidget({Key key, this.onItemClick}) : super(key: key);
+  const MenuWidget({Key? key, this.onItemClick}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +31,14 @@ class MenuWidget extends StatelessWidget {
               width: 75,
               child: ClipRRect(
                   borderRadius: BorderRadius.circular(25),
-                  child: Image.network(_auth.fireUser.photoURL)),
+                  child: Image.network(_auth.fireUser!.photoURL!)),
             ),
             Column(
               children: [
-                _auth.fireUser.displayName.text
+                _auth.fireUser!.displayName!.text
                     .textStyle(ktsTitle.copyWith(fontSize: 25))
                     .make(),
-                _auth.fireUser.email.text.textStyle(ktsSubHeading).make(),
+                _auth.fireUser!.email!.text.textStyle(ktsSubHeading).make(),
               ],
             ),
             SizedBox(
@@ -66,7 +66,7 @@ class MenuWidget extends StatelessWidget {
     );
   }
 
-  Widget sliderItem(String title, IconData icons, Function() onTap) => Padding(
+  Widget sliderItem(String title, IconData icons, Function()? onTap) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
           onTap: onTap,

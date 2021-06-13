@@ -5,9 +5,9 @@ import 'package:soaurl/app/data/data.dart';
 class KBackgroundContainer extends StatelessWidget {
   /// Contains background with custom images
   const KBackgroundContainer({
-    Key key,
-    @required this.size,
-    @required this.child,
+    Key? key,
+    required this.size,
+    required this.child,
   }) : super(key: key);
 
   final Size size;
@@ -65,9 +65,9 @@ class KBackgroundContainer extends StatelessWidget {
 
 class KBackgroundContainerOnlyGradient extends StatelessWidget {
   const KBackgroundContainerOnlyGradient({
-    Key key,
-    @required this.size,
-    @required this.child,
+    Key? key,
+    required this.size,
+    required this.child,
   }) : super(key: key);
 
   final Size size;

@@ -86,11 +86,11 @@ class AboutUsView extends GetView<AboutUsController> {
   }
 
   Widget devProfile(
-      {String name,
-      String imgLink,
-      String instagram,
-      String github,
-      String linkedIn}) {
+      {required String name,
+      required String imgLink,
+      String? instagram,
+      String? github,
+      String? linkedIn}) {
     return Container(
       padding: const EdgeInsets.all(8.0),
       // width: 200,

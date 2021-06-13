@@ -41,7 +41,7 @@ initServices() async {
 
 // ignore: must_be_immutable
 class MyApp extends StatelessWidget {
-  StreamSubscription _intentDataStreamSubscription;
+  late StreamSubscription _intentDataStreamSubscription;
   RxString _sharedText = ''.obs;
 
   @override
@@ -77,7 +77,7 @@ class MyApp extends StatelessWidget {
     });
 
     // For sharing or opening urls/text coming from outside the app while the app is closed
-    ReceiveSharingIntent.getInitialTextAsUri().then((Uri value) {
+    ReceiveSharingIntent.getInitialTextAsUri().then((Uri? value) {
       _sharedText.value = value.toString();
       Get.log('Sharing Intent: $value');
     });

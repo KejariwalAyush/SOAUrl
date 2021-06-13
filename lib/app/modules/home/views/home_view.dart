@@ -18,8 +18,8 @@ class HomeView extends GetView<HomeController> {
 
     return WillPopScope(
       onWillPop: () {
-        if (controller.menuKey.currentState.isDrawerOpen) {
-          controller.menuKey.currentState.closeDrawer();
+        if (controller.menuKey.currentState!.isDrawerOpen) {
+          controller.menuKey.currentState!.closeDrawer();
           return Future.value(false);
         } else
           return Future.value(true);
@@ -32,7 +32,7 @@ class HomeView extends GetView<HomeController> {
         sliderMenuOpenSize: size.width * 0.6,
         slideDirection: SlideDirection.LEFT_TO_RIGHT,
         sliderMenu: MenuWidget(
-          onItemClick: () => controller.menuKey.currentState.closeDrawer(),
+          onItemClick: () => controller.menuKey.currentState!.closeDrawer(),
         ),
         sliderMain: SliverAppBarSnap(
           maxHeight: 550,
@@ -67,9 +67,9 @@ class HomeView extends GetView<HomeController> {
               return SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    if (index >= _urlList.urlDetails.length)
+                    if (index >= _urlList.urlDetails!.length)
                       return 50.heightBox;
-                    UrlDetails urlDetails = _urlList.urlDetails[index];
+                    UrlDetails urlDetails = _urlList.urlDetails![index];
                     return Container(
                       decoration: BoxDecoration(
                         borderRadius: kBorderRadius,
@@ -81,8 +81,8 @@ class HomeView extends GetView<HomeController> {
                         initiallyExpanded: false,
                         childrenPadding: EdgeInsets.all(8),
                         title:
-                            urlDetails.shortUrl.text.textStyle(ktsTitle).make(),
-                        subtitle: urlDetails.longUrl.text
+                            urlDetails.shortUrl!.text.textStyle(ktsTitle).make(),
+                        subtitle: urlDetails.longUrl!.text
                             .textStyle(ktsSubHeading)
                             .color(kcWhite.withOpacity(0.5))
                             .ellipsis
@@ -115,9 +115,9 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ).px16().py8();
                   },
-                  childCount: _urlList.urlDetails.length < 10
+                  childCount: _urlList.urlDetails!.length < 10
                       ? 10
-                      : _urlList.urlDetails.length, // must be min 10
+                      : _urlList.urlDetails!.length, // must be min 10
                 ),
               );
             },

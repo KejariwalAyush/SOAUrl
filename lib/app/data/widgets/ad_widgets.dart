@@ -4,7 +4,7 @@ import 'package:soaurl/app/data/data.dart';
 
 class BannerAdWidget extends StatefulWidget {
   const BannerAdWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -12,8 +12,8 @@ class BannerAdWidget extends StatefulWidget {
 }
 
 class _BannerAdWidgetState extends State<BannerAdWidget> {
-  AdService _ad;
-  BannerAd _bannerAd;
+  late AdService _ad;
+  late BannerAd _bannerAd;
   bool _isBannerAdReady = false;
   @override
   void initState() {

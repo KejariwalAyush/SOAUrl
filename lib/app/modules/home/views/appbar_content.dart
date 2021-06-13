@@ -6,8 +6,8 @@ import 'package:websafe_svg/websafe_svg.dart';
 
 class AppBarContentExtended extends StatelessWidget {
   const AppBarContentExtended({
-    Key key,
-    @required this.animation,
+    Key? key,
+    required this.animation,
   }) : super(key: key);
 
   final AlwaysStoppedAnimation<double> animation;
