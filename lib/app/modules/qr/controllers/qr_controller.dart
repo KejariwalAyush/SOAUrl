@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class QrController extends GetxController {
-  RxString qrData = "https://github.com/KejariwalAyush".obs;
   final GlobalKey previewContainer = new GlobalKey();
-  final qrdataFeed = TextEditingController();
+  RxString qrData = "https://github.com/KejariwalAyush".obs;
+  var qrdataFeed = TextEditingController();
 
   void updateQR() {
     qrData.value = qrdataFeed.text;
@@ -13,6 +13,12 @@ class QrController extends GetxController {
 
   @override
   void onInit() {
+    var _text = Get.parameters['text'];
+    if (_text != null) {
+      qrData.value = _text;
+      qrdataFeed = TextEditingController(text: qrData.value);
+      update();
+    }
     super.onInit();
   }
 

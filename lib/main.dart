@@ -1,12 +1,9 @@
-import 'dart:async';
-
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'app/data/data.dart';
 import 'app/routes/app_pages.dart';
 
@@ -29,6 +26,7 @@ initServices() async {
   /// or moor connection, or whatever that's async.
   ///
   if (GetPlatform.isAndroid) {
+    await Get.putAsync(() => ReceiveIntentService().init());
     await Get.putAsync(() => AdService().init());
     await Get.putAsync(() => AnalyticsService().init());
     await Get.putAsync(() => FCMService().init());
@@ -42,9 +40,6 @@ initServices() async {
 
 // ignore: must_be_immutable
 class MyApp extends StatelessWidget {
-  late StreamSubscription _intentDataStreamSubscription;
-  RxString _sharedText = ''.obs;
-
   @override
   Widget build(BuildContext context) {
     FirebaseAnalytics analytics = FirebaseAnalytics();
@@ -61,30 +56,11 @@ class MyApp extends StatelessWidget {
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: analytics),
       ],
-      onInit: onInit,
       onDispose: onDispose,
     );
   }
 
-  void onInit() {
-    _sharedText.value = '';
-    // For sharing or opening urls/text coming from outside the app while the app is in the memory
-    _intentDataStreamSubscription =
-        ReceiveSharingIntent.getTextStreamAsUri().listen((Uri value) {
-      _sharedText.value = value.toString();
-      Get.log('Sharing Intent: $value');
-    }, onError: (err) {
-      print("getLinkStream error: $err");
-    });
-
-    // For sharing or opening urls/text coming from outside the app while the app is closed
-    ReceiveSharingIntent.getInitialTextAsUri().then((Uri? value) {
-      _sharedText.value = value.toString();
-      Get.log('Sharing Intent: $value');
-    });
-  }
-
   void onDispose() {
-    _intentDataStreamSubscription.cancel();
+    Get.find<ReceiveIntentService>().dispose();
   }
 }

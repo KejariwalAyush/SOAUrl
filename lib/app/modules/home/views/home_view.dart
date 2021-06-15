@@ -14,9 +14,8 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     final KAppBar appbar =
         new KAppBar(collapsedHeight: 200, expandedHeight: 550);
-
     Size size = MediaQuery.of(context).size;
-
+    Get.find<HomeController>();
     return WillPopScope(
       onWillPop: () {
         if (controller.menuKey.currentState!.isDrawerOpen) {

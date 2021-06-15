@@ -12,6 +12,7 @@ class HomeController extends GetxController {
   late InterstitialAd _interstitialAd;
   final AdService _ad = Get.find<AdService>();
   final SettingsService _ss = Get.find<SettingsService>();
+  final ReceiveIntentService _intentService = Get.find<ReceiveIntentService>();
   final GlobalKey<SliderMenuContainerState> menuKey =
       new GlobalKey<SliderMenuContainerState>();
 
@@ -19,12 +20,15 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
     _interstitialAd = _ad.fullPageAd();
   }
 
   @override
   void onReady() {
+    String? sharedText = _intentService.sharedText;
+    print(sharedText);
+    if (sharedText != null && sharedText != '' && sharedText != 'null')
+      Get.toNamed(Routes.QR, parameters: {'text': sharedText});
     super.onReady();
   }
 
