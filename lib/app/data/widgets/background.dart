@@ -36,9 +36,9 @@ class KBackgroundContainer extends StatelessWidget {
                     right: -100,
                     top: -80,
                     child: Container(
-                      child: SvgPicture.asset(
-                        'assets/icons/link_large.svg',
-                        color: Colors.black.withOpacity(0.08),
+                      child: KLinkWidget(
+                        size: 350,
+                        color: Colors.black.withOpacity(0.05),
                       ),
                     ),
                   ),
@@ -46,9 +46,9 @@ class KBackgroundContainer extends StatelessWidget {
                     left: -100,
                     bottom: -50,
                     child: Container(
-                      child: SvgPicture.asset(
-                        'assets/icons/qr_large.svg',
-                        color: Colors.white.withOpacity(0.08),
+                      child: KQRWidget(
+                        size: 350,
+                        color: Colors.white.withOpacity(0.03),
                       ),
                     ),
                   ),

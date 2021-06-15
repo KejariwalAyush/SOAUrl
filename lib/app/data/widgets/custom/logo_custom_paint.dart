@@ -5,10 +5,12 @@ class LogoWidget extends StatelessWidget {
     Key? key,
     this.size = 100,
     this.padding = 10,
+    this.color = const Color(0xff000000),
   }) : super(key: key);
 
   final double size;
   final double padding;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class LogoWidget extends StatelessWidget {
       padding: EdgeInsets.all(padding),
       child: CustomPaint(
         size: Size(size, size),
-        painter: _LogoCustomPainter(),
+        painter: _LogoCustomPainter(color: color),
       ),
     );
   }
@@ -24,12 +26,15 @@ class LogoWidget extends StatelessWidget {
 
 //Copy this CustomPainter code to the Bottom of the File
 class _LogoCustomPainter extends CustomPainter {
+  final Color color;
+
+  _LogoCustomPainter({required this.color});
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint0Stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = size.width * 0.06666667;
-    paint0Stroke.color = Color(0xff231f20).withOpacity(1.0);
+    paint0Stroke.color = color;
     paint0Stroke.strokeCap = StrokeCap.round;
     paint0Stroke.strokeJoin = StrokeJoin.round;
     canvas.drawRRect(
@@ -45,7 +50,7 @@ class _LogoCustomPainter extends CustomPainter {
     Paint paint1Stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = size.width * 0.06666667;
-    paint1Stroke.color = Color(0xff231f20).withOpacity(1.0);
+    paint1Stroke.color = color;
     paint1Stroke.strokeCap = StrokeCap.round;
     paint1Stroke.strokeJoin = StrokeJoin.round;
     canvas.drawRRect(
@@ -61,7 +66,7 @@ class _LogoCustomPainter extends CustomPainter {
     Paint paint2Stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = size.width * 0.06666667;
-    paint2Stroke.color = Color(0xff231f20).withOpacity(1.0);
+    paint2Stroke.color = color;
     paint2Stroke.strokeCap = StrokeCap.round;
     paint2Stroke.strokeJoin = StrokeJoin.round;
     canvas.drawRRect(
@@ -77,7 +82,7 @@ class _LogoCustomPainter extends CustomPainter {
     Paint paint3Stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = size.width * 0.06666667;
-    paint3Stroke.color = Color(0xff231f20).withOpacity(1.0);
+    paint3Stroke.color = color;
     paint3Stroke.strokeCap = StrokeCap.round;
     paint3Stroke.strokeJoin = StrokeJoin.round;
     canvas.drawRRect(
@@ -93,7 +98,7 @@ class _LogoCustomPainter extends CustomPainter {
     Paint paint4Stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = size.width * 0.06666667;
-    paint4Stroke.color = Color(0xff231f20).withOpacity(1.0);
+    paint4Stroke.color = color;
     paint4Stroke.strokeCap = StrokeCap.round;
     paint4Stroke.strokeJoin = StrokeJoin.round;
     canvas.drawLine(Offset(size.width * 0.03333333, size.height * 0.5294008),
@@ -102,7 +107,7 @@ class _LogoCustomPainter extends CustomPainter {
     Paint paint5Stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = size.width * 0.06666667;
-    paint5Stroke.color = Color(0xff231f20).withOpacity(1.0);
+    paint5Stroke.color = color;
     paint5Stroke.strokeCap = StrokeCap.round;
     paint5Stroke.strokeJoin = StrokeJoin.round;
     canvas.drawLine(Offset(size.width * 0.5000000, size.height * 0.03261579),
@@ -136,7 +141,7 @@ class _LogoCustomPainter extends CustomPainter {
     Paint paint6Stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = size.width * 0.06666667;
-    paint6Stroke.color = Color(0xff231f20).withOpacity(1.0);
+    paint6Stroke.color = color;
     paint6Stroke.strokeCap = StrokeCap.round;
     paint6Stroke.strokeJoin = StrokeJoin.round;
     canvas.drawPath(path_6, paint6Stroke);
@@ -169,7 +174,7 @@ class _LogoCustomPainter extends CustomPainter {
     Paint paint7Stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = size.width * 0.06666667;
-    paint7Stroke.color = Color(0xff231f20).withOpacity(1.0);
+    paint7Stroke.color = color;
     paint7Stroke.strokeCap = StrokeCap.round;
     paint7Stroke.strokeJoin = StrokeJoin.round;
     canvas.drawPath(path_7, paint7Stroke);
