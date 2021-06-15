@@ -13,7 +13,8 @@ class EntranceController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    Get.find<AuthService>().fireUser == null
+    var _auth = Get.find<AuthService>();
+    _auth.fireUser == null
         ? Get.offNamed(Routes.LOGIN)
         : Get.offNamed(Routes.HOME);
   }

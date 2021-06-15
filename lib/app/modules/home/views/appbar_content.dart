@@ -34,10 +34,9 @@ class AppBarContentExtended extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Tween<double>(begin: 0, end: 40).evaluate(animation).squareBox,
-                WebsafeSvg.asset(
-                  'assets/icons/logo.svg',
-                  fit: BoxFit.fill,
-                  height: Tween<double>(begin: 0, end: 125).evaluate(animation),
+                LogoWidget(
+                  size: Tween<double>(begin: 0, end: 100).evaluate(animation),
+                  padding: Tween<double>(begin: 0, end: 10).evaluate(animation),
                 ),
                 Text(
                   "SOAUrl",

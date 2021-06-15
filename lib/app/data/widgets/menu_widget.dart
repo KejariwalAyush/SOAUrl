@@ -29,9 +29,11 @@ class MenuWidget extends StatelessWidget {
             SizedBox(
               height: 75,
               width: 75,
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(25),
-                  child: Image.network(_auth.fireUser!.photoURL!)),
+              child: (_auth.fireUser != null)
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(25),
+                      child: Image.network(_auth.fireUser!.photoURL!))
+                  : null,
             ),
             Column(
               children: [

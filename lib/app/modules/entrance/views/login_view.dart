@@ -37,10 +37,7 @@ class LoginView extends GetView<LoginController> {
                 children: [
                   Column(
                     children: [
-                      Image.asset(
-                        'assets/icons/logo-no-bg.png',
-                        width: 200,
-                      ),
+                      LogoWidget(size: 200),
                       30.squareBox,
                       'SOAUrl'.text.textStyle(ktsHeading2).make().py8(),
                       'Shortform Of Any Url'

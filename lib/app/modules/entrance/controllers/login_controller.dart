@@ -26,9 +26,11 @@ class LoginController extends GetxController {
       Get.offNamed(Routes.HOME);
     else
       await Future.microtask(() => Get.find<AuthService>().signInWithGoogle())
-          .whenComplete(() {
-        print('Login');
-        Get.offNamed(Routes.HOME);
+          .then((val) {
+        if (val != null) {
+          print('Login Success');
+          Get.offNamed(Routes.HOME);
+        }
       });
     // Future.delayed().whenComplete(() {
     // });

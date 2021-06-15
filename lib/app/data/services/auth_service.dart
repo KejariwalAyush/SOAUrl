@@ -26,22 +26,25 @@ class AuthService extends GetxService {
       // Create Firebase auth for storing auth related info such as logged in user etc.
       // _firebaseAuth = FirebaseAuth.instance;
       // Start of google sign in workflow
-      final googleUser =
-          await (GoogleSignIn().signIn() as Future<GoogleSignInAccount>);
-      final googleAuth = await googleUser.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-      final userCredentialData =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-      fireUser = userCredentialData.user;
-      // update the state of controller variable to be reflected throughout the app
-      return fireUser;
+      final googleUser = await GoogleSignIn().signIn();
+      if (googleUser != null) {
+        final googleAuth = await googleUser.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        final userCredentialData =
+            await FirebaseAuth.instance.signInWithCredential(credential);
+        fireUser = userCredentialData.user;
+        // update the state of controller variable to be reflected throughout the app
+        return fireUser;
+      } else
+        throw ErrorDescription('Cannot create google signin variable');
     } catch (ex) {
       Get.back();
+      Get.log('Error Sign in: $ex');
       // Show Error if we catch any error
-      Get.snackbar('Sign In Error', 'Error Signing in',
+      Get.snackbar('Sign In Error', 'Error: $ex',
           duration: Duration(seconds: 5),
           backgroundColor: Colors.black,
           colorText: Colors.white,

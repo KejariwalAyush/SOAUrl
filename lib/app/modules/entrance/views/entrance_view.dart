@@ -20,10 +20,7 @@ class Splash extends GetView<EntranceController> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                child: Image.asset(
-                  'assets/icons/logo-no-bg.png',
-                  height: 300,
-                ),
+                child: LogoWidget(size: 150),
               ),
               // 50.squareBox,
               Column(

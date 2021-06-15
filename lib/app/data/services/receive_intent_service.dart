@@ -8,7 +8,7 @@ class ReceiveIntentService extends GetxService {
   String? sharedText;
 
   Future<ReceiveIntentService> init() async {
-    sharedText = '';
+    // sharedText = '';
     // For sharing or opening urls/text coming from outside the app while the app is in the memory
     _intentDataStreamSubscription =
         ReceiveSharingIntent.getTextStreamAsUri().listen((Uri value) {
