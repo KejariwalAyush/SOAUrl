@@ -45,14 +45,16 @@ class HomeView extends GetView<HomeController> {
           sliverList: FutureBuilder<UrlList>(
             future: Get.find<Api>().getUrlList(),
             // initialData: InitialData,
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<UrlList> snapshot) {
               if (!snapshot.hasData)
                 return SliverFillRemaining(
                   hasScrollBody: false,
                   child: KLoadingWidget(),
                   fillOverscroll: true,
                 );
-              if (snapshot.data == null)
+              UrlList _urlList =
+                  snapshot.data ?? UrlList(urlDetails: List.empty());
+              if (_urlList.urlDetails!.length == 0)
                 return SliverFillRemaining(
                   hasScrollBody: false,
                   child: Center(
@@ -63,7 +65,6 @@ class HomeView extends GetView<HomeController> {
                   ),
                 );
 
-              UrlList _urlList = snapshot.data;
               return SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {

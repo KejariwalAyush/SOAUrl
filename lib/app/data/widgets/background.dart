@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:soaurl/app/data/data.dart';
 
 class KBackgroundContainer extends StatelessWidget {

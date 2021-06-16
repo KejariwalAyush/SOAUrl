@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:soaurl/app/routes/app_pages.dart';
@@ -16,6 +17,8 @@ class AuthService extends GetxService {
   // Intilize the flutter app
   User? fireUser;
   late FirebaseAuth _firebaseAuth;
+
+  AnalyticsService _analytics = Get.find<AnalyticsService>();
 
   // get fireUser => this.fireUser;
 
@@ -36,6 +39,7 @@ class AuthService extends GetxService {
         final userCredentialData =
             await FirebaseAuth.instance.signInWithCredential(credential);
         fireUser = userCredentialData.user;
+        _analytics.logLogin();
         // update the state of controller variable to be reflected throughout the app
         return fireUser;
       } else
@@ -43,6 +47,7 @@ class AuthService extends GetxService {
     } catch (ex) {
       Get.back();
       Get.log('Error Sign in: $ex');
+      FirebaseCrashlytics.instance.log('Error Sign in: $ex');
       // Show Error if we catch any error
       Get.snackbar('Sign In Error', 'Error: $ex',
           duration: Duration(seconds: 5),
@@ -62,12 +67,14 @@ class AuthService extends GetxService {
     Get.dialog(Center(child: KLoadingWidget()), barrierDismissible: false);
     GoogleSignIn().signOut();
     await _firebaseAuth.signOut();
+    _analytics.logLogout();
     Get.back();
     // Navigate to Login again
-    Get.offNamed(Routes.LOGIN);
+    Get.offAllNamed(Routes.LOGIN);
   }
 
   Future<void> checkUserLoggedIn() async {
+    _analytics.logAppOpen();
     _firebaseAuth.authStateChanges().listen((User? user) {
       if (user == null) {
         print('User is currently signed out!');

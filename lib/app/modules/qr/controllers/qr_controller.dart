@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:soaurl/app/data/data.dart';
 
 class QrController extends GetxController {
   final GlobalKey previewContainer = new GlobalKey();
@@ -7,6 +8,7 @@ class QrController extends GetxController {
   var qrdataFeed = TextEditingController();
 
   void updateQR() {
+    Get.find<AnalyticsService>().logQRGenerated();
     qrData.value = qrdataFeed.text;
     update();
   }

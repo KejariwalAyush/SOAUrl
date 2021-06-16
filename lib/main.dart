@@ -27,6 +27,7 @@ initServices() async {
   ///
   if (GetPlatform.isAndroid) {
     await Get.putAsync(() => ReceiveIntentService().init());
+    await Get.putAsync(() => RemoteConfigService().init());
     await Get.putAsync(() => AdService().init());
     await Get.putAsync(() => AnalyticsService().init());
     await Get.putAsync(() => FCMService().init());

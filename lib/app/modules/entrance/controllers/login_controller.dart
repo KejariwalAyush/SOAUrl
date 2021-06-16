@@ -29,7 +29,7 @@ class LoginController extends GetxController {
           .then((val) {
         if (val != null) {
           print('Login Success');
-          Get.offNamed(Routes.HOME);
+          Get.offAllNamed(Routes.HOME);
         }
       });
     // Future.delayed().whenComplete(() {

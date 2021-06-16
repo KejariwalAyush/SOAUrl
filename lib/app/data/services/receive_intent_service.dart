@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
+import 'package:soaurl/app/routes/app_pages.dart';
 
 class ReceiveIntentService extends GetxService {
   late StreamSubscription _intentDataStreamSubscription;
@@ -14,6 +15,7 @@ class ReceiveIntentService extends GetxService {
         ReceiveSharingIntent.getTextStreamAsUri().listen((Uri value) {
       sharedText = value.toString();
       Get.log('-------Sharing Intent: $sharedText');
+      Get.toNamed(Routes.QR, parameters: {'text': value.toString()});
     }, onError: (err) {
       print("getLinkStream error: $err");
     });
