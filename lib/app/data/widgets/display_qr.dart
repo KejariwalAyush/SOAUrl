@@ -30,7 +30,7 @@ class DisplayQR extends StatelessWidget {
           child: PrettyQr(
             data: qrData,
             size: size,
-            roundEdges: roundedQR, elementColor: kcMainPurple,
+            roundEdges: roundedQR, elementColor: kcBlack,
             // typeNumber: 3,
             errorCorrectLevel: QrErrorCorrectLevel.M,
             image: Get.find<SettingsService>().showLogoinQR.value

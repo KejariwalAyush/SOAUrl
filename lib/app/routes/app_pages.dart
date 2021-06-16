@@ -6,6 +6,8 @@ import 'package:soaurl/app/modules/entrance/bindings/entrance_binding.dart';
 import 'package:soaurl/app/modules/entrance/bindings/login_binding.dart';
 import 'package:soaurl/app/modules/entrance/views/entrance_view.dart';
 import 'package:soaurl/app/modules/entrance/views/login_view.dart';
+import 'package:soaurl/app/modules/error/bindings/error_binding.dart';
+import 'package:soaurl/app/modules/error/views/error_view.dart';
 import 'package:soaurl/app/modules/home/bindings/home_binding.dart';
 import 'package:soaurl/app/modules/home/views/home_view.dart';
 import 'package:soaurl/app/modules/notifications/bindings/notifications_binding.dart';
@@ -78,6 +80,11 @@ class AppPages {
       name: _Paths.URL_STATS + '/:data',
       page: () => UrlStatsView(),
       binding: UrlStatsBinding(),
+    ),
+    GetPage(
+      name: _Paths.ERROR,
+      page: () => ErrorView(),
+      binding: ErrorBinding(),
     ),
   ];
 }

@@ -14,6 +14,7 @@ abstract class Routes {
   static const NOTIFICATIONS = _Paths.NOTIFICATIONS;
   static const ABOUT_US = _Paths.ABOUT_US;
   static const URL_STATS = _Paths.URL_STATS;
+  static const ERROR = _Paths.ERROR;
 }
 
 abstract class _Paths {
@@ -27,4 +28,5 @@ abstract class _Paths {
   static const NOTIFICATIONS = '/notifications';
   static const ABOUT_US = '/about-us';
   static const URL_STATS = '/url-stats';
+  static const ERROR = '/error';
 }

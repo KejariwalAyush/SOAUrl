@@ -13,10 +13,14 @@ class EntranceController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    var _auth = Get.find<AuthService>();
-    _auth.fireUser == null
-        ? Get.offNamed(Routes.LOGIN)
-        : Get.offNamed(Routes.HOME);
+    if (Get.find<RemoteConfigService>().isUnderMaintainance)
+      Get.offNamed(Routes.ERROR);
+    else {
+      var _auth = Get.find<AuthService>();
+      _auth.fireUser == null
+          ? Get.offNamed(Routes.LOGIN)
+          : Get.offNamed(Routes.HOME);
+    }
   }
 
   @override

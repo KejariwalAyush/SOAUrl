@@ -18,9 +18,8 @@ class RemoteConfigService extends GetxService {
 
       await _remoteConfig.setDefaults(defaults);
       await _remoteConfig.fetchAndActivate();
-      if (!isUnderMaintainance)
-        Get.snackbar('❗❗❗Under Maintaince❗❗❗',
-            'App is under Maintainance for some time will be back soon, Thanks for your support');
+      Get.log(
+          'Remote Config Ready --> Is Under Maintainance : ${_remoteConfig.getBool(_UnderMaintainance)}');
     } catch (e) {
       Get.log(
           'Unable to fetch remote config. Cached or default values will be used: \n $e');
