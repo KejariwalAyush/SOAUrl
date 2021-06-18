@@ -1,10 +1,6 @@
 import 'package:get/get.dart';
 
 class ErrorController extends GetxController {
-  //TODO: Implement ErrorController
-
-  final count = 0.obs;
-  @override
   void onInit() {
     super.onInit();
   }
@@ -16,5 +12,4 @@ class ErrorController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
 }

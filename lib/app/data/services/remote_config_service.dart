@@ -13,11 +13,13 @@ class RemoteConfigService extends GetxService {
     try {
       await _remoteConfig.setConfigSettings(RemoteConfigSettings(
         fetchTimeout: Duration(seconds: 10),
-        minimumFetchInterval: Duration(hours: 1),
+        minimumFetchInterval: Duration(seconds: 100),
       ));
 
       await _remoteConfig.setDefaults(defaults);
-      await _remoteConfig.fetchAndActivate();
+      await _remoteConfig
+          .fetchAndActivate()
+          .then((val) => print('Fetch Complete Activated: $val'));
       Get.log(
           'Remote Config Ready --> Is Under Maintainance : ${_remoteConfig.getBool(_UnderMaintainance)}');
     } catch (e) {

@@ -107,13 +107,13 @@ class HomeView extends GetView<HomeController> {
                                   .make(),
                             ],
                           ),
-                          'View Stats'
-                              .text
-                              .center
-                              .textStyle(ktsButtonBlank)
-                              .make()
-                              .onInkTap(() => Get.toNamed(Routes.URL_STATS +
-                                  '/${urlDetails.shortUrl}')),
+                          // 'View Stats'
+                          //     .text
+                          //     .center
+                          //     .textStyle(ktsButtonBlank)
+                          //     .make()
+                          //     .onInkTap(() => Get.toNamed(Routes.URL_STATS +
+                          //         '/${urlDetails.shortUrl}')),
                         ],
                       ),
                     ).px16().py8();
