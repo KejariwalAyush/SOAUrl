@@ -44,26 +44,5 @@ class _BannerAdWidgetState extends State<BannerAdWidget> {
       );
     else
       return SizedBox.shrink();
-    // return FutureBuilder<bool>(
-    //   future: _bannerAd.isLoaded(),
-    //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-    //     if (snapshot.hasData) {
-    //       Get.log(snapshot.data.toString());
-    //       if (snapshot.data)
-    //         return Container(
-    //           width: _bannerAd.size.width.toDouble(),
-    //           height: _bannerAd.size.height.toDouble(),
-    //           child: AdWidget(ad: _bannerAd),
-    //         );
-    //       else {
-    //         print('loading ad...');
-    //         return SizedBox.shrink();
-    //       }
-    //     } else {
-    //       print('loading ad...');
-    //       return SizedBox.shrink();
-    //     }
-    //   },
-    // );
   }
 }

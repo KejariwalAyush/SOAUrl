@@ -1,0 +1,76 @@
+{
+    "api":
+    {
+        "v1":
+        {
+            "auth":
+            {
+                "login":
+                {
+                    "des": "logs users in",
+                    "req type": "POST",
+                    "body":
+                    {
+                        "uid": "String",
+                        "appV": "String",
+                        "fcm": "String"
+                    },
+                    "response":
+                    [
+                        "200 - string of access bearer token"
+                    ]
+                }
+            },
+            "link": {
+                "quickLink":
+                {
+                    "des": "generates a quick link",
+                    "req type": "POST",
+                    "auth": "access bearer",
+                    "body":
+                    {
+                        "link": "String"
+                    },
+                    "response":
+                    [
+                        "200 - string of short link",
+                        "401 - update the auth token using api/v1/auth/login"
+                    ]
+                },
+                "customLink":
+                {
+                    "des": "generates a custom link",
+                    "req type": "POST",
+                    "auth": "access bearer",
+                    "body":
+                    {
+                        "shortLink": "string - requested custom link",
+                        "link": "String - long link to be redirected"
+                    },
+                    "response":
+                    [
+                        "200 - string of short link",
+                        "406 - custom link requested is already taken",
+                        "401 - update the auth token using api/v1/auth/login"
+                    ]
+                },
+                "checkCustomLink":
+                {
+                    "des": "checks custom link availability of custom link",
+                    "req type": "POST",
+                    "auth": "access bearer",
+                    "body":
+                    {
+                        "link": "String"
+                    },
+                    "response":
+                    [
+                        "200 - string of short link",
+                        "406 - custom link requested is already taken",
+                        "401 - update the auth token using api/v1/auth/login"
+                    ]
+                }
+            }
+        }
+    }
+}

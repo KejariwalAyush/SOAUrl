@@ -56,4 +56,10 @@ class AnalyticsService extends GetxService {
           contentType: isScreenshotShare ? 'screenshot' : 'link',
           itemId: itemName,
           method: 'in_app');
+
+  Future logUnAuthorized({required String link}) async => await _analytics
+      .logEvent(name: 'UnAuthorized', parameters: {'link': link});
+  Future logApiError({required String message, required String link}) async =>
+      await _analytics.logEvent(
+          name: 'api_error', parameters: {'message': message, 'link': link});
 }
